@@ -36,6 +36,10 @@ yarn-error.log*
 # vercel
 .vercel
 
+# scrape/automation scratch
+.playwright-mcp/
+.scrape/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

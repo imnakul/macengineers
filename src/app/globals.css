@@ -1,26 +1,61 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/*
+ * Design tokens ported from the Glide taste system (see CLAUDE.md → Design Taste).
+ * Tailwind v4 reads these at build time and generates the matching utilities,
+ * so component files stay on utility classes only.
+ */
+@theme {
+  /* Warm-tinted neutral ramp. No chromatic accent — saturation belongs to the product art. */
+  --color-canvas: #ffffff;
+  --color-surface: #f5f5f2;
+  --color-surface-2: #edede8;
+  --color-inverse: #171715;
+  --color-inverse-deep: #0e0e0d;
+  --color-ink: #2e2e2b;
+  --color-ink-strong: #000000;
+  --color-ink-muted: #5e5e5c;
+  --color-cta: #242421;
+  --color-hairline: rgba(0, 0, 0, 0.06);
+
+  /* Weight axis: 450 / 500 / 575 / 600 only — never 400, never 700. */
+  --font-weight-regular: 450;
+  --font-weight-mid: 500;
+  --font-weight-block: 575;
+  --font-weight-strong: 600;
+
+  /* Tracking is a rule, not a judgement call: -2% of font size at every step. */
+  --tracking-glide: -0.02em;
+
+  /* Radius roles. Nesting always steps down or jumps to a full pill. */
+  --radius-btn: 6px;
+  --radius-block: 8px;
+  --radius-card: 12px;
+  --radius-chip: 14px;
+  --radius-shell: 24px;
+
+  /* Depth is a budget. The ring is the default separator; one real lift per page. */
+  --shadow-ring: 0 0 0 1px rgba(0, 0, 0, 0.06);
+  --shadow-lift: 0 24px 48px -16px rgba(0, 0, 0, 0.15);
+
+  --ease-ui: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-reveal: cubic-bezier(0, 0, 0.2, 1);
+  --ease-move: cubic-bezier(0.33, 0, 0, 1);
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  body {
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-weight: var(--font-weight-regular);
+    letter-spacing: var(--tracking-glide);
   }
-}
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  :focus-visible {
+    outline: 2px solid var(--color-ink-strong);
+    outline-offset: 2px;
+  }
 }
