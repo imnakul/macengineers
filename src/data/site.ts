@@ -61,14 +61,19 @@ export const COMPANY = {
   logo: "/mac/logo.webp",
 } as const;
 
+/**
+ * Primary navigation. Home, About Us and Contact Us are built in this codebase and
+ * resolve internally; the rest still point at the live WordPress site until those pages
+ * are rebuilt here. ActionLink and the header treat any absolute URL as external.
+ */
 export const NAV_ITEMS: readonly NavItem[] = [
-  { label: "Home", href: "https://macengineers.in/" },
-  { label: "About Us", href: "https://macengineers.in/about-us/" },
+  { label: "Home", href: "/" },
+  { label: "About Us", href: "/about-us" },
   { label: "Product", href: "https://macengineers.in/product/" },
   { label: "Service", href: "https://macengineers.in/service/" },
   { label: "Blog", href: "https://macengineers.in/category/blog/" },
   { label: "Careers", href: "https://macengineers.in/job-openings/" },
-  { label: "Contact Us", href: "https://macengineers.in/contact-us/" },
+  { label: "Contact Us", href: "/contact-us" },
 ];
 
 export const QUOTE_HREF = "https://macengineers.in/get-a-quote/";
@@ -124,7 +129,7 @@ export const ABOUT = {
   headline: "MAC Engineers Is A Trusted Partner For Process Industries Across India.",
   body: "With 20+ years of expertise, we specialize in the design, fabrication, and supply of custom-built storage tanks, liquid mixers, silos, and conveyors. Our solutions are built with precision, industrial-grade materials, and compliance with international safety standards.",
   cta: "Contact Us",
-  ctaHref: "https://macengineers.in/contact-us/",
+  ctaHref: "/contact-us",
   specs: [
     { label: "Equipment lines", value: "04" },
     { label: "Sectors served", value: "04" },
@@ -288,12 +293,12 @@ export const FOOTER = {
     "Mac Engineers is a leading provider of custom-engineered industrial equipment, specializing in the design, fabrication, and installation of storage tanks, liquid mixers, storage silos, and conveyor systems. Based in Ankleshwar, Gujarat",
   quickLinksHeading: "Quick Links",
   quickLinks: [
-    { label: "About Us", href: "https://macengineers.in/about-us/" },
+    { label: "About Us", href: "/about-us" },
     { label: "Product", href: "https://macengineers.in/product/" },
     { label: "Service", href: "https://macengineers.in/service/" },
     { label: "Blog", href: "https://macengineers.in/category/blog/" },
     { label: "Jobs", href: "https://macengineers.in/job-openings/" },
-    { label: "Contact Us", href: "https://macengineers.in/contact-us/" },
+    { label: "Contact Us", href: "/contact-us" },
   ] satisfies readonly NavItem[],
   contactHeading: "Get In Touch",
   social: [
