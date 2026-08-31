@@ -1,19 +1,18 @@
 "use client";
 
 import { useId, useState } from "react";
+import {
+  ERROR_CLASS,
+  INPUT_CLASS,
+  LABEL_CLASS,
+  SUBMIT_CLASS,
+} from "@/components/ui/fieldStyles";
 import { CONTACT_PAGE } from "@/data/contact";
 import { contactSchema, type ContactFieldName } from "@/lib/contact-schema";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
 type FieldErrors = Partial<Record<ContactFieldName, string>>;
-
-const INPUT_CLASS =
-  "w-full rounded-btn border border-hairline-strong bg-canvas px-4 py-3 text-[15px] font-regular tracking-glide text-ink-strong transition-[border-color] duration-150 ease-ui placeholder:text-ink-muted/60 hover:border-ink-muted/40 focus:border-accent focus:outline-none disabled:opacity-60";
-
-const LABEL_CLASS = "font-mono text-[10px] tracking-tech text-ink-muted uppercase";
-
-const ERROR_CLASS = "text-[13px] tracking-glide text-accent";
 
 const GENERIC_ERROR = "Something went wrong. Please try again, or call us instead.";
 
@@ -269,7 +268,7 @@ export function ContactForm(): React.JSX.Element {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="inline-flex items-center justify-center gap-2 self-start rounded-btn bg-cta px-6 py-3 text-[14px] font-block tracking-glide text-canvas transition-[background-color,opacity] duration-150 ease-ui hover:bg-ink-strong disabled:cursor-not-allowed disabled:opacity-60"
+        className={SUBMIT_CLASS}
       >
         {isSubmitting ? CONTACT_PAGE.form.submitting : labels.submit}
       </button>

@@ -62,21 +62,21 @@ export const COMPANY = {
 } as const;
 
 /**
- * Primary navigation. Home, About Us and Contact Us are built in this codebase and
- * resolve internally; the rest still point at the live WordPress site until those pages
- * are rebuilt here. ActionLink and the header treat any absolute URL as external.
+ * Primary navigation. Every entry now resolves inside this codebase; the only links
+ * that still leave for the live WordPress site are the individual blog articles, which
+ * are deliberately not rebuilt here (see src/data/blog.ts).
  */
 export const NAV_ITEMS: readonly NavItem[] = [
   { label: "Home", href: "/" },
   { label: "About Us", href: "/about-us" },
-  { label: "Product", href: "https://macengineers.in/product/" },
-  { label: "Service", href: "https://macengineers.in/service/" },
-  { label: "Blog", href: "https://macengineers.in/category/blog/" },
-  { label: "Careers", href: "https://macengineers.in/job-openings/" },
+  { label: "Product", href: "/product" },
+  { label: "Service", href: "/service" },
+  { label: "Blog", href: "/blog" },
+  { label: "Careers", href: "/job-openings" },
   { label: "Contact Us", href: "/contact-us" },
 ];
 
-export const QUOTE_HREF = "https://macengineers.in/get-a-quote/";
+export const QUOTE_HREF = "/get-a-quote";
 
 export const HERO = {
   headline: "Engineering Productivity For Process Industries",
@@ -265,7 +265,7 @@ export const INTEGRATION = {
 
 export const JOURNAL = {
   headline: "From the blog",
-  href: "https://macengineers.in/category/blog/",
+  href: "/blog",
   posts: [
     {
       title: "The Role of Automation in Industrial Material Handling",
@@ -294,10 +294,10 @@ export const FOOTER = {
   quickLinksHeading: "Quick Links",
   quickLinks: [
     { label: "About Us", href: "/about-us" },
-    { label: "Product", href: "https://macengineers.in/product/" },
-    { label: "Service", href: "https://macengineers.in/service/" },
-    { label: "Blog", href: "https://macengineers.in/category/blog/" },
-    { label: "Jobs", href: "https://macengineers.in/job-openings/" },
+    { label: "Product", href: "/product" },
+    { label: "Service", href: "/service" },
+    { label: "Blog", href: "/blog" },
+    { label: "Jobs", href: "/job-openings" },
     { label: "Contact Us", href: "/contact-us" },
   ] satisfies readonly NavItem[],
   contactHeading: "Get In Touch",
