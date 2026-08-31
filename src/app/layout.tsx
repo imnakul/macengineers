@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { Archivo, IBM_Plex_Mono } from "next/font/google";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { COMPANY } from "@/data/site";
+import { organizationLd, websiteLd } from "@/lib/structured-data";
 import "./globals.css";
 
 /**
@@ -29,15 +31,26 @@ const plexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
+  /* Each page supplies its own complete title, every one of which already names the
+     company. A plain string here is the fallback for any route that does not; there is
+     deliberately no template, which would append the company name a second time. */
   title: COMPANY.metaTitle,
   description: COMPANY.metaDescription,
   metadataBase: new URL(COMPANY.siteUrl),
+  applicationName: COMPANY.name,
+  authors: [{ name: COMPANY.legalName }],
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large" },
+  },
   openGraph: {
     title: COMPANY.metaTitle,
     description: COMPANY.metaDescription,
     url: COMPANY.siteUrl,
     siteName: COMPANY.name,
     type: "website",
+    locale: "en_IN",
   },
   twitter: {
     card: "summary_large_image",
@@ -66,6 +79,8 @@ export default function RootLayout({ children }: LayoutProps<"/">): React.JSX.El
         </main>
 
         <SiteFooter />
+
+        <JsonLd data={[organizationLd(), websiteLd()]} />
       </body>
     </html>
   );

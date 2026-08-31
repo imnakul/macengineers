@@ -4,21 +4,17 @@ import { PageHero } from "@/components/ui/PageHero";
 import { Reveal } from "@/components/ui/Reveal";
 import { TechLabel } from "@/components/ui/TechLabel";
 import { QuoteForm } from "@/components/quote/QuoteForm";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { QUOTE_PAGE } from "@/data/quote";
+import { pageMetadata } from "@/lib/metadata";
+import { breadcrumbLd, webPageLd } from "@/lib/structured-data";
 import { COMPANY } from "@/data/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: QUOTE_PAGE.metaTitle,
   description: QUOTE_PAGE.metaDescription,
-  alternates: { canonical: "/get-a-quote" },
-  openGraph: {
-    title: QUOTE_PAGE.metaTitle,
-    description: QUOTE_PAGE.metaDescription,
-    url: `${COMPANY.siteUrl}get-a-quote/`,
-    siteName: COMPANY.name,
-    type: "website",
-  },
-};
+  path: "/get-a-quote",
+});
 
 /** The direct routes, for anyone who would rather not fill in a form. */
 const DIRECT = [
@@ -93,6 +89,21 @@ export default function QuotePage(): React.JSX.Element {
           </aside>
         </div>
       </section>
+
+      <JsonLd
+        data={[
+          webPageLd(
+            "WebPage",
+            QUOTE_PAGE.hero.headline,
+            QUOTE_PAGE.metaDescription,
+            "/get-a-quote",
+          ),
+          breadcrumbLd([
+            { name: "Home", path: "/" },
+            { name: "Get a Quote", path: "/get-a-quote" },
+          ]),
+        ]}
+      />
     </>
   );
 }

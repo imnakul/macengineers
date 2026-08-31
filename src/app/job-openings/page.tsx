@@ -3,21 +3,17 @@ import { JobList } from "@/components/careers/JobList";
 import { ActionLink } from "@/components/ui/ActionLink";
 import { CtaBand } from "@/components/ui/CtaBand";
 import { PageHero } from "@/components/ui/PageHero";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { CAREERS_PAGE, JOBS } from "@/data/jobs";
+import { pageMetadata } from "@/lib/metadata";
+import { breadcrumbLd, webPageLd } from "@/lib/structured-data";
 import { COMPANY } from "@/data/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: CAREERS_PAGE.metaTitle,
   description: CAREERS_PAGE.metaDescription,
-  alternates: { canonical: "/job-openings" },
-  openGraph: {
-    title: CAREERS_PAGE.metaTitle,
-    description: CAREERS_PAGE.metaDescription,
-    url: `${COMPANY.siteUrl}job-openings/`,
-    siteName: COMPANY.name,
-    type: "website",
-  },
-};
+  path: "/job-openings",
+});
 
 /** Careers. The list and its filters run in the browser; everything else is static. */
 export default function CareersPage(): React.JSX.Element {
@@ -57,6 +53,21 @@ export default function CareersPage(): React.JSX.Element {
           {COMPANY.email}
         </ActionLink>
       </CtaBand>
+
+      <JsonLd
+        data={[
+          webPageLd(
+            "CollectionPage",
+            CAREERS_PAGE.hero.headline,
+            CAREERS_PAGE.metaDescription,
+            "/job-openings",
+          ),
+          breadcrumbLd([
+            { name: "Home", path: "/" },
+            { name: "Careers", path: "/job-openings" },
+          ]),
+        ]}
+      />
     </>
   );
 }

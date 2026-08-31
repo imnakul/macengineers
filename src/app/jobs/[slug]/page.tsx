@@ -6,8 +6,11 @@ import { PageHero } from "@/components/ui/PageHero";
 import { Reveal } from "@/components/ui/Reveal";
 import { SpecRail } from "@/components/ui/SpecRail";
 import { TechLabel } from "@/components/ui/TechLabel";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { CAREERS_PAGE, JOBS, type Job } from "@/data/jobs";
+import { breadcrumbLd, jobPostingLd } from "@/lib/structured-data";
 import { COMPANY } from "@/data/site";
+import { pageMetadata } from "@/lib/metadata";
 
 /** Both roles are known at build time, so both pages are prerendered. */
 export function generateStaticParams(): { slug: string }[] {
@@ -28,18 +31,12 @@ export async function generateMetadata({
 
   const description = `${job.title} at MAC Engineers — ${job.category}, ${job.type}, ${job.locations.join(" / ")}. ${job.teaser}`;
 
-  return {
-    title: `${job.title} | Careers at MAC Engineers`,
+  return pageMetadata({
+    title: `${job.title} | Careers at ${COMPANY.name}`,
     description,
-    alternates: { canonical: `/jobs/${job.slug}` },
-    openGraph: {
-      title: `${job.title} | Careers at MAC Engineers`,
-      description,
-      url: `${COMPANY.siteUrl}jobs/${job.slug}/`,
-      siteName: COMPANY.name,
-      type: "article",
-    },
-  };
+    path: `/jobs/${job.slug}`,
+    type: "article",
+  });
 }
 
 /**
@@ -176,6 +173,17 @@ export default async function JobPage({
           </div>
         </Reveal>
       </section>
+
+      <JsonLd
+        data={[
+          jobPostingLd(job),
+          breadcrumbLd([
+            { name: "Home", path: "/" },
+            { name: "Careers", path: "/job-openings" },
+            { name: job.title, path: `/jobs/${job.slug}` },
+          ]),
+        ]}
+      />
     </>
   );
 }

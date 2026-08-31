@@ -5,21 +5,16 @@ import { ActionLink } from "@/components/ui/ActionLink";
 import { PageHero } from "@/components/ui/PageHero";
 import { Reveal } from "@/components/ui/Reveal";
 import { TechLabel } from "@/components/ui/TechLabel";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { BLOG_PAGE } from "@/data/blog";
-import { COMPANY } from "@/data/site";
+import { pageMetadata } from "@/lib/metadata";
+import { blogListLd, breadcrumbLd } from "@/lib/structured-data";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: BLOG_PAGE.metaTitle,
   description: BLOG_PAGE.metaDescription,
-  alternates: { canonical: "/blog" },
-  openGraph: {
-    title: BLOG_PAGE.metaTitle,
-    description: BLOG_PAGE.metaDescription,
-    url: `${COMPANY.siteUrl}category/blog/`,
-    siteName: COMPANY.name,
-    type: "website",
-  },
-};
+  path: "/blog",
+});
 
 /** Small arrow shared by both card styles on this page. */
 function Arrow(): React.JSX.Element {
@@ -181,6 +176,16 @@ export default function BlogPage(): React.JSX.Element {
           </Reveal>
         </div>
       </section>
+
+      <JsonLd
+        data={[
+          blogListLd(),
+          breadcrumbLd([
+            { name: "Home", path: "/" },
+            { name: "Blog", path: "/blog" },
+          ]),
+        ]}
+      />
     </>
   );
 }

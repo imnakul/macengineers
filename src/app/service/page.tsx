@@ -6,19 +6,15 @@ import { Reveal } from "@/components/ui/Reveal";
 import { SpecBlock } from "@/components/ui/SpecBlock";
 import { COMPANY, QUOTE_HREF } from "@/data/site";
 import { SERVICE_PAGE } from "@/data/services";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { pageMetadata } from "@/lib/metadata";
+import { breadcrumbLd, serviceListLd } from "@/lib/structured-data";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: SERVICE_PAGE.metaTitle,
   description: SERVICE_PAGE.metaDescription,
-  alternates: { canonical: "/service" },
-  openGraph: {
-    title: SERVICE_PAGE.metaTitle,
-    description: SERVICE_PAGE.metaDescription,
-    url: `${COMPANY.siteUrl}service/`,
-    siteName: COMPANY.name,
-    type: "website",
-  },
-};
+  path: "/service",
+});
 
 /** Service. Five capability lines as alternating spec blocks. */
 export default function ServicePage(): React.JSX.Element {
@@ -105,6 +101,16 @@ export default function ServicePage(): React.JSX.Element {
           {COMPANY.phone}
         </ActionLink>
       </CtaBand>
+
+      <JsonLd
+        data={[
+          serviceListLd(),
+          breadcrumbLd([
+            { name: "Home", path: "/" },
+            { name: "Service", path: "/service" },
+          ]),
+        ]}
+      />
     </>
   );
 }

@@ -10,20 +10,16 @@ import { ActionLink } from "@/components/ui/ActionLink";
 import { CtaBand } from "@/components/ui/CtaBand";
 import { PageHero } from "@/components/ui/PageHero";
 import { ABOUT_PAGE } from "@/data/about";
-import { COMPANY, QUOTE_HREF } from "@/data/site";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { pageMetadata } from "@/lib/metadata";
+import { breadcrumbLd, webPageLd } from "@/lib/structured-data";
+import { QUOTE_HREF } from "@/data/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: ABOUT_PAGE.metaTitle,
   description: ABOUT_PAGE.metaDescription,
-  alternates: { canonical: "/about-us" },
-  openGraph: {
-    title: ABOUT_PAGE.metaTitle,
-    description: ABOUT_PAGE.metaDescription,
-    url: `${COMPANY.siteUrl}about-us/`,
-    siteName: COMPANY.name,
-    type: "website",
-  },
-};
+  path: "/about-us",
+});
 
 /** About Us. Nine sheets, numbered continuously down the page. */
 export default function AboutPage(): React.JSX.Element {
@@ -68,6 +64,16 @@ export default function AboutPage(): React.JSX.Element {
           Get A Quote
         </ActionLink>
       </CtaBand>
+
+      <JsonLd
+        data={[
+          webPageLd("AboutPage", ABOUT_PAGE.hero.headline, ABOUT_PAGE.metaDescription, "/about-us"),
+          breadcrumbLd([
+            { name: "Home", path: "/" },
+            { name: "About Us", path: "/about-us" },
+          ]),
+        ]}
+      />
     </>
   );
 }

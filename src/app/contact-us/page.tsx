@@ -7,20 +7,16 @@ import { PageHero } from "@/components/ui/PageHero";
 import { Reveal } from "@/components/ui/Reveal";
 import { TechLabel } from "@/components/ui/TechLabel";
 import { CONTACT_PAGE } from "@/data/contact";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { pageMetadata } from "@/lib/metadata";
+import { breadcrumbLd, webPageLd } from "@/lib/structured-data";
 import { COMPANY, QUOTE_HREF } from "@/data/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: CONTACT_PAGE.metaTitle,
   description: CONTACT_PAGE.metaDescription,
-  alternates: { canonical: "/contact-us" },
-  openGraph: {
-    title: CONTACT_PAGE.metaTitle,
-    description: CONTACT_PAGE.metaDescription,
-    url: `${COMPANY.siteUrl}contact-us/`,
-    siteName: COMPANY.name,
-    type: "website",
-  },
-};
+  path: "/contact-us",
+});
 
 /** Contact Us. The form leads; the direct channels sit beside it, not beneath it. */
 export default function ContactPage(): React.JSX.Element {
@@ -89,6 +85,16 @@ export default function ContactPage(): React.JSX.Element {
           {COMPANY.phone}
         </ActionLink>
       </CtaBand>
+
+      <JsonLd
+        data={[
+          webPageLd("ContactPage", CONTACT_PAGE.hero.headline, CONTACT_PAGE.metaDescription, "/contact-us"),
+          breadcrumbLd([
+            { name: "Home", path: "/" },
+            { name: "Contact Us", path: "/contact-us" },
+          ]),
+        ]}
+      />
     </>
   );
 }

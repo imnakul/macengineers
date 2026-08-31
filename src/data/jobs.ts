@@ -30,6 +30,9 @@ export interface JobSection {
 
 export interface Job {
   readonly slug: string;
+  /** ISO date the role was published. Required by Google for JobPosting rich results. */
+  readonly datePosted: string;
+  readonly dateModified: string;
   readonly title: string;
   readonly category: string;
   readonly type: string;
@@ -46,6 +49,8 @@ export interface Job {
 export const JOBS: readonly Job[] = [
   {
     slug: "mechanical-engineer-service-projects",
+    datePosted: "2026-02-11",
+    dateModified: "2026-07-02",
     title: "Diploma Mechanical Engineer – Service (Industrial Sector)",
     category: "Engineering",
     type: "Full Time",
@@ -105,6 +110,8 @@ export const JOBS: readonly Job[] = [
   },
   {
     slug: "office-assistant-cum-accountant",
+    datePosted: "2026-02-17",
+    dateModified: "2026-07-02",
     title: "Office Assistant cum Accountant",
     category: "Accounts & Administration",
     type: "Full Time",

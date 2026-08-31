@@ -8,20 +8,16 @@ import { Reveal } from "@/components/ui/Reveal";
 import { SpecBlock } from "@/components/ui/SpecBlock";
 import { TechLabel } from "@/components/ui/TechLabel";
 import { PRODUCT_PAGE } from "@/data/products";
-import { COMPANY, QUOTE_HREF } from "@/data/site";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { pageMetadata } from "@/lib/metadata";
+import { breadcrumbLd, productListLd } from "@/lib/structured-data";
+import { QUOTE_HREF } from "@/data/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: PRODUCT_PAGE.metaTitle,
   description: PRODUCT_PAGE.metaDescription,
-  alternates: { canonical: "/product" },
-  openGraph: {
-    title: PRODUCT_PAGE.metaTitle,
-    description: PRODUCT_PAGE.metaDescription,
-    url: `${COMPANY.siteUrl}product/`,
-    siteName: COMPANY.name,
-    type: "website",
-  },
-};
+  path: "/product",
+});
 
 /** Product. Four equipment lines as alternating spec blocks, then turnkey on its own. */
 export default function ProductPage(): React.JSX.Element {
@@ -219,6 +215,16 @@ export default function ProductPage(): React.JSX.Element {
           Contact Us
         </ActionLink>
       </CtaBand>
+
+      <JsonLd
+        data={[
+          productListLd(),
+          breadcrumbLd([
+            { name: "Home", path: "/" },
+            { name: "Product", path: "/product" },
+          ]),
+        ]}
+      />
     </>
   );
 }
