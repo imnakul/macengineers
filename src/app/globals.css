@@ -1,12 +1,18 @@
 @import "tailwindcss";
 
 /*
- * Design tokens ported from the Glide taste system (see CLAUDE.md → Design Taste).
- * Tailwind v4 reads these at build time and generates the matching utilities,
- * so component files stay on utility classes only.
+ * Design tokens. The base ramp is the Glide taste system documented in CLAUDE.md,
+ * extended in two deliberate directions for MAC Engineers:
+ *
+ *   1. A technical register (IBM Plex Mono) for sheet numbers, figure captions and
+ *      material specs — the typographic layer an engineering drawing actually has.
+ *   2. A single accent, spent at roughly 1% coverage on measurement marks and
+ *      interactive state. The original system leaves the accent slot empty; a deep
+ *      safety orange is the one hue that extends a ramp already running a blue
+ *      deficit rather than fighting it.
  */
 @theme {
-  /* Warm-tinted neutral ramp. No chromatic accent — saturation belongs to the product art. */
+  /* Warm-tinted neutral ramp. Saturation still belongs to the product art. */
   --color-canvas: #ffffff;
   --color-surface: #f5f5f2;
   --color-surface-2: #edede8;
@@ -17,6 +23,19 @@
   --color-ink-muted: #5e5e5c;
   --color-cta: #242421;
   --color-hairline: rgba(0, 0, 0, 0.06);
+  --color-hairline-strong: rgba(0, 0, 0, 0.12);
+
+  /* Drawing-sheet rule stock. Lighter than the hairline so a full grid stays quiet. */
+  --color-grid: rgba(0, 0, 0, 0.045);
+  --color-grid-inverse: rgba(255, 255, 255, 0.07);
+
+  /*
+   * The accent. `accent` clears 4.5:1 on canvas so it can carry link text;
+   * `accent-bright` is the hi-vis stop reserved for marks on the inverse surface.
+   */
+  --color-accent: #b8420f;
+  --color-accent-bright: #f4631f;
+  --color-accent-wash: rgba(184, 66, 15, 0.08);
 
   /* Weight axis: 450 / 500 / 575 / 600 only — never 400, never 700. */
   --font-weight-regular: 450;
@@ -24,8 +43,12 @@
   --font-weight-block: 575;
   --font-weight-strong: 600;
 
-  /* Tracking is a rule, not a judgement call: -2% of font size at every step. */
+  /* Tracking is a rule, not a judgement call. */
   --tracking-glide: -0.02em;
+  /* Display type ≥48px needs more optical pull than body copy. */
+  --tracking-display: -0.032em;
+  /* The mono register runs the other way: wide-tracked, like a drawing label. */
+  --tracking-tech: 0.14em;
 
   /* Radius roles. Nesting always steps down or jumps to a full pill. */
   --radius-btn: 6px;
@@ -36,13 +59,15 @@
 
   /* Depth is a budget. The ring is the default separator; one real lift per page. */
   --shadow-ring: 0 0 0 1px rgba(0, 0, 0, 0.06);
+  --shadow-ring-strong: 0 0 0 1px rgba(0, 0, 0, 0.12);
   --shadow-lift: 0 24px 48px -16px rgba(0, 0, 0, 0.15);
 
   --ease-ui: cubic-bezier(0.4, 0, 0.2, 1);
   --ease-reveal: cubic-bezier(0, 0, 0.2, 1);
   --ease-move: cubic-bezier(0.33, 0, 0, 1);
 
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, "SFMono-Regular", monospace;
 }
 
 @layer base {
@@ -54,8 +79,63 @@
     letter-spacing: var(--tracking-glide);
   }
 
+  /* Figures never carry the sans tracking rule — they are read, not scanned. */
+  :where(h1, h2, h3) {
+    text-wrap: balance;
+  }
+
   :focus-visible {
-    outline: 2px solid var(--color-ink-strong);
-    outline-offset: 2px;
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+}
+
+/*
+ * Drafting ground. Two superimposed rule grids — a 24px field and a 120px module —
+ * matching the way a real sheet is gridded. Kept beneath the hairline threshold so it
+ * reads as paper texture rather than as a table.
+ */
+@utility drafting-grid {
+  background-image:
+    linear-gradient(to right, var(--color-grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-grid) 1px, transparent 1px),
+    linear-gradient(to right, var(--color-grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-grid) 1px, transparent 1px);
+  background-size:
+    24px 24px,
+    24px 24px,
+    120px 120px,
+    120px 120px;
+}
+
+/* Same field, inverted for the dark band. */
+@utility drafting-grid-inverse {
+  background-image:
+    linear-gradient(to right, var(--color-grid-inverse) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-grid-inverse) 1px, transparent 1px);
+  background-size:
+    32px 32px,
+    32px 32px;
+}
+
+/* Fades a drafting ground out toward its edges so it never terminates on a hard line. */
+@utility drafting-fade {
+  -webkit-mask-image: radial-gradient(ellipse 100% 70% at 50% 0%, #000 0%, transparent 78%);
+  mask-image: radial-gradient(ellipse 100% 70% at 50% 0%, #000 0%, transparent 78%);
+}
+
+/*
+ * Honour the reduced-motion preference globally, not just inside the components that
+ * happen to remember to check for it.
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

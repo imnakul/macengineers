@@ -37,6 +37,12 @@ export interface JournalPost {
   readonly alt: string;
 }
 
+/** A single measured fact — a mono key over a value. Rendered by SpecRail. */
+export interface SpecItem {
+  readonly label: string;
+  readonly value: string;
+}
+
 export const COMPANY = {
   name: "MAC Engineers",
   legalName: "Mac Engineers India",
@@ -72,26 +78,44 @@ export const HERO = {
   subhead:
     "From storage tanks to advanced mixers, silos, and conveyors — MAC Engineers delivers reliable equipment that drives efficiency, safety, and performance.",
   cta: "Explore Our Solutions",
+  /**
+   * Sourced facts only: the years figure and compliance line come from ABOUT.body, the
+   * material grades from the storage-tank description, and the reach and works location
+   * from COMPANY.metaDescription and COMPANY.address.
+   */
+  specs: [
+    { label: "Experience", value: "20+ Years" },
+    { label: "Materials", value: "SS304 / SS316 / MS" },
+    { label: "Delivery", value: "Pan-India" },
+    { label: "Works", value: "Ankleshwar, Gujarat" },
+  ] satisfies readonly SpecItem[],
+  /** The lead plate, printed large beside the headline. */
+  lead: {
+    src: "/mac/hero-reactor-vessel.png",
+    alt: "Stainless steel reactor vessel with manhole and piping in industrial processing plant",
+    caption: "Reactor vessel",
+  },
+  /** The detail strip beneath — four smaller plates, captioned like drawing figures. */
   scene: [
-    {
-      src: "/mac/hero-reactor-vessel.png",
-      alt: "Stainless steel reactor vessel with manhole and piping in industrial processing plant",
-    },
     {
       src: "/mac/hero-storage-tanks.png",
       alt: "Stainless steel storage tanks with piping system and access platform in industrial plant",
+      caption: "Storage tanks",
     },
     {
       src: "/mac/hero-bulk-storage.png",
       alt: "Industrial storage tanks for bulk material and liquid storage in processing plant",
+      caption: "Bulk storage",
     },
     {
       src: "/mac/hero-conveyor-hopper.png",
       alt: "Industrial conveyor system with storage hopper and material handling equipment in plant",
+      caption: "Conveyor & hopper",
     },
     {
       src: "/mac/hero-process-skid.png",
       alt: "Skid-mounted process equipment assembly fabricated by MAC Engineers",
+      caption: "Process skid",
     },
   ],
 } as const;
@@ -101,13 +125,21 @@ export const ABOUT = {
   body: "With 20+ years of expertise, we specialize in the design, fabrication, and supply of custom-built storage tanks, liquid mixers, silos, and conveyors. Our solutions are built with precision, industrial-grade materials, and compliance with international safety standards.",
   cta: "Contact Us",
   ctaHref: "https://macengineers.in/contact-us/",
+  specs: [
+    { label: "Equipment lines", value: "04" },
+    { label: "Sectors served", value: "04" },
+    { label: "Compliance", value: "International standards" },
+    { label: "Scope", value: "Design to commissioning" },
+  ] satisfies readonly SpecItem[],
   primaryImage: {
     src: "/mac/about-mixing-tanks.png",
     alt: "Stainless steel industrial mixing tanks with piping and process equipment in manufacturing plant",
+    caption: "Mixing tank battery",
   },
   secondaryImage: {
     src: "/mac/about-plant-layout.png",
     alt: "Layout of a MAC Engineers process plant installation",
+    caption: "Plant layout",
   },
 } as const;
 

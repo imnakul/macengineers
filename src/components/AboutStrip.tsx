@@ -1,59 +1,78 @@
-import Image from "next/image";
 import { ActionLink } from "@/components/ui/ActionLink";
+import { PlateFrame } from "@/components/ui/PlateFrame";
 import { Reveal } from "@/components/ui/Reveal";
+import { SpecRail } from "@/components/ui/SpecRail";
+import { TechLabel } from "@/components/ui/TechLabel";
 import { ABOUT } from "@/data/site";
 
-/** Company positioning, paired with two plant photographs on a warm off-white fill. */
+/**
+ * Company positioning on the warm off-white fill, paired with two plates. The rail
+ * underneath restates the claim as measured facts — a manufacturer is judged on
+ * numbers, so the numbers get their own dimension line rather than staying buried in
+ * the paragraph.
+ */
 export function AboutStrip(): React.JSX.Element {
   return (
     <section
+      id="about"
       aria-labelledby="about-heading"
-      className="bg-surface px-5 py-24 md:px-13 md:py-32"
+      className="scroll-mt-24 bg-surface px-5 py-28 md:px-13 md:py-44"
     >
-      <div className="mx-auto grid max-w-[1180px] items-center gap-12 lg:grid-cols-2 lg:gap-16">
-        <Reveal>
-          <div className="flex flex-col">
-            <span className="mb-5 text-[12px] font-mid tracking-glide text-ink-muted uppercase">
-              20+ years in process equipment
-            </span>
-            <h2
-              id="about-heading"
-              className="text-[32px] leading-none font-block tracking-glide text-ink-strong md:text-[48px]"
-            >
-              {ABOUT.headline}
-            </h2>
-            <p className="mt-6 max-w-[640px] text-[16px] leading-6 font-regular tracking-glide text-ink-muted">
-              {ABOUT.body}
-            </p>
-            <div className="mt-9">
-              <ActionLink href={ABOUT.ctaHref} variant="solid">
-                {ABOUT.cta}
-              </ActionLink>
-            </div>
-          </div>
-        </Reveal>
+      <div className="mx-auto max-w-[1180px]">
+        <div className="grid items-center gap-14 lg:grid-cols-12 lg:gap-16">
+          <div className="flex flex-col lg:col-span-6">
+            <Reveal>
+              <TechLabel index="02">The company</TechLabel>
+            </Reveal>
 
-        <Reveal delay={0.08}>
-          <div className="grid gap-4">
-            <div className="relative aspect-[4/3] overflow-hidden rounded-card bg-canvas">
-              <Image
+            <Reveal delay={0.06}>
+              <h2
+                id="about-heading"
+                className="mt-6 text-[34px] leading-[0.98] font-block tracking-display text-ink-strong sm:text-[42px] md:text-[52px]"
+              >
+                {ABOUT.headline}
+              </h2>
+            </Reveal>
+
+            <Reveal delay={0.12}>
+              <p className="mt-6 max-w-[560px] text-[16px] leading-6 font-regular tracking-glide text-ink-muted md:text-[17px] md:leading-[27px]">
+                {ABOUT.body}
+              </p>
+            </Reveal>
+
+            <Reveal delay={0.18}>
+              <div className="mt-9">
+                <ActionLink href={ABOUT.ctaHref} variant="solid" withArrow>
+                  {ABOUT.cta}
+                </ActionLink>
+              </div>
+            </Reveal>
+          </div>
+
+          <Reveal delay={0.12} distance={24} className="lg:col-span-6">
+            <div className="grid gap-4">
+              <PlateFrame
                 src={ABOUT.primaryImage.src}
                 alt={ABOUT.primaryImage.alt}
-                fill
+                figure="06"
+                caption={ABOUT.primaryImage.caption}
+                ratio="aspect-[4/3]"
                 sizes="(min-width: 1024px) 560px, 90vw"
-                className="object-contain p-6"
               />
-            </div>
-            <div className="relative aspect-[600/350] overflow-hidden rounded-card bg-canvas">
-              <Image
+              <PlateFrame
                 src={ABOUT.secondaryImage.src}
                 alt={ABOUT.secondaryImage.alt}
-                fill
+                figure="07"
+                caption={ABOUT.secondaryImage.caption}
+                ratio="aspect-[600/330]"
                 sizes="(min-width: 1024px) 560px, 90vw"
-                className="object-contain p-6"
               />
             </div>
-          </div>
+          </Reveal>
+        </div>
+
+        <Reveal delay={0.06} className="mt-16 md:mt-20">
+          <SpecRail items={ABOUT.specs} />
         </Reveal>
       </div>
     </section>
