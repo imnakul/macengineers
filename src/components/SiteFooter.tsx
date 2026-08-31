@@ -22,7 +22,7 @@ export function SiteFooter(): React.JSX.Element {
     <footer className="px-5 pt-20 pb-10 md:px-13 md:pt-28 md:pb-14">
       <div className="mx-auto max-w-[1180px]">
         <div className="grid gap-px overflow-hidden rounded-card bg-hairline-strong shadow-ring md:grid-cols-2 lg:grid-cols-4">
-          <div className={`${CELL_CLASS} gap-6 lg:col-span-2`}>
+          <div className={`${CELL_CLASS} gap-6 md:col-span-2`}>
             <div className="relative h-[32px] w-[112px]">
               <Image
                 src={COMPANY.logo}

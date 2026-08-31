@@ -59,14 +59,18 @@ export function Hero(): React.JSX.Element {
             </Reveal>
           </div>
 
-          <Reveal delay={0.24} distance={24} className="lg:col-span-5">
+          <Reveal
+            delay={0.24}
+            distance={24}
+            className="mx-auto w-full max-w-[420px] lg:col-span-5 lg:max-w-none"
+          >
             <PlateFrame
               src={HERO.lead.src}
               alt={HERO.lead.alt}
               figure="01"
               caption={HERO.lead.caption}
               ratio="aspect-[4/5]"
-              sizes="(min-width: 1024px) 460px, 90vw"
+              sizes="(min-width: 1024px) 460px, (min-width: 640px) 420px, 90vw"
               priority
             />
           </Reveal>

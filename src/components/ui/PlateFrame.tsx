@@ -50,7 +50,7 @@ export function PlateFrame({
       {caption ? (
         <figcaption className="flex items-baseline gap-2.5 border-t border-hairline px-4 py-3 font-mono text-[10px] tracking-tech text-ink-muted uppercase">
           {figure ? <span className="shrink-0 text-accent">Fig. {figure}</span> : null}
-          <span className="truncate">{caption}</span>
+          <span className="min-w-0 truncate">{caption}</span>
         </figcaption>
       ) : null}
     </figure>
