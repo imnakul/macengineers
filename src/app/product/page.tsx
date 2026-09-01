@@ -113,17 +113,11 @@ export default function ProductPage(): React.JSX.Element {
 
             <Reveal delay={0.14}>
               <ul className="mt-5 flex flex-col">
-                {turnkey.scope.map((item, index) => (
+                {turnkey.scope.map((item) => (
                   <li
                     key={item}
-                    className="flex items-baseline gap-5 border-t border-hairline py-4 last:border-b"
+                    className="border-t border-hairline py-4 last:border-b"
                   >
-                    <span
-                      aria-hidden="true"
-                      className="shrink-0 font-mono text-[10px] tracking-tech text-ink-muted tabular-nums"
-                    >
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
                     <span className="text-[15px] leading-[23px] font-regular tracking-glide text-ink">
                       {item}
                     </span>
@@ -163,17 +157,11 @@ export default function ProductPage(): React.JSX.Element {
 
           <Reveal delay={0.1}>
             <ul className="mt-12 grid gap-px overflow-hidden rounded-card bg-hairline-strong shadow-ring sm:grid-cols-2 lg:grid-cols-4">
-              {whyChoose.items.map((item, index) => (
+              {whyChoose.items.map((item) => (
                 <li
                   key={item}
                   className="group relative flex flex-col gap-4 bg-canvas p-7 transition-[background-color] duration-150 ease-ui hover:bg-surface md:p-8"
                 >
-                  <span
-                    aria-hidden="true"
-                    className="font-mono text-[10px] tracking-tech text-ink-muted tabular-nums"
-                  >
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
                   <p className="text-[16px] leading-[24px] font-strong tracking-glide text-ink-strong">
                     {item}
                   </p>

@@ -154,14 +154,8 @@ export function SiteHeader(): React.JSX.Element {
                   <Link
                     href={item.href}
                     onClick={closeMenu}
-                    className="flex items-baseline gap-4 py-4 text-[20px] font-block tracking-glide text-ink-strong transition-[color] duration-150 ease-ui hover:text-accent"
+                    className="block py-4 text-[20px] font-block tracking-glide text-ink-strong transition-[color] duration-150 ease-ui hover:text-accent"
                   >
-                    <span
-                      aria-hidden="true"
-                      className="font-mono text-[10px] tracking-tech text-ink-muted tabular-nums"
-                    >
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
                     {item.label}
                   </Link>
                 </motion.li>

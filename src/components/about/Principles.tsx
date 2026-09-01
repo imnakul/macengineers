@@ -25,12 +25,6 @@ export function Principles(): React.JSX.Element {
             <li key={item.title}>
               <Reveal delay={index * 0.06} className="h-full">
                 <article className="group relative flex h-full flex-col gap-4 overflow-hidden rounded-card bg-canvas p-7 shadow-ring transition-[box-shadow] duration-150 ease-ui hover:shadow-ring-strong md:p-8">
-                  <span
-                    aria-hidden="true"
-                    className="font-mono text-[10px] tracking-tech text-ink-muted tabular-nums"
-                  >
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
                   <h3 className="text-[22px] leading-tight font-strong tracking-glide text-ink-strong">
                     {item.title}
                   </h3>

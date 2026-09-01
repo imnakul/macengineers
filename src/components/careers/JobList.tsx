@@ -128,12 +128,6 @@ export function JobList({ jobs }: JobListProps): React.JSX.Element {
                   className="group relative flex flex-col gap-5 overflow-hidden rounded-card bg-canvas p-7 shadow-ring transition-[box-shadow] duration-150 ease-ui hover:shadow-ring-strong md:p-8"
                 >
                   <div className="flex flex-col gap-3">
-                    <span
-                      aria-hidden="true"
-                      className="font-mono text-[10px] tracking-tech text-ink-muted tabular-nums"
-                    >
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
                     <h3 className="max-w-[28ch] text-[22px] leading-tight font-strong tracking-glide text-ink-strong transition-[color] duration-150 ease-ui group-hover:text-accent md:text-[26px]">
                       {job.title}
                     </h3>

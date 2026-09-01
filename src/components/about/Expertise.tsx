@@ -26,7 +26,7 @@ export function Expertise(): React.JSX.Element {
 
         <div className="flex flex-col lg:col-span-7">
           <Reveal delay={0.08}>
-            <RuledList items={expertise.items} numbered={false} />
+            <RuledList items={expertise.items} />
           </Reveal>
 
           <Reveal delay={0.14}>

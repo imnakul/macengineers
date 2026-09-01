@@ -24,17 +24,11 @@ export function Industries(): React.JSX.Element {
 
         <Reveal delay={0.08}>
           <ul className="mt-14 grid gap-px overflow-hidden rounded-card bg-hairline-strong shadow-ring sm:grid-cols-2">
-            {INDUSTRIES.items.map((item, index) => (
+            {INDUSTRIES.items.map((item) => (
               <li
                 key={item.title}
-                className="group relative flex items-baseline gap-6 bg-canvas p-7 transition-[background-color] duration-150 ease-ui hover:bg-surface md:p-9"
+                className="relative bg-canvas p-7 transition-[background-color] duration-150 ease-ui hover:bg-surface md:p-9"
               >
-                <span
-                  aria-hidden="true"
-                  className="shrink-0 font-mono text-[10px] tracking-tech text-ink-muted tabular-nums transition-[color] duration-150 ease-ui group-hover:text-accent"
-                >
-                  {String(index + 1).padStart(2, "0")}
-                </span>
                 <div className="flex flex-col gap-2">
                   <h3 className="text-[20px] leading-tight font-strong tracking-glide text-ink-strong md:text-[22px]">
                     {item.title}

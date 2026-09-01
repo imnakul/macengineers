@@ -81,12 +81,6 @@ export default function BlogPage(): React.JSX.Element {
                     </div>
 
                     <div className="flex flex-1 flex-col gap-4 border-t border-hairline p-6">
-                      <span
-                        aria-hidden="true"
-                        className="font-mono text-[10px] tracking-tech text-ink-muted tabular-nums"
-                      >
-                        {String(index + 1).padStart(2, "0")}
-                      </span>
                       <h3 className="text-[19px] leading-tight font-strong tracking-glide text-ink-strong">
                         {post.title}
                       </h3>
@@ -131,20 +125,13 @@ export default function BlogPage(): React.JSX.Element {
 
           <Reveal delay={0.1}>
             <ul className="mt-12 flex flex-col">
-              {BLOG_PAGE.more.map((post, index) => (
+              {BLOG_PAGE.more.map((post) => (
                 <li key={post.href}>
                   <Link
                     href={post.href}
                     className="group grid items-baseline gap-x-6 gap-y-2 border-t border-hairline-strong py-6 transition-[background-color] duration-150 ease-ui last:border-b md:grid-cols-12"
                   >
-                    <span
-                      aria-hidden="true"
-                      className="font-mono text-[10px] tracking-tech text-ink-muted tabular-nums md:col-span-1"
-                    >
-                      {String(index + 4).padStart(2, "0")}
-                    </span>
-
-                    <h3 className="text-[19px] leading-tight font-strong tracking-glide text-ink-strong transition-[color] duration-150 ease-ui group-hover:text-accent md:col-span-5 md:text-[20px]">
+                    <h3 className="text-[19px] leading-tight font-strong tracking-glide text-ink-strong transition-[color] duration-150 ease-ui group-hover:text-accent md:col-span-6 md:text-[20px]">
                       {post.title}
                     </h3>
 

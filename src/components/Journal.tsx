@@ -44,12 +44,6 @@ export function Journal(): React.JSX.Element {
                   </div>
 
                   <div className="flex flex-1 flex-col gap-5 border-t border-hairline p-6">
-                    <span
-                      aria-hidden="true"
-                      className="font-mono text-[10px] tracking-tech text-ink-muted tabular-nums"
-                    >
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
                     <h3 className="flex-1 text-[19px] leading-tight font-strong tracking-glide text-ink-strong">
                       {post.title}
                     </h3>

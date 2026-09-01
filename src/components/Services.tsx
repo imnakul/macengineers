@@ -38,14 +38,7 @@ export function Services(): React.JSX.Element {
                     />
                   </div>
 
-                  <span
-                    aria-hidden="true"
-                    className="mt-4 font-mono text-[10px] tracking-tech text-ink-muted tabular-nums"
-                  >
-                    Step {String(index + 1).padStart(2, "0")}
-                  </span>
-
-                  <h3 className="mt-3 text-[19px] leading-tight font-strong tracking-glide text-ink-strong md:text-[20px]">
+                  <h3 className="mt-5 text-[19px] leading-tight font-strong tracking-glide text-ink-strong md:text-[20px]">
                     {item.title}
                   </h3>
                   <p className="mt-2.5 text-[14px] leading-[21px] font-regular tracking-glide text-ink-muted">

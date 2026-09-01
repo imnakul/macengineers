@@ -7,9 +7,7 @@ import { WHY_CHOOSE } from "@/data/site";
  *
  * The dividers are a 1px gap over a hairline ground — the one grid technique that keeps
  * rules exact at every breakpoint without per-cell border juggling. The source site
- * prefixed each item with a green check emoji; a two-digit index carries the same
- * "this is a list of four" signal without introducing the only saturated pixels
- * outside the product art.
+ * prefixed each item with a green check emoji, dropped as elsewhere on this site.
  */
 export function WhyChoose(): React.JSX.Element {
   return (
@@ -28,17 +26,11 @@ export function WhyChoose(): React.JSX.Element {
 
         <Reveal delay={0.08}>
           <ul className="mt-14 grid gap-px overflow-hidden rounded-card bg-hairline-strong shadow-ring sm:grid-cols-2 lg:grid-cols-4">
-            {WHY_CHOOSE.items.map((item, index) => (
+            {WHY_CHOOSE.items.map((item) => (
               <li
                 key={item.title}
                 className="group relative flex flex-col gap-3 bg-canvas p-7 transition-[background-color] duration-150 ease-ui hover:bg-surface md:p-8"
               >
-                <span
-                  aria-hidden="true"
-                  className="font-mono text-[10px] tracking-tech text-ink-muted tabular-nums"
-                >
-                  {String(index + 1).padStart(2, "0")}
-                </span>
                 <h3 className="text-[19px] leading-tight font-strong tracking-glide text-ink-strong md:text-[20px]">
                   {item.title}
                 </h3>
