@@ -10,7 +10,7 @@ import { CONTACT_PAGE } from "@/data/contact";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { pageMetadata } from "@/lib/metadata";
 import { breadcrumbLd, webPageLd } from "@/lib/structured-data";
-import { COMPANY, QUOTE_HREF } from "@/data/site";
+import { QUOTE_HREF } from "@/data/site";
 
 export const metadata: Metadata = pageMetadata({
   title: CONTACT_PAGE.metaTitle,
@@ -70,15 +70,6 @@ export default function ContactPage(): React.JSX.Element {
       >
         <ActionLink href={QUOTE_HREF} variant="solid" tone="inverse" withArrow>
           Get A Quote
-        </ActionLink>
-        <ActionLink
-          href={COMPANY.phoneHref}
-          variant="ghost"
-          tone="inverse"
-          ariaLabel={`Call ${COMPANY.name} on ${COMPANY.phone}`}
-          className="font-mono"
-        >
-          {COMPANY.phone}
         </ActionLink>
       </CtaBand>
 

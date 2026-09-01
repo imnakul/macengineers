@@ -103,14 +103,6 @@ export function SiteHeader(): React.JSX.Element {
         </nav>
 
         <div className="flex items-center gap-3">
-          <Link
-            href={COMPANY.phoneHref}
-            aria-label={`Call ${COMPANY.name} on ${COMPANY.phone}`}
-            className="hidden font-mono text-[11px] tracking-tech text-ink-muted uppercase transition-[color] duration-150 ease-ui hover:text-accent xl:inline-flex"
-          >
-            {COMPANY.phone}
-          </Link>
-
           <ActionLink href={QUOTE_HREF} variant="pill" className="hidden sm:inline-flex">
             Get A Quote
           </ActionLink>
@@ -184,14 +176,6 @@ export function SiteHeader(): React.JSX.Element {
             >
               Get A Quote
             </ActionLink>
-
-            <Link
-              href={COMPANY.phoneHref}
-              aria-label={`Call ${COMPANY.name} on ${COMPANY.phone}`}
-              className="mt-6 block font-mono text-[11px] tracking-tech text-ink-muted uppercase"
-            >
-              {COMPANY.phone}
-            </Link>
           </motion.nav>
         ) : null}
       </AnimatePresence>

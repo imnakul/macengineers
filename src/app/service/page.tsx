@@ -4,7 +4,7 @@ import { CtaBand } from "@/components/ui/CtaBand";
 import { PageHero } from "@/components/ui/PageHero";
 import { Reveal } from "@/components/ui/Reveal";
 import { SpecBlock } from "@/components/ui/SpecBlock";
-import { COMPANY, QUOTE_HREF } from "@/data/site";
+import { QUOTE_HREF } from "@/data/site";
 import { SERVICE_PAGE } from "@/data/services";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { pageMetadata } from "@/lib/metadata";
@@ -89,15 +89,6 @@ export default function ServicePage(): React.JSX.Element {
       >
         <ActionLink href={QUOTE_HREF} variant="solid" tone="inverse" withArrow>
           Get A Quote
-        </ActionLink>
-        <ActionLink
-          href={COMPANY.phoneHref}
-          variant="ghost"
-          tone="inverse"
-          ariaLabel={`Call ${COMPANY.name} on ${COMPANY.phone}`}
-          className="font-mono"
-        >
-          {COMPANY.phone}
         </ActionLink>
       </CtaBand>
 

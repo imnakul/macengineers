@@ -3,7 +3,7 @@ import { CornerTicks } from "@/components/ui/CornerTicks";
 import { Reveal } from "@/components/ui/Reveal";
 import { SpecRail } from "@/components/ui/SpecRail";
 import { TechLabel } from "@/components/ui/TechLabel";
-import { COMPANY, INTEGRATION, QUOTE_HREF } from "@/data/site";
+import { INTEGRATION, QUOTE_HREF } from "@/data/site";
 
 /** The four stages of the engagement, restated as a dimension line on the dark band. */
 const HANDOVER = [
@@ -47,18 +47,9 @@ export function IntegrationBand(): React.JSX.Element {
                 </p>
               </div>
 
-              <div className="flex shrink-0 flex-col gap-3 sm:flex-row md:flex-col lg:flex-row">
+              <div className="shrink-0">
                 <ActionLink href={QUOTE_HREF} variant="solid" tone="inverse" withArrow>
                   Get A Quote
-                </ActionLink>
-                <ActionLink
-                  href={COMPANY.phoneHref}
-                  variant="ghost"
-                  tone="inverse"
-                  ariaLabel={`Call ${COMPANY.name} on ${COMPANY.phone}`}
-                  className="font-mono"
-                >
-                  {COMPANY.phone}
                 </ActionLink>
               </div>
             </div>
