@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { BLOG_POSTS } from "@/data/blog-posts";
 import { JOBS } from "@/data/jobs";
 import { absoluteUrl } from "@/lib/structured-data";
 
@@ -35,6 +36,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...JOBS.map((job) => ({
       url: absoluteUrl(`/jobs/${job.slug}`),
       lastModified: new Date(job.dateModified),
+      changeFrequency: "monthly" as const,
+      priority: 0.5,
+    })),
+    ...BLOG_POSTS.map((post) => ({
+      url: absoluteUrl(`/${post.slug}`),
+      lastModified: new Date(post.dateModified),
       changeFrequency: "monthly" as const,
       priority: 0.5,
     })),

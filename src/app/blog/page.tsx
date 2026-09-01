@@ -65,8 +65,6 @@ export default function BlogPage(): React.JSX.Element {
                 <Reveal delay={index * 0.06} className="h-full">
                   <Link
                     href={post.href}
-                    rel="noopener noreferrer"
-                    target="_blank"
                     className="group relative flex h-full flex-col overflow-hidden rounded-card bg-canvas shadow-ring transition-[box-shadow] duration-150 ease-ui hover:shadow-ring-strong"
                   >
                     <div className="relative aspect-[4/3] overflow-hidden bg-surface-2">
@@ -137,8 +135,6 @@ export default function BlogPage(): React.JSX.Element {
                 <li key={post.href}>
                   <Link
                     href={post.href}
-                    rel="noopener noreferrer"
-                    target="_blank"
                     className="group grid items-baseline gap-x-6 gap-y-2 border-t border-hairline-strong py-6 transition-[background-color] duration-150 ease-ui last:border-b md:grid-cols-12"
                   >
                     <span

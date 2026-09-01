@@ -1,4 +1,5 @@
 import { BLOG_PAGE } from "@/data/blog";
+import type { BlogPostDetail, ContentBlock } from "@/data/blog-posts";
 import type { Job } from "@/data/jobs";
 import { PRODUCT_PAGE } from "@/data/products";
 import { SERVICE_PAGE } from "@/data/services";
@@ -229,6 +230,33 @@ export function jobPostingLd(job: Job): Record<string, unknown> {
         addressCountry: "IN",
       },
     })),
+  };
+}
+
+/** Flattens one content block to plain text, for the articleBody field. */
+function blockText(block: ContentBlock): string {
+  if (block.type === "list") {
+    return block.items
+      .map((item) => (item.type === "subgroup" ? `${item.label}: ${item.items.join("; ")}` : item.text))
+      .join(" ");
+  }
+  return block.text;
+}
+
+/** A blog post, in the shape a rich search result expects. */
+export function blogPostingLd(post: BlogPostDetail): Record<string, unknown> {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.metaDescription,
+    articleBody: post.blocks.map(blockText).join("\n\n"),
+    datePublished: post.datePublished,
+    dateModified: post.dateModified,
+    author: { "@id": ORGANIZATION_ID },
+    publisher: { "@id": ORGANIZATION_ID },
+    image: post.image ? absoluteUrl(post.image) : absoluteUrl(COMPANY.logo),
+    mainEntityOfPage: { "@type": "WebPage", "@id": absoluteUrl(`/${post.slug}`) },
   };
 }
 
