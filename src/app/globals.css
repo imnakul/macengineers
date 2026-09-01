@@ -43,8 +43,15 @@
   --font-weight-block: 575;
   --font-weight-strong: 600;
 
-  /* Tracking is a rule, not a judgement call. */
-  --tracking-glide: -0.02em;
+  /*
+   * Tracking now scales with size instead of being one flat rule.
+   *
+   * The -2% applied at every size came from a system running a single font; carried onto
+   * body copy it removes the space a reader needs between letters at the exact size where
+   * that space matters most. Display type still gets pulled tight — it is read as a shape.
+   * Text is left near-normal.
+   */
+  --tracking-glide: -0.008em;
   /* Display type ≥48px needs more optical pull than body copy. */
   --tracking-display: -0.032em;
   /* The mono register runs the other way: wide-tracked, like a drawing label. */
@@ -66,7 +73,15 @@
   --ease-reveal: cubic-bezier(0, 0, 0.2, 1);
   --ease-move: cubic-bezier(0.33, 0, 0, 1);
 
-  --font-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  /*
+   * Three registers, three faces.
+   *
+   * Archivo is display only. Plex Sans reads. Plex Mono annotates. The earlier build ran
+   * Archivo for all three, which is why body copy looked crowded: a signage grotesque set
+   * at 16px and pulled -2% tighter is being asked to do the one job it was not drawn for.
+   */
+  --font-display: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-plex-mono), ui-monospace, "SFMono-Regular", monospace;
 }
 
@@ -79,9 +94,18 @@
     letter-spacing: var(--tracking-glide);
   }
 
-  /* Figures never carry the sans tracking rule — they are read, not scanned. */
+  /*
+   * Headings take the display face automatically, so no component has to remember to ask
+   * for it. Written with :where() so any utility class on the element still wins.
+   */
   :where(h1, h2, h3) {
+    font-family: var(--font-display);
     text-wrap: balance;
+  }
+
+  /* Anchored to the viewport, and disabled with everything else under reduced motion. */
+  html {
+    scroll-behavior: smooth;
   }
 
   :focus-visible {

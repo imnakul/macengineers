@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Archivo, IBM_Plex_Mono } from "next/font/google";
+import { Archivo, IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
@@ -8,14 +8,35 @@ import { organizationLd, websiteLd } from "@/lib/structured-data";
 import "./globals.css";
 
 /**
- * Archivo is loaded as a variable font (no `weight` array) so the 450 / 575 stops the
- * token system asks for are real interpolated instances rather than weights the browser
- * rounds or synthesises. Its grotesque skeleton comes out of American signage and
- * typewriter grotesques — the right voice for fabricated steel.
+ * Archivo is the DISPLAY face only — headlines and short display strings.
+ *
+ * It is loaded as a variable font (no `weight` array) so the 450 / 575 stops the token
+ * system asks for are real interpolated instances rather than weights the browser rounds
+ * or synthesises. Its grotesque skeleton comes out of American signage and typewriter
+ * grotesques, which is the right voice at 80px and the wrong one at 16px: the same large
+ * x-height and closed apertures that make it solid on a headline close up into each
+ * other in a paragraph.
  */
 const archivo = Archivo({
   variable: "--font-archivo",
   subsets: ["latin"],
+  display: "swap",
+});
+
+/**
+ * The READING face — body copy, subtext, UI, form fields: everything that is read in
+ * sentences rather than scanned as a shape.
+ *
+ * IBM Plex Sans is chosen over Inter deliberately. It is the sibling of the Plex Mono
+ * already carrying the technical register, so the spec labels and the prose beneath them
+ * share a skeleton instead of being two unrelated voices; it was drawn for an engineering
+ * company, which suits this one; and it has the open apertures and looser fit that make a
+ * paragraph breathe at 16px.
+ */
+const plexSans = IBM_Plex_Sans({
+  variable: "--font-plex-sans",
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
   display: "swap",
 });
 
@@ -62,7 +83,7 @@ export default function RootLayout({ children }: LayoutProps<"/">): React.JSX.El
   return (
     <html
       lang="en"
-      className={`${archivo.variable} ${plexMono.variable} h-full antialiased`}
+      className={`${archivo.variable} ${plexSans.variable} ${plexMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
         <a

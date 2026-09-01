@@ -2,6 +2,7 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import type { ReactNode } from "react";
+import { DURATION, EASE_MOVE, EASE_REVEAL, REVEAL_MARGIN } from "@/lib/motion";
 
 interface RevealProps {
   children: ReactNode;
@@ -14,10 +15,11 @@ interface RevealProps {
 
 /**
  * Scroll-triggered reveal built from the two properties this design system allows to
- * animate: `opacity` (300ms, decelerating) and `transform` (400ms, the move curve).
- * Height, top and left are never touched.
+ * animate: `opacity` and `transform`.
  *
- * Collapses to a plain wrapper when the visitor prefers reduced motion.
+ * The trigger is measured against the viewport rather than as a fraction of the element,
+ * so a tall spec block and a short card reveal at the same point in the scroll — see
+ * REVEAL_MARGIN. Collapses to a plain wrapper when the visitor prefers reduced motion.
  */
 export function Reveal({
   children,
@@ -36,10 +38,10 @@ export function Reveal({
       className={className}
       initial={{ opacity: 0, y: distance }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
+      viewport={{ once: true, margin: REVEAL_MARGIN }}
       transition={{
-        opacity: { duration: 0.3, ease: [0, 0, 0.2, 1], delay },
-        y: { duration: 0.45, ease: [0.33, 0, 0, 1], delay },
+        opacity: { duration: DURATION.base, ease: EASE_REVEAL, delay },
+        y: { duration: DURATION.slow, ease: EASE_MOVE, delay },
       }}
     >
       {children}

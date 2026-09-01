@@ -15,7 +15,7 @@ interface ActionLinkProps {
 }
 
 const BASE =
-  "group/action inline-flex items-center justify-center gap-2 text-[14px] tracking-glide transition-[color,background-color,border-color,box-shadow] duration-150 ease-ui";
+  "group/action inline-flex items-center justify-center gap-2 text-[14px] tracking-glide transition-[color,background-color,border-color,box-shadow,transform] duration-150 ease-ui active:scale-[0.97]";
 
 const VARIANTS: Readonly<Record<ActionVariant, string>> = {
   solid: "rounded-btn bg-cta px-5 py-3 font-block text-canvas hover:bg-ink-strong",

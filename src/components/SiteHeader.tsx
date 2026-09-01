@@ -1,10 +1,12 @@
 "use client";
 
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { ActionLink } from "@/components/ui/ActionLink";
 import { COMPANY, NAV_ITEMS, QUOTE_HREF } from "@/data/site";
+import { DURATION, EASE_MOVE, EASE_REVEAL } from "@/lib/motion";
 
 /**
  * Sticky site header.
@@ -18,6 +20,7 @@ import { COMPANY, NAV_ITEMS, QUOTE_HREF } from "@/data/site";
 export function SiteHeader(): React.JSX.Element {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
+  const prefersReducedMotion = useReducedMotion();
 
   const closeMenu = useCallback((): void => setIsMenuOpen(false), []);
 
@@ -119,50 +122,73 @@ export function SiteHeader(): React.JSX.Element {
         </div>
       </div>
 
-      {isMenuOpen ? (
-        <nav
-          id="mobile-navigation"
-          aria-label="Primary mobile"
-          className="absolute inset-x-0 top-full z-40 h-[calc(100dvh-100%)] overflow-y-auto bg-canvas px-5 pt-2 pb-10 lg:hidden"
-        >
-          <ul className="flex flex-col">
-            {NAV_ITEMS.map((item, index) => (
-              <li key={item.label} className="border-b border-hairline">
-                <Link
-                  href={item.href}
-                  onClick={closeMenu}
-                  className="flex items-baseline gap-4 py-4 text-[20px] font-block tracking-glide text-ink-strong transition-[color] duration-150 ease-ui hover:text-accent"
+      {/*
+        The panel previously mounted and unmounted with no transition at all — open and
+        close both happened in a single frame. AnimatePresence gives the exit state
+        somewhere to play before React removes the node, and each row enters on its own
+        stagger rather than as one flat block, so the menu reads as opening rather than
+        appearing.
+      */}
+      <AnimatePresence>
+        {isMenuOpen ? (
+          <motion.nav
+            id="mobile-navigation"
+            aria-label="Primary mobile"
+            className="absolute inset-x-0 top-full z-40 h-[calc(100dvh-100%)] overflow-y-auto bg-canvas px-5 pt-2 pb-10 lg:hidden"
+            initial={prefersReducedMotion ? false : { opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={prefersReducedMotion ? undefined : { opacity: 0, y: -8 }}
+            transition={{ duration: DURATION.base, ease: EASE_REVEAL }}
+          >
+            <ul className="flex flex-col">
+              {NAV_ITEMS.map((item, index) => (
+                <motion.li
+                  key={item.label}
+                  className="border-b border-hairline"
+                  initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{
+                    duration: DURATION.slow,
+                    ease: EASE_MOVE,
+                    delay: prefersReducedMotion ? 0 : 0.04 * index,
+                  }}
                 >
-                  <span
-                    aria-hidden="true"
-                    className="font-mono text-[10px] tracking-tech text-ink-muted tabular-nums"
+                  <Link
+                    href={item.href}
+                    onClick={closeMenu}
+                    className="flex items-baseline gap-4 py-4 text-[20px] font-block tracking-glide text-ink-strong transition-[color] duration-150 ease-ui hover:text-accent"
                   >
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
+                    <span
+                      aria-hidden="true"
+                      className="font-mono text-[10px] tracking-tech text-ink-muted tabular-nums"
+                    >
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    {item.label}
+                  </Link>
+                </motion.li>
+              ))}
+            </ul>
 
-          <ActionLink
-            href={QUOTE_HREF}
-            variant="solid"
-            withArrow
-            className="mt-8 w-full"
-          >
-            Get A Quote
-          </ActionLink>
+            <ActionLink
+              href={QUOTE_HREF}
+              variant="solid"
+              withArrow
+              className="mt-8 w-full"
+            >
+              Get A Quote
+            </ActionLink>
 
-          <Link
-            href={COMPANY.phoneHref}
-            aria-label={`Call ${COMPANY.name} on ${COMPANY.phone}`}
-            className="mt-6 block font-mono text-[11px] tracking-tech text-ink-muted uppercase"
-          >
-            {COMPANY.phone}
-          </Link>
-        </nav>
-      ) : null}
+            <Link
+              href={COMPANY.phoneHref}
+              aria-label={`Call ${COMPANY.name} on ${COMPANY.phone}`}
+              className="mt-6 block font-mono text-[11px] tracking-tech text-ink-muted uppercase"
+            >
+              {COMPANY.phone}
+            </Link>
+          </motion.nav>
+        ) : null}
+      </AnimatePresence>
     </header>
   );
 }
