@@ -21,7 +21,6 @@ export function WhyChoose(): React.JSX.Element {
         <Reveal>
           <SectionHeading
             id="why-heading"
-            index="04"
             eyebrow="Why MAC"
             title={WHY_CHOOSE.headline}
           />

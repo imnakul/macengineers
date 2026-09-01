@@ -2,9 +2,6 @@ import { PlateFrame } from "@/components/ui/PlateFrame";
 import { Reveal } from "@/components/ui/Reveal";
 
 interface SpecBlockProps {
-  /** Position in the set, e.g. "01". */
-  index: string;
-  total: string;
   title: string;
   /** Short lead line above the description. Products have one; services do not. */
   tagline?: string;
@@ -12,7 +9,12 @@ interface SpecBlockProps {
   points: readonly string[];
   image: string;
   alt: string;
-  figure: string;
+  /**
+   * Passed straight through to PlateFrame. Product's and most of Service's plates are
+   * flat vector cutouts; two Service categories reuse real plant photography from the
+   * hero set, so this is set per item by the caller rather than assumed at this level.
+   */
+  imageDepth?: "photo" | "illustration";
   /** Puts the plate on the left. Alternate down a page so the eye keeps moving. */
   flip?: boolean;
   headingId: string;
@@ -25,15 +27,13 @@ interface SpecBlockProps {
  * than on bullets — a specification reads as a schedule, not as prose.
  */
 export function SpecBlock({
-  index,
-  total,
   title,
   tagline,
   description,
   points,
   image,
   alt,
-  figure,
+  imageDepth = "photo",
   flip = false,
   headingId,
   priority = false,
@@ -52,11 +52,11 @@ export function SpecBlock({
         <PlateFrame
           src={image}
           alt={alt}
-          figure={figure}
           caption={title}
           ratio="aspect-[4/3]"
           sizes="(min-width: 1024px) 440px, (min-width: 640px) 460px, 90vw"
           priority={priority}
+          depth={imageDepth}
         />
       </Reveal>
 
@@ -64,18 +64,9 @@ export function SpecBlock({
         className={`flex flex-col lg:col-span-7 ${flip ? "lg:order-2" : "lg:order-1"}`}
       >
         <Reveal>
-          <span
-            aria-hidden="true"
-            className="font-mono text-[10px] tracking-tech text-ink-muted tabular-nums"
-          >
-            {index} / {total}
-          </span>
-        </Reveal>
-
-        <Reveal delay={0.06}>
           <h3
             id={headingId}
-            className="mt-4 text-[26px] leading-[1.05] font-block tracking-display text-ink-strong sm:text-[32px] md:text-[38px]"
+            className="text-[26px] leading-[1.05] font-block tracking-display text-ink-strong sm:text-[32px] md:text-[38px]"
           >
             {title}
           </h3>

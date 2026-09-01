@@ -7,12 +7,9 @@ import { EQUIPMENT } from "@/data/site";
 /**
  * The four equipment lines. Cards are separated by a 1px hairline ring rather than a
  * drop shadow — nothing here floats, so the one lifted surface later in the page wins.
- * Each card carries its own position in the set (01/04) in the mono register, and
- * answers hover with an accent rule drawn across its foot.
+ * Hover answers with an accent rule drawn across the card's foot.
  */
 export function EquipmentSolutions(): React.JSX.Element {
-  const total = String(EQUIPMENT.items.length).padStart(2, "0");
-
   return (
     <section
       id="equipment"
@@ -23,7 +20,6 @@ export function EquipmentSolutions(): React.JSX.Element {
         <Reveal>
           <SectionHeading
             id="equipment-heading"
-            index="03"
             eyebrow="Products"
             title={EQUIPMENT.headline}
             body={EQUIPMENT.body}
@@ -34,24 +30,18 @@ export function EquipmentSolutions(): React.JSX.Element {
           {EQUIPMENT.items.map((item, index) => (
             <Reveal key={item.title} delay={index * 0.06} className="h-full">
               <article className="group relative flex h-full flex-col overflow-hidden rounded-card bg-canvas shadow-ring transition-[box-shadow] duration-150 ease-ui hover:shadow-ring-strong">
-                <div className="drafting-grid relative aspect-[4/3] overflow-hidden bg-surface">
+                <div className="plate-ground-illustration relative aspect-[4/3] overflow-hidden bg-surface">
                   <Image
                     src={item.image}
                     alt={item.alt}
                     fill
                     sizes="(min-width: 1024px) 280px, (min-width: 640px) 45vw, 90vw"
-                    className="object-contain p-7 transition-transform duration-500 ease-move group-hover:scale-[1.035]"
+                    className="object-contain p-7 drop-shadow-[0_16px_14px_rgba(23,23,21,0.16)] transition-transform duration-500 ease-move group-hover:scale-[1.035]"
                   />
                   <CornerTicks />
                 </div>
 
                 <div className="flex flex-1 flex-col gap-2.5 border-t border-hairline p-6">
-                  <span
-                    aria-hidden="true"
-                    className="font-mono text-[10px] tracking-tech text-ink-muted tabular-nums"
-                  >
-                    {String(index + 1).padStart(2, "0")} / {total}
-                  </span>
                   <h3 className="text-[19px] leading-tight font-strong tracking-glide text-ink-strong">
                     {item.title}
                   </h3>

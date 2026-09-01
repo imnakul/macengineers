@@ -29,7 +29,7 @@ export function Hero(): React.JSX.Element {
         <div className="grid items-center gap-14 lg:grid-cols-12 lg:gap-12">
           <div className="flex flex-col lg:col-span-7">
             <Reveal>
-              <TechLabel index="01">Custom process equipment</TechLabel>
+              <TechLabel>Custom process equipment</TechLabel>
             </Reveal>
 
             <Reveal delay={0.06}>
@@ -67,7 +67,6 @@ export function Hero(): React.JSX.Element {
             <PlateFrame
               src={HERO.lead.src}
               alt={HERO.lead.alt}
-              figure="01"
               caption={HERO.lead.caption}
               ratio="aspect-[4/5]"
               sizes="(min-width: 1024px) 460px, (min-width: 640px) 420px, 90vw"
@@ -82,12 +81,11 @@ export function Hero(): React.JSX.Element {
 
         <Reveal delay={0.36} className="mt-14 md:mt-16">
           <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-            {HERO.scene.map((shot, index) => (
+            {HERO.scene.map((shot) => (
               <PlateFrame
                 key={shot.src}
                 src={shot.src}
                 alt={shot.alt}
-                figure={String(index + 2).padStart(2, "0")}
                 caption={shot.caption}
                 ratio="aspect-[4/3]"
                 sizes="(min-width: 1024px) 280px, 45vw"

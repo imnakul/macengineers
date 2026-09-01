@@ -15,7 +15,6 @@ export function Principles(): React.JSX.Element {
         <Reveal>
           <SectionHeading
             id="principles-heading"
-            index="04"
             eyebrow="What we stand for"
             title={principles.heading}
           />

@@ -15,7 +15,6 @@ export function Differentiators(): React.JSX.Element {
         <Reveal>
           <SectionHeading
             id="differentiators-heading"
-            index="07"
             eyebrow="Why MAC"
             title={differentiators.heading}
           />

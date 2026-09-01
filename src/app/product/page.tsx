@@ -22,12 +22,10 @@ export const metadata: Metadata = pageMetadata({
 /** Product. Four equipment lines as alternating spec blocks, then turnkey on its own. */
 export default function ProductPage(): React.JSX.Element {
   const { categories, turnkey, whyChoose } = PRODUCT_PAGE;
-  const total = String(categories.length).padStart(2, "0");
 
   return (
     <>
       <PageHero
-        index="01"
         eyebrow={PRODUCT_PAGE.hero.eyebrow}
         headline={PRODUCT_PAGE.hero.headline}
         subhead={PRODUCT_PAGE.hero.subhead}
@@ -44,15 +42,13 @@ export default function ProductPage(): React.JSX.Element {
             {categories.map((category, index) => (
               <SpecBlock
                 key={category.slug}
-                index={String(index + 1).padStart(2, "0")}
-                total={total}
                 title={category.title}
                 tagline={category.tagline}
                 description={category.description}
                 points={category.specs}
                 image={category.image}
                 alt={category.alt}
-                figure={String(index + 1).padStart(2, "0")}
+                imageDepth={category.imageDepth}
                 flip={index % 2 === 1}
                 headingId={`product-${category.slug}`}
                 priority={index === 0}
@@ -69,7 +65,7 @@ export default function ProductPage(): React.JSX.Element {
         <div className="mx-auto grid max-w-[1180px] items-start gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="flex flex-col lg:col-span-6">
             <Reveal>
-              <TechLabel index="02">Complete plants</TechLabel>
+              <TechLabel>Complete plants</TechLabel>
             </Reveal>
 
             <Reveal delay={0.06}>
@@ -153,7 +149,7 @@ export default function ProductPage(): React.JSX.Element {
       <section aria-labelledby="why-products-heading" className="px-5 py-24 md:px-13 md:py-36">
         <div className="mx-auto max-w-[1180px]">
           <Reveal>
-            <TechLabel index="03">Standards</TechLabel>
+            <TechLabel>Standards</TechLabel>
           </Reveal>
 
           <Reveal delay={0.06}>
@@ -193,7 +189,6 @@ export default function ProductPage(): React.JSX.Element {
       </section>
 
       <CtaBand
-        index="04"
         eyebrow="Next step"
         heading={PRODUCT_PAGE.cta.heading}
         body={PRODUCT_PAGE.cta.body}

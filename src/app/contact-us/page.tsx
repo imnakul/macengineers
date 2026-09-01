@@ -23,7 +23,6 @@ export default function ContactPage(): React.JSX.Element {
   return (
     <>
       <PageHero
-        index="01"
         eyebrow={CONTACT_PAGE.hero.eyebrow}
         headline={CONTACT_PAGE.hero.headline}
         lead={CONTACT_PAGE.hero.lead}
@@ -38,7 +37,7 @@ export default function ContactPage(): React.JSX.Element {
         <div className="mx-auto grid max-w-[1180px] gap-14 lg:grid-cols-12 lg:gap-16">
           <div className="flex flex-col lg:col-span-7">
             <Reveal>
-              <TechLabel index="02">Enquiry</TechLabel>
+              <TechLabel>Enquiry</TechLabel>
             </Reveal>
 
             <Reveal delay={0.06}>
@@ -62,7 +61,6 @@ export default function ContactPage(): React.JSX.Element {
       </section>
 
       <CtaBand
-        index="03"
         eyebrow="Faster route"
         heading="Need a quote instead?"
         body="If you already know the equipment and specification you need, the quote form captures it directly. For anything urgent, calling the works is quickest."

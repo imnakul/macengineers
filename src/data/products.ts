@@ -18,6 +18,8 @@ export interface ProductCategory {
   readonly specs: readonly string[];
   readonly image: string;
   readonly alt: string;
+  /** All four are flat vector cutouts, not photography — see PlateFrame's `depth` prop. */
+  readonly imageDepth: "photo" | "illustration";
 }
 
 export const PRODUCT_PAGE = {
@@ -46,6 +48,7 @@ export const PRODUCT_PAGE = {
       ],
       image: "/mac/product-storage-tanks.png",
       alt: "Illustration of an industrial bulk storage tank with access platforms and discharge cone",
+      imageDepth: "illustration",
     },
     {
       slug: "liquid-mixers",
@@ -61,6 +64,7 @@ export const PRODUCT_PAGE = {
       ],
       image: "/mac/product-liquid-mixers.png",
       alt: "Illustration of an industrial liquid mixer vessel with drive motor and agitator",
+      imageDepth: "illustration",
     },
     {
       slug: "storage-silos",
@@ -75,6 +79,7 @@ export const PRODUCT_PAGE = {
       ],
       image: "/mac/product-storage-silos.png",
       alt: "Illustration of a storage silo with conical discharge for granules and powders",
+      imageDepth: "illustration",
     },
     {
       slug: "conveyor-systems",
@@ -90,6 +95,7 @@ export const PRODUCT_PAGE = {
       ],
       image: "/mac/product-conveyor-systems.png",
       alt: "Illustration of a belt conveyor system for bulk material handling",
+      imageDepth: "illustration",
     },
   ] satisfies readonly ProductCategory[],
 

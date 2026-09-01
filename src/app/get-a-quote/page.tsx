@@ -28,7 +28,6 @@ export default function QuotePage(): React.JSX.Element {
   return (
     <>
       <PageHero
-        index="01"
         eyebrow={QUOTE_PAGE.hero.eyebrow}
         headline={QUOTE_PAGE.hero.headline}
         subhead={QUOTE_PAGE.hero.subhead}
@@ -39,7 +38,7 @@ export default function QuotePage(): React.JSX.Element {
         <div className="mx-auto grid max-w-[1180px] gap-14 lg:grid-cols-12 lg:gap-16">
           <div className="flex flex-col lg:col-span-8">
             <Reveal>
-              <TechLabel index="02">Requirement</TechLabel>
+              <TechLabel>Requirement</TechLabel>
             </Reveal>
 
             <Reveal delay={0.06}>

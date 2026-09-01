@@ -13,9 +13,9 @@ import { DURATION, EASE_MOVE, EASE_REVEAL } from "@/lib/motion";
  *
  * Two states: it floats on the bare canvas at the top of the page, then commits to a
  * hairline rule and a tighter rhythm once the visitor scrolls. The conventional CTA is
- * present as a small pill and deliberately outranked by the hero — it never competes
- * with the headline. Nav hover is an accent rule scaled in from the left, so the
- * measurement-mark language of the page shows up in the chrome too.
+ * present as a smaller, compact button and deliberately outranked by the hero — it
+ * never competes with the headline. Nav hover is an accent rule scaled in from the
+ * left, so the measurement-mark language of the page shows up in the chrome too.
  */
 export function SiteHeader(): React.JSX.Element {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
@@ -103,7 +103,7 @@ export function SiteHeader(): React.JSX.Element {
         </nav>
 
         <div className="flex items-center gap-3">
-          <ActionLink href={QUOTE_HREF} variant="pill" className="hidden sm:inline-flex">
+          <ActionLink href={QUOTE_HREF} variant="compact" className="hidden sm:inline-flex">
             Get A Quote
           </ActionLink>
 

@@ -19,7 +19,6 @@ export function Achievements(): React.JSX.Element {
         <Reveal>
           <SectionHeading
             id="achievements-heading"
-            index="03"
             eyebrow="By the numbers"
             title={achievements.heading}
           />

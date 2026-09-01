@@ -3,8 +3,6 @@ import { Reveal } from "@/components/ui/Reveal";
 import { TechLabel } from "@/components/ui/TechLabel";
 
 interface PageHeroProps {
-  /** Two-digit sheet index for the technical label. */
-  index: string;
   eyebrow: string;
   headline: string;
   /** Larger opening line, set above the body copy. */
@@ -20,7 +18,6 @@ interface PageHeroProps {
  * the landing hero, at a smaller scale so a subpage never out-shouts the front page.
  */
 export function PageHero({
-  index,
   eyebrow,
   headline,
   lead,
@@ -40,7 +37,7 @@ export function PageHero({
 
       <div className="mx-auto max-w-[1180px]">
         <Reveal>
-          <TechLabel index={index}>{eyebrow}</TechLabel>
+          <TechLabel>{eyebrow}</TechLabel>
         </Reveal>
 
         <Reveal delay={0.06}>

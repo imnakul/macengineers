@@ -150,6 +150,30 @@
 }
 
 /*
+ * Ground for illustration cutouts specifically — the flat vector characters used across
+ * Product/Service/Equipment, not the real plant photography that shares the same
+ * PlateFrame component. A photograph already carries depth from its own lighting; a flat
+ * cutout on a plain grid does not, which is why those plates read as a sticker on graph
+ * paper rather than an object standing on a sheet. This layers the drafting grid under a
+ * soft contact-shadow pool near the base of the frame, so the cutout has somewhere to
+ * cast a shadow onto.
+ */
+@utility plate-ground-illustration {
+  background-image:
+    radial-gradient(ellipse 58% 30% at 50% 82%, rgba(23, 23, 21, 0.08), transparent 72%),
+    linear-gradient(to right, var(--color-grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-grid) 1px, transparent 1px),
+    linear-gradient(to right, var(--color-grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-grid) 1px, transparent 1px);
+  background-size:
+    100% 100%,
+    24px 24px,
+    24px 24px,
+    120px 120px,
+    120px 120px;
+}
+
+/*
  * Honour the reduced-motion preference globally, not just inside the components that
  * happen to remember to check for it.
  */

@@ -61,7 +61,6 @@ export default async function JobPage({
   return (
     <>
       <PageHero
-        index="01"
         eyebrow={job.category}
         headline={job.title}
         headingId="job-heading"
@@ -101,7 +100,7 @@ export default async function JobPage({
           <div className="mt-16 grid gap-12 lg:grid-cols-12 lg:gap-16">
             <div className="lg:col-span-4">
               <Reveal>
-                <TechLabel index="02">{job.summaryHeading}</TechLabel>
+                <TechLabel>{job.summaryHeading}</TechLabel>
                 <p className="mt-6 text-[16px] leading-[26px] font-regular tracking-glide text-ink-muted md:text-[17px] md:leading-[28px]">
                   {job.summary}
                 </p>
@@ -153,7 +152,7 @@ export default async function JobPage({
         <div className="mx-auto max-w-[1180px]">
           <Reveal>
             <div className="flex max-w-[620px] flex-col gap-6">
-              <TechLabel index="03">Apply</TechLabel>
+              <TechLabel>Apply</TechLabel>
               <h2
                 id="apply-heading"
                 className="text-[28px] leading-[1.02] font-block tracking-display text-ink-strong sm:text-[34px] md:text-[40px]"

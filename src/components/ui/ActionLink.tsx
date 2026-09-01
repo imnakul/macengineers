@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 
-type ActionVariant = "solid" | "ghost" | "pill" | "line";
+type ActionVariant = "solid" | "ghost" | "compact" | "line";
 type ActionTone = "default" | "inverse";
 
 interface ActionLinkProps {
@@ -32,7 +32,7 @@ const BASE =
 
 /**
  * Every variant×tone pairing that is actually used gets its own complete class string.
- * `pill` and `line` have no inverse call sites today, so they are left tone-agnostic
+ * `compact` and `line` have no inverse call sites today, so they are left tone-agnostic
  * rather than padded out with an unused branch.
  */
 const VARIANTS: Readonly<Record<ActionVariant, Partial<Record<ActionTone, string>>>> = {
@@ -46,8 +46,16 @@ const VARIANTS: Readonly<Record<ActionVariant, Partial<Record<ActionTone, string
     inverse:
       "rounded-btn px-5 py-3 font-mid text-canvas ring-1 ring-canvas/25 hover:bg-canvas/10 hover:ring-canvas/40",
   },
-  pill: {
-    default: "rounded-full bg-cta px-4 py-2 font-mid text-canvas hover:bg-ink-strong",
+  /**
+   * The header's slimmer CTA. This used to be `rounded-full` — a true pill — and it was
+   * the only `rounded-full` element on the entire site; every other small rounded
+   * element (job-type chips, the ISO cert badge) uses `rounded-chip` (14px), and every
+   * button uses `rounded-btn` (6px). There was no sibling pattern the pill belonged to,
+   * so it just read as an arbitrary shape next to everything else. Same compact size,
+   * now the same 6px radius as every other button on the site.
+   */
+  compact: {
+    default: "rounded-btn bg-cta px-4 py-2 font-mid text-canvas hover:bg-ink-strong",
   },
   line: {
     default: "font-mono text-[11px] tracking-tech uppercase text-ink-strong hover:text-accent",
@@ -74,9 +82,9 @@ function Arrow(): React.JSX.Element {
 }
 
 /**
- * The single call-to-action primitive. Four variants map to the button geometries in
- * the design system — 6px radius for standard actions, a full pill for the header CTA,
- * and a mono `line` variant that belongs to the technical register rather than the sans.
+ * The single call-to-action primitive. Every geometric variant shares the system's one
+ * button radius (6px) — `compact` is smaller, not differently shaped. `line` is the one
+ * exception: it belongs to the mono technical register rather than the sans, by design.
  */
 export function ActionLink({
   href,

@@ -17,7 +17,6 @@ export function TeamCapabilities(): React.JSX.Element {
           <PlateFrame
             src={team.image.src}
             alt={team.image.alt}
-            figure="02"
             caption={team.image.caption}
             ratio="aspect-[600/430]"
             sizes="(min-width: 1024px) 460px, 90vw"
@@ -26,7 +25,7 @@ export function TeamCapabilities(): React.JSX.Element {
 
         <div className="flex flex-col lg:order-2 lg:col-span-7">
           <Reveal>
-            <TechLabel index="05">People</TechLabel>
+            <TechLabel>People</TechLabel>
           </Reveal>
 
           <Reveal delay={0.06}>

@@ -8,8 +8,6 @@ interface SectionHeadingProps {
    * without an accessible name.
    */
   id: string;
-  /** Two-digit sheet index shown in the technical label. */
-  index?: string;
   /** Short label that sits above the heading, set in the mono register. */
   eyebrow?: string;
   title: string;
@@ -28,13 +26,12 @@ interface SectionHeadingProps {
  * spine for "persuasive" copy, but that judgement call landed on only two headings
  * out of the whole site — everything else, including every page's masthead and its
  * closing band, was left. The result read as arbitrary rather than intentional.
- * Left-aligned also fits the drawing-sheet system better: sheet numbers, spec rails
- * and dimension lines all read left-to-right, and a centred headline sitting above
- * them looked like it belonged to a different document.
+ * Left-aligned also fits the drawing-sheet system better: spec rails and dimension
+ * lines all read left-to-right, and a centred headline sitting above them looked
+ * like it belonged to a different document.
  */
 export function SectionHeading({
   id,
-  index,
   eyebrow,
   title,
   body,
@@ -46,7 +43,7 @@ export function SectionHeading({
   return (
     <div className="flex flex-col">
       {eyebrow ? (
-        <TechLabel index={index} tone={tone} className="mb-6">
+        <TechLabel tone={tone} className="mb-6">
           {eyebrow}
         </TechLabel>
       ) : null}

@@ -19,7 +19,6 @@ export function Journal(): React.JSX.Element {
         <Reveal>
           <SectionHeading
             id="journal-heading"
-            index="08"
             eyebrow="Insights"
             title={JOURNAL.headline}
           />

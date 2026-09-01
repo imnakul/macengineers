@@ -47,7 +47,6 @@ export default function BlogPage(): React.JSX.Element {
   return (
     <>
       <PageHero
-        index="01"
         eyebrow={BLOG_PAGE.hero.eyebrow}
         headline={BLOG_PAGE.hero.headline}
         subhead={BLOG_PAGE.hero.subhead}
@@ -120,7 +119,7 @@ export default function BlogPage(): React.JSX.Element {
       >
         <div className="mx-auto max-w-[1180px]">
           <Reveal>
-            <TechLabel index="02">Archive</TechLabel>
+            <TechLabel>Archive</TechLabel>
           </Reveal>
 
           <Reveal delay={0.06}>

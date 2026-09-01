@@ -26,7 +26,6 @@ export default function AboutPage(): React.JSX.Element {
   return (
     <>
       <PageHero
-        index="01"
         eyebrow={ABOUT_PAGE.hero.eyebrow}
         headline={ABOUT_PAGE.hero.headline}
         subhead={ABOUT_PAGE.hero.subhead}
@@ -42,7 +41,6 @@ export default function AboutPage(): React.JSX.Element {
       <Expertise />
 
       <CtaBand
-        index="09"
         eyebrow="Next step"
         heading={ABOUT_PAGE.cta.heading}
         body={ABOUT_PAGE.cta.body}

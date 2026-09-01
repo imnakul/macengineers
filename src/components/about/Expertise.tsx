@@ -17,7 +17,6 @@ export function Expertise(): React.JSX.Element {
           <Reveal>
             <SectionHeading
               id="expertise-heading"
-              index="08"
               eyebrow="Scope"
               title={expertise.heading}
               body={expertise.intro}

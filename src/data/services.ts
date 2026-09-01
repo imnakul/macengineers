@@ -17,6 +17,13 @@ export interface ServiceCategory {
   readonly capabilities: readonly string[];
   readonly image: string;
   readonly alt: string;
+  /**
+   * Three of these five reuse a flat vector cutout; two reuse real plant photography
+   * from the hero set (there was no dedicated illustration for piping or structural
+   * steel work). Set per item rather than assumed, since this series genuinely mixes
+   * both — see PlateFrame's `depth` prop.
+   */
+  readonly imageDepth: "photo" | "illustration";
 }
 
 export const SERVICE_PAGE = {
@@ -45,6 +52,7 @@ export const SERVICE_PAGE = {
       ],
       image: "/mac/service-design-engineering.png",
       alt: "Illustration of engineers preparing CAD and 3D plant layouts",
+      imageDepth: "illustration",
     },
     {
       slug: "project-services",
@@ -60,6 +68,7 @@ export const SERVICE_PAGE = {
       ],
       image: "/mac/service-fabrication-supply.png",
       alt: "Illustration of in-house fabrication of process equipment",
+      imageDepth: "illustration",
     },
     {
       slug: "process-utility-piping",
@@ -75,6 +84,7 @@ export const SERVICE_PAGE = {
       ],
       image: "/mac/hero-process-skid.png",
       alt: "Skid-mounted process equipment assembly with process and utility piping",
+      imageDepth: "photo",
     },
     {
       slug: "structural-steel-works",
@@ -90,6 +100,7 @@ export const SERVICE_PAGE = {
       ],
       image: "/mac/hero-conveyor-hopper.png",
       alt: "Industrial conveyor system with storage hopper and supporting steel structure",
+      imageDepth: "photo",
     },
     {
       slug: "equipment-erection-installation",
@@ -107,6 +118,7 @@ export const SERVICE_PAGE = {
       ],
       image: "/mac/service-installation-commissioning.png",
       alt: "Illustration of on-site installation and commissioning of plant equipment",
+      imageDepth: "illustration",
     },
   ] satisfies readonly ServiceCategory[],
 

@@ -4,7 +4,6 @@ import { Reveal } from "@/components/ui/Reveal";
 import { TechLabel } from "@/components/ui/TechLabel";
 
 interface CtaBandProps {
-  index: string;
   eyebrow: string;
   heading: string;
   body: string;
@@ -19,7 +18,6 @@ interface CtaBandProps {
  * what makes this the block the eye stops on.
  */
 export function CtaBand({
-  index,
   eyebrow,
   heading,
   body,
@@ -38,9 +36,7 @@ export function CtaBand({
 
           <div className="relative flex flex-col gap-10 p-8 md:flex-row md:items-end md:justify-between md:p-16">
             <div className="flex flex-col">
-              <TechLabel index={index} tone="inverse">
-                {eyebrow}
-              </TechLabel>
+              <TechLabel tone="inverse">{eyebrow}</TechLabel>
               <h2
                 id={headingId}
                 className="mt-6 max-w-[14ch] text-[32px] leading-[0.98] font-block tracking-display text-canvas sm:text-[40px] md:text-[48px]"

@@ -22,7 +22,7 @@ export function AboutStrip(): React.JSX.Element {
         <div className="grid items-center gap-14 lg:grid-cols-12 lg:gap-16">
           <div className="flex flex-col lg:col-span-6">
             <Reveal>
-              <TechLabel index="02">The company</TechLabel>
+              <TechLabel>The company</TechLabel>
             </Reveal>
 
             <Reveal delay={0.06}>
@@ -54,7 +54,6 @@ export function AboutStrip(): React.JSX.Element {
               <PlateFrame
                 src={ABOUT.primaryImage.src}
                 alt={ABOUT.primaryImage.alt}
-                figure="06"
                 caption={ABOUT.primaryImage.caption}
                 ratio="aspect-[4/3]"
                 sizes="(min-width: 1024px) 560px, 90vw"
@@ -62,7 +61,6 @@ export function AboutStrip(): React.JSX.Element {
               <PlateFrame
                 src={ABOUT.secondaryImage.src}
                 alt={ABOUT.secondaryImage.alt}
-                figure="07"
                 caption={ABOUT.secondaryImage.caption}
                 ratio="aspect-[600/330]"
                 sizes="(min-width: 1024px) 560px, 90vw"

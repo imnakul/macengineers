@@ -19,7 +19,7 @@ export function BrandStory(): React.JSX.Element {
       <div className="mx-auto grid max-w-[1180px] items-center gap-14 lg:grid-cols-12 lg:gap-16">
         <div className="flex flex-col lg:col-span-7">
           <Reveal>
-            <TechLabel index="02">Brand story</TechLabel>
+            <TechLabel>Brand story</TechLabel>
           </Reveal>
 
           <Reveal delay={0.06}>
@@ -51,7 +51,6 @@ export function BrandStory(): React.JSX.Element {
           <PlateFrame
             src={story.image.src}
             alt={story.image.alt}
-            figure="01"
             caption={story.image.caption}
             ratio="aspect-[4/3]"
             sizes="(min-width: 1024px) 460px, 90vw"

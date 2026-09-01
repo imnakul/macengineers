@@ -33,7 +33,7 @@ export function IntegrationBand(): React.JSX.Element {
           <div className="relative flex flex-col gap-12 p-8 md:p-16">
             <div className="flex flex-col gap-10 md:flex-row md:items-end md:justify-between">
               <div className="flex flex-col">
-                <TechLabel index="07" tone="inverse">
+                <TechLabel tone="inverse">
                   End to end
                 </TechLabel>
                 <h2

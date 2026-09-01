@@ -20,7 +20,6 @@ export default function CareersPage(): React.JSX.Element {
   return (
     <>
       <PageHero
-        index="01"
         eyebrow={CAREERS_PAGE.hero.eyebrow}
         headline={CAREERS_PAGE.hero.headline}
         subhead={CAREERS_PAGE.hero.subhead}
@@ -37,7 +36,6 @@ export default function CareersPage(): React.JSX.Element {
       </section>
 
       <CtaBand
-        index="02"
         eyebrow="Speculative"
         heading="Nothing that fits?"
         body="We hire engineers, fabricators and support staff as projects come in. Send your CV and we will keep it on file for the next opening."

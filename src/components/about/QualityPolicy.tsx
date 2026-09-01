@@ -20,7 +20,6 @@ export function QualityPolicy(): React.JSX.Element {
           <Reveal>
             <SectionHeading
               id="quality-heading"
-              index="06"
               eyebrow="Policy"
               title={quality.heading}
               body={quality.intro}

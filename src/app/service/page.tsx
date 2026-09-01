@@ -19,12 +19,10 @@ export const metadata: Metadata = pageMetadata({
 /** Service. Five capability lines as alternating spec blocks. */
 export default function ServicePage(): React.JSX.Element {
   const { categories, keyBenefit } = SERVICE_PAGE;
-  const total = String(categories.length).padStart(2, "0");
 
   return (
     <>
       <PageHero
-        index="01"
         eyebrow={SERVICE_PAGE.hero.eyebrow}
         headline={SERVICE_PAGE.hero.headline}
         subhead={SERVICE_PAGE.hero.subhead}
@@ -41,14 +39,12 @@ export default function ServicePage(): React.JSX.Element {
             {categories.map((category, index) => (
               <SpecBlock
                 key={category.slug}
-                index={String(index + 1).padStart(2, "0")}
-                total={total}
                 title={category.title}
                 description={category.description}
                 points={category.capabilities}
                 image={category.image}
                 alt={category.alt}
-                figure={String(index + 1).padStart(2, "0")}
+                imageDepth={category.imageDepth}
                 flip={index % 2 === 1}
                 headingId={`service-${category.slug}`}
                 priority={index === 0}
@@ -81,7 +77,6 @@ export default function ServicePage(): React.JSX.Element {
       </section>
 
       <CtaBand
-        index="02"
         eyebrow="Next step"
         heading={SERVICE_PAGE.cta.heading}
         body={SERVICE_PAGE.cta.body}

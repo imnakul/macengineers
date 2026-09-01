@@ -20,7 +20,6 @@ export function Services(): React.JSX.Element {
         <Reveal>
           <SectionHeading
             id="services-heading"
-            index="05"
             eyebrow="Services"
             title={SERVICES.headline}
             body={SERVICES.body}
@@ -53,13 +52,13 @@ export function Services(): React.JSX.Element {
                     {item.description}
                   </p>
 
-                  <div className="drafting-grid relative mt-7 aspect-[4/3] overflow-hidden rounded-card bg-surface">
+                  <div className="plate-ground-illustration relative mt-7 aspect-[4/3] overflow-hidden rounded-card bg-surface">
                     <Image
                       src={item.image}
                       alt={item.alt}
                       fill
                       sizes="(min-width: 1024px) 280px, (min-width: 640px) 45vw, 90vw"
-                      className="object-contain p-7 transition-transform duration-500 ease-move group-hover:scale-[1.035]"
+                      className="object-contain p-7 drop-shadow-[0_16px_14px_rgba(23,23,21,0.16)] transition-transform duration-500 ease-move group-hover:scale-[1.035]"
                     />
                   </div>
                 </article>

@@ -17,7 +17,6 @@ export function Industries(): React.JSX.Element {
         <Reveal>
           <SectionHeading
             id="industries-heading"
-            index="06"
             eyebrow="Sectors"
             title={INDUSTRIES.headline}
           />
