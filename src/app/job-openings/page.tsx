@@ -46,9 +46,9 @@ export default function CareersPage(): React.JSX.Element {
         <ActionLink
           href={`mailto:${COMPANY.email}?subject=${encodeURIComponent("Speculative application")}`}
           variant="solid"
+          tone="inverse"
           withArrow
           ariaLabel={`Email a speculative application to ${COMPANY.email}`}
-          className="bg-canvas text-ink-strong hover:bg-surface"
         >
           {COMPANY.email}
         </ActionLink>

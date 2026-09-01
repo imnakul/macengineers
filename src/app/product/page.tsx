@@ -199,19 +199,10 @@ export default function ProductPage(): React.JSX.Element {
         body={PRODUCT_PAGE.cta.body}
         headingId="product-cta-heading"
       >
-        <ActionLink
-          href={QUOTE_HREF}
-          variant="solid"
-          withArrow
-          className="bg-canvas text-ink-strong hover:bg-surface"
-        >
+        <ActionLink href={QUOTE_HREF} variant="solid" tone="inverse" withArrow>
           Get A Quote
         </ActionLink>
-        <ActionLink
-          href="/contact-us"
-          variant="ghost"
-          className="font-mono text-canvas shadow-none ring-1 ring-canvas/20 hover:bg-canvas/10 hover:ring-canvas/35"
-        >
+        <ActionLink href="/contact-us" variant="ghost" tone="inverse" className="font-mono">
           Contact Us
         </ActionLink>
       </CtaBand>

@@ -68,19 +68,15 @@ export default function ContactPage(): React.JSX.Element {
         body="If you already know the equipment and specification you need, the quote form captures it directly. For anything urgent, calling the works is quickest."
         headingId="contact-cta-heading"
       >
-        <ActionLink
-          href={QUOTE_HREF}
-          variant="solid"
-          withArrow
-          className="bg-canvas text-ink-strong hover:bg-surface"
-        >
+        <ActionLink href={QUOTE_HREF} variant="solid" tone="inverse" withArrow>
           Get A Quote
         </ActionLink>
         <ActionLink
           href={COMPANY.phoneHref}
           variant="ghost"
+          tone="inverse"
           ariaLabel={`Call ${COMPANY.name} on ${COMPANY.phone}`}
-          className="font-mono text-canvas shadow-none ring-1 ring-canvas/20 hover:bg-canvas/10 hover:ring-canvas/35"
+          className="font-mono"
         >
           {COMPANY.phone}
         </ActionLink>

@@ -48,19 +48,10 @@ export default function AboutPage(): React.JSX.Element {
         body={ABOUT_PAGE.cta.body}
         headingId="about-cta-heading"
       >
-        <ActionLink
-          href="/contact-us"
-          variant="solid"
-          withArrow
-          className="bg-canvas text-ink-strong hover:bg-surface"
-        >
+        <ActionLink href="/contact-us" variant="solid" tone="inverse" withArrow>
           {ABOUT_PAGE.cta.label}
         </ActionLink>
-        <ActionLink
-          href={QUOTE_HREF}
-          variant="ghost"
-          className="font-mono text-canvas shadow-none ring-1 ring-canvas/20 hover:bg-canvas/10 hover:ring-canvas/35"
-        >
+        <ActionLink href={QUOTE_HREF} variant="ghost" tone="inverse" className="font-mono">
           Get A Quote
         </ActionLink>
       </CtaBand>

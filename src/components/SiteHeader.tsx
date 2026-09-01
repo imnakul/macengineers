@@ -60,11 +60,17 @@ export function SiteHeader(): React.JSX.Element {
         isScrolled ? "border-hairline" : "border-transparent"
       }`}
     >
-      <div
-        className={`flex items-center justify-between gap-4 px-5 transition-[padding] duration-150 ease-ui md:px-13 ${
-          isScrolled ? "py-3 md:py-3.5" : "py-4 md:py-5"
-        }`}
-      >
+      {/*
+        Padding here must stay constant. This header is `position: sticky`, which keeps
+        it in normal document flow even once it is stuck — unlike `position: fixed`, a
+        stuck sticky element's box still reserves its own height in the layout. An
+        earlier version shrank this padding once `isScrolled` flipped, which shrank the
+        header's own flow height at that exact scroll position and shoved the page below
+        it up by the difference — visible as the header looking unstuck, then "snapping"
+        a few pixels into place right at the threshold. Only color-like properties
+        (border, background) are safe to animate on a stuck sticky element.
+      */}
+      <div className="flex items-center justify-between gap-4 px-5 py-4 md:px-13 md:py-5">
         <Link
           href="/"
           aria-label={`${COMPANY.name} — home`}
