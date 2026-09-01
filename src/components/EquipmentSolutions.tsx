@@ -27,7 +27,6 @@ export function EquipmentSolutions(): React.JSX.Element {
             eyebrow="Products"
             title={EQUIPMENT.headline}
             body={EQUIPMENT.body}
-            align="center"
           />
         </Reveal>
 

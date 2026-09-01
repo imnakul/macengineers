@@ -150,28 +150,32 @@ export default async function JobPage({
         aria-labelledby="apply-heading"
         className="bg-surface px-5 py-20 md:px-13 md:py-28"
       >
-        <Reveal>
-          <div className="mx-auto flex max-w-[820px] flex-col items-center gap-6 text-center">
-            <TechLabel index="03">Apply</TechLabel>
-            <h2
-              id="apply-heading"
-              className="text-[28px] leading-[1.02] font-block tracking-display text-ink-strong sm:text-[34px] md:text-[40px]"
-            >
-              {CAREERS_PAGE.applyHeading}
-            </h2>
-            <p className="max-w-[560px] text-[16px] leading-[26px] font-regular tracking-glide text-ink-muted">
-              {CAREERS_PAGE.applyBody}
-            </p>
-            <ActionLink
-              href={mailtoHref}
-              variant="solid"
-              withArrow
-              ariaLabel={`Email your application for ${job.title} to ${COMPANY.email}`}
-            >
-              {COMPANY.email}
-            </ActionLink>
-          </div>
-        </Reveal>
+        <div className="mx-auto max-w-[1180px]">
+          <Reveal>
+            <div className="flex max-w-[620px] flex-col gap-6">
+              <TechLabel index="03">Apply</TechLabel>
+              <h2
+                id="apply-heading"
+                className="text-[28px] leading-[1.02] font-block tracking-display text-ink-strong sm:text-[34px] md:text-[40px]"
+              >
+                {CAREERS_PAGE.applyHeading}
+              </h2>
+              <p className="text-[16px] leading-[26px] font-regular tracking-glide text-ink-muted">
+                {CAREERS_PAGE.applyBody}
+              </p>
+              <div>
+                <ActionLink
+                  href={mailtoHref}
+                  variant="solid"
+                  withArrow
+                  ariaLabel={`Email your application for ${job.title} to ${COMPANY.email}`}
+                >
+                  {COMPANY.email}
+                </ActionLink>
+              </div>
+            </div>
+          </Reveal>
+        </div>
       </section>
 
       <JsonLd

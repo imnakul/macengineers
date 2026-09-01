@@ -62,19 +62,22 @@ export default function ServicePage(): React.JSX.Element {
         aria-labelledby="key-benefit-heading"
         className="bg-surface px-5 py-20 md:px-13 md:py-28"
       >
-        <Reveal>
-          <div className="mx-auto flex max-w-[820px] flex-col items-center gap-5 text-center">
-            <span
-              id="key-benefit-heading"
-              className="font-mono text-[10px] tracking-tech text-accent uppercase"
-            >
-              {keyBenefit.label}
-            </span>
-            <p className="text-[20px] leading-[30px] font-block tracking-glide text-ink-strong md:text-[26px] md:leading-[38px]">
-              {keyBenefit.body}
-            </p>
-          </div>
-        </Reveal>
+        <div className="mx-auto max-w-[1180px]">
+          <Reveal>
+            <div className="flex max-w-[760px] flex-col gap-5">
+              <span
+                id="key-benefit-heading"
+                className="inline-flex items-center gap-2.5 font-mono text-[11px] tracking-tech text-accent uppercase"
+              >
+                <span aria-hidden="true" className="h-[7px] w-[7px] shrink-0 bg-accent" />
+                {keyBenefit.label}
+              </span>
+              <p className="text-[20px] leading-[30px] font-block tracking-glide text-ink-strong md:text-[26px] md:leading-[38px]">
+                {keyBenefit.body}
+              </p>
+            </div>
+          </Reveal>
+        </div>
       </section>
 
       <CtaBand

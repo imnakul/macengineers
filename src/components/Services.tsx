@@ -24,7 +24,6 @@ export function Services(): React.JSX.Element {
             eyebrow="Services"
             title={SERVICES.headline}
             body={SERVICES.body}
-            align="center"
           />
         </Reveal>
 

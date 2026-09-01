@@ -14,8 +14,6 @@ interface SectionHeadingProps {
   eyebrow?: string;
   title: string;
   body?: string;
-  /** Persuasive copy runs on a centred spine; comparable data stays left-aligned. */
-  align?: "left" | "center";
   tone?: "default" | "inverse";
   children?: ReactNode;
 }
@@ -25,6 +23,14 @@ interface SectionHeadingProps {
  * -3.2% once the size clears 48px — big type needs more optical pull than the -2%
  * body rule gives it. Body copy relaxes to 1.5 and is capped at a 640px measure
  * regardless of how wide the container gets.
+ *
+ * Always left-aligned. An earlier pass let individual sections opt into a centred
+ * spine for "persuasive" copy, but that judgement call landed on only two headings
+ * out of the whole site — everything else, including every page's masthead and its
+ * closing band, was left. The result read as arbitrary rather than intentional.
+ * Left-aligned also fits the drawing-sheet system better: sheet numbers, spec rails
+ * and dimension lines all read left-to-right, and a centred headline sitting above
+ * them looked like it belonged to a different document.
  */
 export function SectionHeading({
   id,
@@ -32,15 +38,13 @@ export function SectionHeading({
   eyebrow,
   title,
   body,
-  align = "left",
   tone = "default",
   children,
 }: SectionHeadingProps): React.JSX.Element {
-  const isCentered = align === "center";
   const isInverse = tone === "inverse";
 
   return (
-    <div className={isCentered ? "flex flex-col items-center text-center" : "flex flex-col"}>
+    <div className="flex flex-col">
       {eyebrow ? (
         <TechLabel index={index} tone={tone} className="mb-6">
           {eyebrow}
@@ -60,7 +64,7 @@ export function SectionHeading({
         <p
           className={`mt-6 max-w-[620px] text-[16px] leading-6 font-regular tracking-glide md:text-[17px] md:leading-[27px] ${
             isInverse ? "text-canvas/70" : "text-ink-muted"
-          } ${isCentered ? "mx-auto" : ""}`}
+          }`}
         >
           {body}
         </p>
