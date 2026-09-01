@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Archivo, IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -102,6 +104,15 @@ export default function RootLayout({ children }: LayoutProps<"/">): React.JSX.El
         <SiteFooter />
 
         <JsonLd data={[organizationLd(), websiteLd()]} />
+
+        {/*
+          Both are no-ops off Vercel: Analytics only sends events once the app is
+          served from a Vercel deployment with Analytics enabled on the project, and
+          Speed Insights the same for Core Web Vitals. Safe to ship unconditionally —
+          neither throws or logs noise locally or on another host, they just idle.
+        */}
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
