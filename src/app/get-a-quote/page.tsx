@@ -23,8 +23,33 @@ const DIRECT = [
   { label: "WhatsApp", value: "Message us", href: COMPANY.whatsapp },
 ] as const;
 
+/** Longest prefill accepted, matching the description limit in the quote schema. */
+const MAX_SPEC_LENGTH = 4000;
+
+interface QuotePageProps {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}
+
+/**
+ * Reads the specification the landing page's sizing sheet passes across in `?spec=`.
+ *
+ * Everything here is treated as untrusted text from a URL: only a single string value is
+ * accepted, and it is clamped to the same length the schema allows, so a hand-edited link
+ * cannot seed a body the form would only reject on submit. It lands as the default value
+ * of a plain textarea, so there is no markup path out of it.
+ */
+function readSpec(params: Record<string, string | string[] | undefined>): string {
+  const value = params.spec;
+  if (typeof value !== "string") return "";
+  return value.trim().slice(0, MAX_SPEC_LENGTH);
+}
+
 /** Get a Quote. The form is the page; everything else stays out of its way. */
-export default function QuotePage(): React.JSX.Element {
+export default async function QuotePage({
+  searchParams,
+}: QuotePageProps): Promise<React.JSX.Element> {
+  const spec = readSpec(await searchParams);
+
   return (
     <>
       <PageHero
@@ -38,7 +63,9 @@ export default function QuotePage(): React.JSX.Element {
         <div className="mx-auto grid max-w-[1180px] gap-14 lg:grid-cols-12 lg:gap-16">
           <div className="flex flex-col lg:col-span-8">
             <Reveal>
-              <TechLabel>Requirement</TechLabel>
+              <TechLabel>
+                {spec ? "Requirement — spec carried over" : "Requirement"}
+              </TechLabel>
             </Reveal>
 
             <Reveal delay={0.06}>
@@ -48,7 +75,7 @@ export default function QuotePage(): React.JSX.Element {
             </Reveal>
 
             <Reveal delay={0.1} className="mt-8">
-              <QuoteForm />
+              <QuoteForm defaultDescription={spec} />
             </Reveal>
           </div>
 

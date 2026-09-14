@@ -7,7 +7,7 @@ import { ImageResponse } from "next/og";
  *
  * `ImageResponse` does not inherit the site's `next/font` setup — that loading path is
  * built for the HTML document, not for Satori's separate rendering engine — so the same
- * three faces used across the site (Archivo for display, IBM Plex Mono for the technical
+ * two faces used across the site (Archivo for display, Geist Mono for the technical
  * register) are loaded here from local TTF files instead. Read once at module scope
  * rather than per-request, since these routes can be hit repeatedly by crawlers and
  * social previewers.
@@ -16,7 +16,7 @@ const ASSETS_DIR = join(process.cwd(), "src/lib/og-assets");
 
 const archivoBold = readFileSync(join(ASSETS_DIR, "Archivo-Bold.ttf"));
 const archivoSemiBold = readFileSync(join(ASSETS_DIR, "Archivo-SemiBold.ttf"));
-const plexMonoMedium = readFileSync(join(ASSETS_DIR, "PlexMono-Medium.ttf"));
+const geistMonoMedium = readFileSync(join(ASSETS_DIR, "GeistMono-Medium.ttf"));
 
 const markPng = readFileSync(join(ASSETS_DIR, "mark.png"));
 const markDataUri = `data:image/png;base64,${markPng.toString("base64")}`;
@@ -122,7 +122,7 @@ export function renderOgImage({ eyebrow, title, description }: OgImageOptions): 
           <div style={{ width: 14, height: 14, backgroundColor: "#f4631f" }} />
           <div
             style={{
-              fontFamily: "Plex Mono",
+              fontFamily: "Geist Mono",
               fontSize: 26,
               letterSpacing: 4,
               textTransform: "uppercase",
@@ -179,7 +179,7 @@ export function renderOgImage({ eyebrow, title, description }: OgImageOptions): 
         >
           <div
             style={{
-              fontFamily: "Plex Mono",
+              fontFamily: "Geist Mono",
               fontSize: 24,
               letterSpacing: 3,
               textTransform: "uppercase",
@@ -198,7 +198,7 @@ export function renderOgImage({ eyebrow, title, description }: OgImageOptions): 
       fonts: [
         { name: "Archivo", data: archivoBold, weight: 700, style: "normal" },
         { name: "Archivo", data: archivoSemiBold, weight: 600, style: "normal" },
-        { name: "Plex Mono", data: plexMonoMedium, weight: 500, style: "normal" },
+        { name: "Geist Mono", data: geistMonoMedium, weight: 500, style: "normal" },
       ],
     },
   );

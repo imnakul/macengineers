@@ -49,8 +49,8 @@ export function Hero(): React.JSX.Element {
 
             <Reveal delay={0.18}>
               <div className="mt-9 flex flex-wrap items-center gap-3">
-                <ActionLink href="#equipment" variant="solid" withArrow>
-                  {HERO.cta}
+                <ActionLink href="#configurator" variant="solid" withArrow>
+                  Size your equipment
                 </ActionLink>
                 <ActionLink href={QUOTE_HREF} variant="ghost">
                   Get A Quote

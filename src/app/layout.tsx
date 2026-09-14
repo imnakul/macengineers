@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { Archivo, IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google";
+import { Archivo, Geist, Geist_Mono } from "next/font/google";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { COMPANY } from "@/data/site";
 import { organizationLd, websiteLd } from "@/lib/structured-data";
+import { GlobalVariantSwitcher } from "@/variants/shared/GlobalVariantSwitcher";
 import "./globals.css";
 
 /**
@@ -29,27 +30,30 @@ const archivo = Archivo({
  * The READING face — body copy, subtext, UI, form fields: everything that is read in
  * sentences rather than scanned as a shape.
  *
- * IBM Plex Sans is chosen over Inter deliberately. It is the sibling of the Plex Mono
- * already carrying the technical register, so the spec labels and the prose beneath them
- * share a skeleton instead of being two unrelated voices; it was drawn for an engineering
- * company, which suits this one; and it has the open apertures and looser fit that make a
- * paragraph breathe at 16px.
+ * Geist replaces IBM Plex Sans. Plex is a corporate face with a stiff, slightly
+ * condensed fit and a semibold that turns heavy and blocky the moment it is used for
+ * emphasis — which is exactly where it was landing here, on every card title and spec
+ * value. Geist is a Swiss-neutral grotesque with wider apertures, a taller x-height and
+ * a genuinely even weight ramp, so 500 and 600 read as emphasis rather than as a
+ * different, denser typeface. Loaded as a variable font so the 450 / 500 / 575 / 600
+ * stops the token system asks for are real interpolated instances.
  */
-const plexSans = IBM_Plex_Sans({
-  variable: "--font-plex-sans",
+const geistSans = Geist({
+  variable: "--font-geist-sans",
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
   display: "swap",
 });
 
 /**
- * The technical register: sheet numbers, figure captions, material specs. Plex Mono is
- * static-only, so the weights it is actually used at are declared explicitly.
+ * The technical register: sheet numbers, figure captions, material specs.
+ *
+ * Geist Mono is drawn on the same skeleton as Geist, so a spec label and the prose
+ * beneath it are two settings of one voice instead of two unrelated faces — which is
+ * the argument that originally put Plex Mono here, now satisfied without Plex.
  */
-const plexMono = IBM_Plex_Mono({
-  variable: "--font-plex-mono",
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
   display: "swap",
 });
 
@@ -85,7 +89,7 @@ export default function RootLayout({ children }: LayoutProps<"/">): React.JSX.El
   return (
     <html
       lang="en"
-      className={`${archivo.variable} ${plexSans.variable} ${plexMono.variable} h-full antialiased`}
+      className={`${archivo.variable} ${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
         <a
@@ -102,6 +106,8 @@ export default function RootLayout({ children }: LayoutProps<"/">): React.JSX.El
         </main>
 
         <SiteFooter />
+
+        <GlobalVariantSwitcher />
 
         <JsonLd data={[organizationLd(), websiteLd()]} />
 

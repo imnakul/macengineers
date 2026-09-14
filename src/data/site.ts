@@ -82,7 +82,6 @@ export const HERO = {
   headline: "Engineering Productivity For Process Industries",
   subhead:
     "From storage tanks to advanced mixers, silos, and conveyors — MAC Engineers delivers reliable equipment that drives efficiency, safety, and performance.",
-  cta: "Explore Our Solutions",
   /**
    * Sourced facts only: the years figure and compliance line come from ABOUT.body, the
    * material grades from the storage-tank description, and the reach and works location
@@ -234,28 +233,6 @@ export const SERVICES = {
       alt: "Illustration of after-sales service and maintenance support",
     },
   ] satisfies readonly IllustratedItem[],
-} as const;
-
-export const INDUSTRIES = {
-  headline: "Industries We Serve",
-  items: [
-    {
-      title: "Chemical & Petrochemical",
-      description: "Corrosion-resistant equipment.",
-    },
-    {
-      title: "Pharmaceutical & API",
-      description: "SS316 hygienic storage & mixing.",
-    },
-    {
-      title: "Food & Beverage Processing",
-      description: "Safe tanks & mixers for consistent results.",
-    },
-    {
-      title: "Cosmetics & FMCG",
-      description: "Custom-designed equipment for fast production.",
-    },
-  ] satisfies readonly TextItem[],
 } as const;
 
 export const INTEGRATION = {

@@ -45,6 +45,16 @@ function extractError(body: unknown): string {
   return GENERIC_ERROR;
 }
 
+interface QuoteFormProps {
+  /**
+   * Seeds the requirement box. The landing page's sizing sheet hands its specification
+   * over in the URL, so someone who has already built a spec does not retype it here.
+   * Uncontrolled on purpose: this is a starting value the visitor is free to edit, not
+   * state the form owns.
+   */
+  defaultDescription?: string;
+}
+
 /**
  * The quote request form.
  *
@@ -53,7 +63,7 @@ function extractError(body: unknown): string {
  * server, where they are the actual control; doing it here just saves someone a slow
  * upload that was always going to be rejected.
  */
-export function QuoteForm(): React.JSX.Element {
+export function QuoteForm({ defaultDescription = "" }: QuoteFormProps): React.JSX.Element {
   const [status, setStatus] = useState<Status>("idle");
   const [errors, setErrors] = useState<FieldErrors>({});
   const [formError, setFormError] = useState<string>("");
@@ -329,6 +339,7 @@ export function QuoteForm(): React.JSX.Element {
           name="description"
           rows={6}
           required
+          defaultValue={defaultDescription}
           disabled={isSubmitting}
           aria-invalid={errors.description ? true : undefined}
           aria-describedby={errors.description ? errorId("description") : undefined}

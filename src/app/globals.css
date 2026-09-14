@@ -4,7 +4,7 @@
  * Design tokens. The base ramp is the Glide taste system documented in CLAUDE.md,
  * extended in two deliberate directions for MAC Engineers:
  *
- *   1. A technical register (IBM Plex Mono) for sheet numbers, figure captions and
+ *   1. A technical register (Geist Mono) for sheet numbers, figure captions and
  *      material specs — the typographic layer an engineering drawing actually has.
  *   2. A single accent, spent at roughly 1% coverage on measurement marks and
  *      interactive state. The original system leaves the accent slot empty; a deep
@@ -76,13 +76,14 @@
   /*
    * Three registers, three faces.
    *
-   * Archivo is display only. Plex Sans reads. Plex Mono annotates. The earlier build ran
-   * Archivo for all three, which is why body copy looked crowded: a signage grotesque set
-   * at 16px and pulled -2% tighter is being asked to do the one job it was not drawn for.
+   * Archivo is display only. Geist reads. Geist Mono annotates. Archivo is a signage
+   * grotesque and is wrong below ~24px, which is why it is fenced to headlines; Geist and
+   * Geist Mono share one skeleton, so the spec labels and the prose under them read as a
+   * single voice at two settings rather than as two competing faces.
    */
   --font-display: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
-  --font-sans: var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-plex-mono), ui-monospace, "SFMono-Regular", monospace;
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, "SFMono-Regular", monospace;
 }
 
 @layer base {
