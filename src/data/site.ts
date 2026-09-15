@@ -58,7 +58,7 @@ export const COMPANY = {
   address:
     "12/13/14, Green Ananta Industrial Park, Rajpipla Road, Ankleshwar, Gujarat, Pin code - 393001",
   copyright: "Copyright 2025 © Mac Engineers India",
-  logo: "/mac/logo.webp",
+  logo: "/mac/logo-trimmed.webp",
 } as const;
 
 /**

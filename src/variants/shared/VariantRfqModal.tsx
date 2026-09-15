@@ -112,16 +112,7 @@ export function VariantRfqModal({
         ) : (
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <div
-                className={`inline-flex items-center gap-2 text-xs font-mono tracking-wider uppercase px-2.5 py-1 rounded border ${
-                  isBrand
-                    ? "bg-[#BD2E2C]/10 text-[#BD2E2C] border-[#BD2E2C]/30"
-                    : "bg-amber-500/15 text-amber-500 border-amber-500/30"
-                }`}
-              >
-                Direct Engineering Review
-              </div>
-              <h2 className="text-2xl font-bold mt-2 tracking-tight">
+              <h2 className="text-2xl font-bold tracking-tight pr-10">
                 Request Engineering Proposal & Datasheet
               </h2>
               <p className={`text-sm mt-1 ${isDark ? "text-slate-400" : "text-stone-600"}`}>

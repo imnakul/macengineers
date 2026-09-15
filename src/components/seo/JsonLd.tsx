@@ -12,7 +12,9 @@ interface JsonLdProps {
  * today, but that is exactly the kind of assumption that stops being true later.
  */
 export function JsonLd({ data }: JsonLdProps): React.JSX.Element {
-  const payload = JSON.stringify(data.length === 1 ? data[0] : data).replace(/</g, "\u003c");
+  // Two backslashes: the output must contain the six-character escape itself. A single one would
+  // already be "<" once this string is parsed, making the replace a no-op.
+  const payload = JSON.stringify(data.length === 1 ? data[0] : data).replace(/</g, "\\u003c");
 
   return (
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: payload }} />

@@ -2,14 +2,11 @@
 
 import React from "react";
 import Image from "next/image";
-import Link from "next/link";
 import {
   MAC_COMPANY,
-  MAC_EQUIPMENT,
   MAC_SERVICES,
   MAC_INDUSTRIES,
   MAC_METRICS,
-  type EquipmentItem,
 } from "../data/variantsData";
 import {
   TankIcon,
@@ -25,11 +22,12 @@ import {
   FactoryIcon,
 } from "../shared/VariantIcons";
 import { VariantRfqModal } from "../shared/VariantRfqModal";
-import { VariantContainer } from "../shared/VariantContainer";
 import { PlateCta } from "../shared/PlateCta";
 import { PlateTag } from "../shared/PlateTag";
 import { PlateSurface } from "../shared/PlateSurface";
-import { NAV_ITEMS } from "@/data/site";
+import { Reveal } from "./Reveal";
+import { EquipmentGallery } from "./EquipmentGallery";
+import { AtlasSectionHeading } from "@/components/atlas/AtlasSectionHeading";
 
 /* ---------------------------------------------------------------------------
  * KimiK3 — Corporate Atlas
@@ -53,54 +51,6 @@ interface RfqPreset {
   product: string;
 }
 
-/* ------------------------------- Motion kit ------------------------------ */
-
-/**
- * Scroll-reveal wrapper. IntersectionObserver fires once per element; children
- * rise 20px and fade in with a staggerable delay. Honours reduced-motion via
- * the global CSS rule.
- */
-function Reveal({
-  children,
-  className = "",
-  delay = 0,
-}: {
-  children: React.ReactNode;
-  className?: string;
-  delay?: number;
-}): React.JSX.Element {
-  const ref = React.useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = React.useState<boolean>(false);
-
-  React.useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.12, rootMargin: "0px 0px -48px 0px" }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <div
-      ref={ref}
-      className={`${className} transition-all duration-700 ease-out will-change-transform ${
-        visible ? "translate-y-0 opacity-100" : "translate-y-5 opacity-0"
-      }`}
-      style={{ transitionDelay: `${delay}ms` }}
-    >
-      {children}
-    </div>
-  );
-}
-
 /** Four steel-blue corner ticks — the drafting-plate registration mark used on every framed plate. */
 function CornerTicks({ tone = ACCENT }: { tone?: string }): React.JSX.Element {
   const base = "pointer-events-none absolute h-3.5 w-3.5";
@@ -111,51 +61,6 @@ function CornerTicks({ tone = ACCENT }: { tone?: string }): React.JSX.Element {
       <span className={`${base} bottom-0 left-0 border-b-2 border-l-2`} style={{ borderColor: tone }} />
       <span className={`${base} bottom-0 right-0 border-b-2 border-r-2`} style={{ borderColor: tone }} />
     </span>
-  );
-}
-
-/** Numbered architectural section header: mono overline + display title + rule. */
-function SectionHeading({
-  index,
-  eyebrow,
-  title,
-  description,
-}: {
-  index: string;
-  eyebrow: string;
-  title: string;
-  description?: string;
-}): React.JSX.Element {
-  return (
-    <div className="mb-12 md:mb-16">
-      <Reveal>
-        <div className="relative flex items-center gap-3 border-b border-[#E3E7ED] pb-4">
-          <span className="relative isolate inline-flex items-center py-1 pl-2 pr-1.5 font-mono text-xs font-semibold tracking-[0.22em] text-[#1B5FC4] [--cut:6px]">
-            <PlateSurface frameClassName="bg-[#C9D8EE]" faceClassName="bg-[#F2F6FC]" />
-            {index}
-          </span>
-          <span className="font-mono text-[11px] font-medium uppercase tracking-[0.22em] text-slate-500">
-            {eyebrow}
-          </span>
-          <span
-            aria-hidden="true"
-            className="absolute -bottom-px right-0 h-px w-4 origin-right rotate-45 bg-[#1B5FC4]"
-          />
-        </div>
-      </Reveal>
-      <Reveal delay={80}>
-        <h2 className="mt-6 font-display text-3xl font-semibold tracking-[-0.02em] text-[#0D1B2E] sm:text-4xl lg:text-[44px] lg:leading-[1.05]">
-          {title}
-        </h2>
-      </Reveal>
-      {description ? (
-        <Reveal delay={140}>
-          <p className="mt-4 max-w-2xl text-base leading-relaxed text-slate-600 md:text-[17px]">
-            {description}
-          </p>
-        </Reveal>
-      ) : null}
-    </div>
   );
 }
 
@@ -227,15 +132,6 @@ const COMPLIANCE_ITEMS: readonly { label: string; value: string }[] = [
   { label: "Site Discipline", value: "PTW + JSA" },
 ];
 
-const EQUIPMENT_CATEGORY_LABELS: Record<EquipmentItem["category"], string> = {
-  vessels: "Vessels",
-  mixing: "Mixing & Dispersion",
-  handling: "Material Handling",
-  turnkey: "Turnkey Plants",
-};
-
-type EquipmentFilter = "all" | EquipmentItem["category"];
-
 const INDUSTRY_ICONS: Record<string, (props: { className?: string }) => React.JSX.Element> = {
   chemical: GaugeIcon,
   pharma: ShieldCheckIcon,
@@ -248,171 +144,21 @@ const INDUSTRY_ICONS: Record<string, (props: { className?: string }) => React.JS
 /* --------------------------------- Page ---------------------------------- */
 
 export function Variant5Page(): React.JSX.Element {
-  const [scrolled, setScrolled] = React.useState<boolean>(false);
-  const [menuOpen, setMenuOpen] = React.useState<boolean>(false);
-  const [equipmentFilter, setEquipmentFilter] = React.useState<EquipmentFilter>("all");
   const [expandedService, setExpandedService] = React.useState<string | null>(MAC_SERVICES[0]?.id ?? null);
   const [isRfqOpen, setIsRfqOpen] = React.useState<boolean>(false);
   const [rfqPreset, setRfqPreset] = React.useState<RfqPreset>({ profile: "turnkey", product: "" });
-
-  React.useEffect(() => {
-    const onScroll = (): void => setScrolled(window.scrollY > 16);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   const openRfq = (profile: RfqProfile, product = ""): void => {
     setRfqPreset({ profile, product });
     setIsRfqOpen(true);
   };
 
-  const visibleEquipment = React.useMemo(
-    () =>
-      equipmentFilter === "all"
-        ? MAC_EQUIPMENT
-        : MAC_EQUIPMENT.filter((item) => item.category === equipmentFilter),
-    [equipmentFilter]
-  );
-
   return (
-    <VariantContainer>
-      <div className="relative min-h-screen bg-[#F8F8F5] font-sans text-[#0D1B2E] antialiased selection:bg-[#1B5FC4] selection:text-white">
-        {/* ------------------------------ Header ------------------------------ */}
-        <header
-          className={`sticky top-0 z-40 border-b bg-white/90 backdrop-blur-md transition-all duration-300 ${
-            scrolled ? "border-[#E3E7ED] shadow-[0_8px_30px_-18px_rgba(13,27,46,0.35)]" : "border-transparent"
-          }`}
-        >
-          <div
-            className={`mx-auto flex max-w-7xl items-center justify-between px-4 transition-all duration-300 sm:px-6 lg:px-8 ${
-              scrolled ? "h-14" : "h-[76px]"
-            }`}
-          >
-            <Link href="/" className="group relative flex items-center gap-3" aria-label="MAC Engineers home">
-              <span className="relative block h-9 w-32 sm:h-10 sm:w-36">
-                <Image
-                  src={MAC_COMPANY.logo}
-                  alt="MAC Engineers logo"
-                  fill
-                  priority
-                  sizes="144px"
-                  className="object-contain object-left"
-                />
-              </span>
-            </Link>
-
-            <nav aria-label="Primary" className="hidden items-center gap-6 md:flex lg:gap-7">
-              {NAV_ITEMS.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="group relative whitespace-nowrap text-[13px] font-medium text-slate-600 transition-colors hover:text-[#0D1B2E]"
-                >
-                  {item.label}
-                  <span className="absolute -bottom-1 left-0 h-px w-full origin-left scale-x-0 bg-[#1B5FC4] transition-transform duration-300 ease-out group-hover:scale-x-100" />
-                </Link>
-              ))}
-            </nav>
-
-            <div className="flex items-center gap-2 sm:gap-3">
-              <a
-                href={MAC_COMPANY.whatsappHref}
-                className="hidden items-center gap-1.5 font-mono text-xs font-semibold text-slate-700 transition-colors hover:text-[#1B5FC4] lg:inline-flex"
-              >
-                <PhoneIcon className="h-3.5 w-3.5 text-[#1B5FC4]" />
-                {MAC_COMPANY.phoneDisplay}
-              </a>
-              <PlateCta size="sm" onClick={() => openRfq("turnkey")} className="whitespace-nowrap">
-                Request a Quote
-              </PlateCta>
-              <button
-                type="button"
-                onClick={() => setMenuOpen(true)}
-                aria-label="Open navigation menu"
-                aria-expanded={menuOpen}
-                className="inline-flex h-10 w-10 items-center justify-center rounded-[4px] border border-[#E3E7ED] text-slate-700 transition-colors hover:border-[#1B5FC4] hover:text-[#1B5FC4] md:hidden"
-              >
-                <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                  <line x1="4" y1="7" x2="20" y2="7" />
-                  <line x1="4" y1="12" x2="20" y2="12" />
-                  <line x1="4" y1="17" x2="20" y2="17" />
-                </svg>
-              </button>
-            </div>
-          </div>
-        </header>
-
-        {/* Mobile slide-over menu */}
-        {menuOpen ? (
-          <div className="fixed inset-0 z-50 md:hidden">
-            <button
-              type="button"
-              aria-label="Close navigation menu"
-              onClick={() => setMenuOpen(false)}
-              className="absolute inset-0 bg-[#0D1B2E]/50 backdrop-blur-sm transition-opacity"
-            />
-            <div className="absolute right-0 top-0 flex h-full w-[82%] max-w-sm flex-col bg-white shadow-2xl">
-              <div className="flex h-[76px] items-center justify-between border-b border-[#E3E7ED] px-5">
-                <span className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
-                  Menu
-                </span>
-                <button
-                  type="button"
-                  onClick={() => setMenuOpen(false)}
-                  aria-label="Close menu"
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-[4px] border border-[#E3E7ED] text-slate-700 transition-colors hover:border-[#1B5FC4] hover:text-[#1B5FC4]"
-                >
-                  <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                    <line x1="18" y1="6" x2="6" y2="18" />
-                    <line x1="6" y1="6" x2="18" y2="18" />
-                  </svg>
-                </button>
-              </div>
-              <nav aria-label="Mobile" className="flex-1 overflow-y-auto px-5 py-6">
-                <ul className="space-y-1">
-                  {NAV_ITEMS.map((item, index) => (
-                    <li key={item.href}>
-                      <Link
-                        href={item.href}
-                        onClick={() => setMenuOpen(false)}
-                        className="group flex items-baseline justify-between border-b border-[#F0F2F5] py-4 text-lg font-medium text-[#0D1B2E] transition-colors hover:text-[#1B5FC4]"
-                      >
-                        {item.label}
-                        <span className="font-mono text-xs text-slate-400 transition-colors group-hover:text-[#1B5FC4]">
-                          0{index + 1}
-                        </span>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </nav>
-              <div className="border-t border-[#E3E7ED] p-5">
-                <PlateCta
-                  onClick={() => {
-                    setMenuOpen(false);
-                    openRfq("turnkey");
-                  }}
-                  className="w-full"
-                >
-                  Request a Quote
-                </PlateCta>
-                <a
-                  href={MAC_COMPANY.whatsappHref}
-                  className="mt-3 flex items-center justify-center gap-2 font-mono text-xs font-semibold text-slate-600"
-                >
-                  <PhoneIcon className="h-3.5 w-3.5 text-[#1B5FC4]" />
-                  {MAC_COMPANY.phoneDisplay}
-                </a>
-              </div>
-            </div>
-          </div>
-        ) : null}
-
+    <>
         {/* ------------------------------- Hero ------------------------------- */}
         <section className="relative overflow-hidden bg-white">
           <div className="drafting-grid drafting-fade pointer-events-none absolute inset-0" aria-hidden="true" />
-          <div className="relative mx-auto max-w-7xl px-4 pb-16 pt-14 sm:px-6 md:pb-20 md:pt-24 lg:px-8">
+          <div className="relative mx-auto max-w-7xl px-4 pb-16 pt-10 sm:px-6 sm:pt-14 md:pb-20 md:pt-24 lg:px-8">
             <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-16">
               {/* Copy */}
               <div className="lg:col-span-7">
@@ -422,12 +168,12 @@ export function Variant5Page(): React.JSX.Element {
                       <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#1B5FC4] opacity-60" />
                       <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[#1B5FC4]" />
                     </span>
-                    Est. {MAC_COMPANY.established} · {MAC_COMPANY.isoCert}
+                    Est. {MAC_COMPANY.established} · ISO 9001:2015<span className="hidden sm:inline">{" "}Certified System</span>
                   </PlateTag>
                 </Reveal>
 
                 <Reveal delay={90}>
-                  <h1 className="mt-7 font-display text-4xl font-semibold leading-[1.04] tracking-[-0.025em] text-[#0D1B2E] sm:text-5xl lg:text-[64px]">
+                  <h1 className="mt-6 font-display text-[34px] font-semibold leading-[1.06] tracking-[-0.025em] text-[#0D1B2E] sm:mt-7 sm:text-5xl lg:text-[64px]">
                     Engineering Productivity for Process Industries
                   </h1>
                 </Reveal>
@@ -441,7 +187,7 @@ export function Variant5Page(): React.JSX.Element {
                 </Reveal>
 
                 <Reveal delay={240}>
-                  <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
+                  <div className="mt-8 flex flex-col gap-3 sm:mt-9 sm:flex-row sm:items-center">
                     <PlateCta onClick={() => openRfq("turnkey")} className="w-full sm:w-auto">
                       Request a Project Consultation
                     </PlateCta>
@@ -452,7 +198,7 @@ export function Variant5Page(): React.JSX.Element {
                 </Reveal>
 
                 <Reveal delay={310}>
-                  <dl className="mt-12 grid grid-cols-2 gap-x-6 gap-y-5 border-t border-[#E3E7ED] pt-6 sm:grid-cols-4">
+                  <dl className="mt-10 grid grid-cols-2 gap-x-6 gap-y-5 border-t border-[#E3E7ED] pt-6 sm:mt-12 sm:grid-cols-4">
                     {[
                       { label: "Materials", value: "SS304 / SS316L / MS" },
                       { label: "Standards", value: "ASME · IBR · AWS" },
@@ -487,7 +233,7 @@ export function Variant5Page(): React.JSX.Element {
                         className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#0D1B2E]/70 to-transparent"
                         aria-hidden="true"
                       />
-                      <figcaption className="absolute bottom-4 left-4 right-4 flex items-end justify-between gap-3">
+                      <figcaption className="absolute bottom-16 left-4 right-4 flex items-end justify-between gap-3 sm:bottom-12">
                         <span className="font-mono text-[11px] font-medium uppercase tracking-[0.16em] text-white/95">
                           PLATE A-01 — Reactor Vessel
                         </span>
@@ -495,9 +241,9 @@ export function Variant5Page(): React.JSX.Element {
                       </figcaption>
                       <CornerTicks />
                     </div>
-                    <div className="absolute -bottom-5 left-5 right-5 flex items-center justify-between rounded-[4px] border border-[#E3E7ED] bg-white px-4 py-3 shadow-[0_18px_45px_-24px_rgba(13,27,46,0.45)] sm:left-8 sm:right-8">
+                    <div className="absolute -bottom-5 left-4 right-4 flex flex-col gap-1 rounded-[4px] border border-[#E3E7ED] bg-white px-4 py-3 shadow-[0_18px_45px_-24px_rgba(13,27,46,0.45)] sm:left-8 sm:right-8 sm:flex-row sm:items-center sm:justify-between sm:gap-3">
                       <span className="font-mono text-[10px] font-medium uppercase tracking-[0.16em] text-slate-500">
-                        Works — {MAC_COMPANY.headquarters}
+                        Works · {MAC_COMPANY.headquarters}
                       </span>
                       <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-[#1B5FC4]">
                         ISO 9001:2015
@@ -514,14 +260,15 @@ export function Variant5Page(): React.JSX.Element {
         {/* White like the hero, so the background change lands exactly where section 01 begins. */}
         <section aria-label="Company metrics" className="border-b border-[#E3E7ED] bg-white">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-2 divide-[#E3E7ED] border-t border-[#E3E7ED] md:grid-cols-4 md:divide-x">
+            <div className="grid grid-cols-2 border-t border-[#E3E7ED] md:grid-cols-4 md:divide-x md:divide-[#E3E7ED]">
             {MAC_METRICS.map((metric, index) => (
-              <Reveal key={metric.label} delay={index * 70} className="py-8 md:py-10">
-                <div className="px-2 text-center md:px-6">
-                  <div className="font-display text-3xl font-semibold tracking-[-0.02em] text-[#0D1B2E] md:text-[34px]">
+              <Reveal key={metric.label} delay={index * 70} className="flex border-[#E3E7ED] max-md:odd:border-r max-md:nth-[-n+2]:border-b">
+                <div className="flex min-h-[7.5rem] w-full flex-col items-center justify-center px-3 py-6 text-center md:min-h-0 md:px-6 md:py-10">
+                  <div className="text-balance font-display text-[22px] font-semibold leading-tight tracking-[-0.02em] text-[#0D1B2E] sm:text-3xl md:text-[34px]">
                     {metric.value}
                   </div>
-                  <div className="mt-2 font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-[#1B5FC4]">
+                  {/* Letter-spacing also trails the last glyph; matching left padding keeps the label optically centred. */}
+                  <div className="mt-2 text-balance pl-[0.14em] font-mono text-[10px] font-semibold uppercase leading-snug tracking-[0.14em] text-[#1B5FC4] md:pl-[0.18em] md:tracking-[0.18em]">
                     {metric.label}
                   </div>
                   <p className="mt-1.5 hidden text-xs leading-relaxed text-slate-500 md:block">{metric.context}</p>
@@ -533,9 +280,9 @@ export function Variant5Page(): React.JSX.Element {
         </section>
 
         {/* --------------------------- 01 · Two pillars --------------------------- */}
-        <section id="pillars" className="scroll-mt-24 py-20 md:py-28">
+        <section id="pillars" className="scroll-mt-24 py-14 sm:py-20 md:py-28">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <SectionHeading
+            <AtlasSectionHeading
               index="01"
               eyebrow="What MAC Does"
               title="Two disciplines. One accountable partner."
@@ -547,7 +294,7 @@ export function Variant5Page(): React.JSX.Element {
                 const PillarIcon = pillar.icon;
                 return (
                   <Reveal key={pillar.numeral} delay={pillarIndex * 120}>
-                    <article className="group relative flex h-full flex-col rounded-[6px] border border-[#E3E7ED] bg-white p-7 transition-all duration-300 hover:-translate-y-1 hover:border-[#1B5FC4]/50 hover:shadow-[0_28px_60px_-30px_rgba(13,27,46,0.35)] md:p-9">
+                    <article className="group relative flex h-full flex-col rounded-[6px] border border-[#E3E7ED] bg-white p-5 transition-all sm:p-7 duration-300 hover:-translate-y-1 hover:border-[#1B5FC4]/50 hover:shadow-[0_28px_60px_-30px_rgba(13,27,46,0.35)] md:p-9">
                       <span
                         aria-hidden="true"
                         className="absolute inset-x-0 top-0 h-[3px] origin-left scale-x-0 rounded-t-[6px] bg-[#1B5FC4] transition-transform duration-500 ease-out group-hover:scale-x-100"
@@ -578,7 +325,7 @@ export function Variant5Page(): React.JSX.Element {
                         ))}
                       </ul>
 
-                      <div className="mt-auto flex items-center justify-between gap-4 border-t border-[#EDF1F6] pt-5">
+                      <div className="mt-auto flex flex-col items-start gap-3 border-t border-[#EDF1F6] pt-5 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
                         <span className="font-mono text-[11px] font-medium uppercase tracking-[0.14em] text-slate-500">
                           {pillar.stat}
                         </span>
@@ -599,105 +346,26 @@ export function Variant5Page(): React.JSX.Element {
         </section>
 
         {/* --------------------------- 02 · Equipment --------------------------- */}
-        <section id="equipment" className="scroll-mt-24 border-t border-[#E3E7ED] bg-white py-20 md:py-28">
+        <section id="equipment" className="scroll-mt-24 border-t border-[#E3E7ED] bg-white py-14 sm:py-20 md:py-28">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <SectionHeading
+            <AtlasSectionHeading
               index="02"
               eyebrow="Manufacturing Directory"
               title="Equipment built to your process duty"
               description="Seven product lines fabricated in-house and tested before dispatch — vessels, agitation, dispersion, bulk storage, conveying and complete turnkey trains."
             />
 
-            {/* Filter rail */}
-            <Reveal>
-              <div className="mb-10 flex flex-wrap items-center gap-2" role="group" aria-label="Filter equipment by category">
-                {(["all", "vessels", "mixing", "handling", "turnkey"] as const).map((filter) => (
-                  <button
-                    key={filter}
-                    type="button"
-                    onClick={() => setEquipmentFilter(filter)}
-                    aria-pressed={equipmentFilter === filter}
-                    className={`group/chip relative isolate px-4 py-2 font-mono text-[11px] font-semibold uppercase tracking-[0.14em] outline-none transition-colors duration-150 [--cut:6px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B5FC4] ${
-                      equipmentFilter === filter ? "text-white" : "text-slate-600 hover:text-[#1B5FC4]"
-                    }`}
-                  >
-                    <PlateSurface
-                      frameClassName={equipmentFilter === filter ? "bg-[#0D1B2E]" : "bg-[#E3E7ED] group-hover/chip:bg-[#1B5FC4]/60"}
-                      faceClassName={equipmentFilter === filter ? "bg-[#0D1B2E]" : "bg-white"}
-                    />
-                    {filter === "all" ? "All Lines" : EQUIPMENT_CATEGORY_LABELS[filter]}
-                  </button>
-                ))}
-              </div>
-            </Reveal>
-
-            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
-              {visibleEquipment.map((item, index) => (
-                <Reveal key={item.id} delay={(index % 3) * 90}>
-                  <article className="group relative flex h-full flex-col overflow-hidden rounded-[6px] border border-[#E3E7ED] bg-white transition-all duration-300 hover:-translate-y-1 hover:border-[#1B5FC4]/50 hover:shadow-[0_28px_60px_-30px_rgba(13,27,46,0.35)]">
-                    <div className="relative aspect-[16/9] overflow-hidden bg-[#EEF1F4]">
-                      <Image
-                        src={item.image}
-                        alt={item.name}
-                        fill
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.045]"
-                      />
-                      <div className="absolute left-3 top-3 flex items-center gap-2">
-                        <PlateTag skin="frost">
-                          {EQUIPMENT_CATEGORY_LABELS[item.category]}
-                        </PlateTag>
-                        {item.badge ? (
-                          <PlateTag skin="steel">
-                            {item.badge}
-                          </PlateTag>
-                        ) : null}
-                      </div>
-                    </div>
-
-                    <div className="flex flex-1 flex-col p-6">
-                      <h3 className="font-display text-lg font-semibold tracking-[-0.01em] text-[#0D1B2E]">
-                        {item.name}
-                      </h3>
-                      <p className="mt-2 text-sm leading-relaxed text-slate-600">{item.shortDesc}</p>
-
-                      <dl className="mt-4 space-y-2 border-t border-[#F0F2F5] pt-4">
-                        <div className="flex items-baseline justify-between gap-3">
-                          <dt className="font-mono text-[10px] font-medium uppercase tracking-[0.16em] text-slate-500">
-                            Capacity
-                          </dt>
-                          <dd className="text-xs font-semibold text-[#0D1B2E]">{item.capacityRange}</dd>
-                        </div>
-                        <div className="flex items-baseline justify-between gap-3">
-                          <dt className="font-mono text-[10px] font-medium uppercase tracking-[0.16em] text-slate-500">
-                            MOC
-                          </dt>
-                          <dd className="text-right text-xs font-semibold text-[#0D1B2E]">
-                            {item.moc.slice(0, 2).join(" · ")}
-                          </dd>
-                        </div>
-                      </dl>
-
-                      <button
-                        type="button"
-                        onClick={() => openRfq("equipment", item.name)}
-                        className="group/btn mt-5 inline-flex items-center gap-2 self-start border-b border-transparent pb-0.5 text-[13px] font-semibold text-[#1B5FC4] transition-colors hover:border-[#1B5FC4]"
-                      >
-                        Request Datasheet
-                        <ArrowRightIcon className="h-3.5 w-3.5 transition-transform duration-300 group-hover/btn:translate-x-1" />
-                      </button>
-                    </div>
-                  </article>
-                </Reveal>
-              ))}
-            </div>
+            <EquipmentGallery
+              onRequestDatasheet={(equipmentName) => openRfq("equipment", equipmentName)}
+              onRequestCustomBuild={() => openRfq("equipment")}
+            />
           </div>
         </section>
 
         {/* --------------------------- 03 · Services --------------------------- */}
-        <section id="services" className="scroll-mt-24 border-t border-[#E3E7ED] py-20 md:py-28">
+        <section id="services" className="scroll-mt-24 border-t border-[#E3E7ED] py-14 sm:py-20 md:py-28">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <SectionHeading
+            <AtlasSectionHeading
               index="03"
               eyebrow="Services Matrix"
               title="Certified crews for every site discipline"
@@ -719,7 +387,7 @@ export function Variant5Page(): React.JSX.Element {
                       onClick={() => setExpandedService(expanded ? null : service.id)}
                       aria-expanded={expanded}
                       aria-controls={`service-panel-${service.id}`}
-                      className="flex w-full items-center gap-4 px-5 py-5 text-left sm:gap-6 sm:px-7"
+                      className="flex w-full items-center gap-3 px-4 py-4 text-left sm:gap-6 sm:px-7 sm:py-5"
                     >
                       <span
                         className={`font-mono text-sm font-semibold transition-colors ${
@@ -729,7 +397,7 @@ export function Variant5Page(): React.JSX.Element {
                         {String(index + 1).padStart(2, "0")}
                       </span>
                       <span className="min-w-0 flex-1">
-                        <span className="block truncate font-display text-base font-semibold text-[#0D1B2E] sm:text-lg">
+                        <span className="block font-display text-base font-semibold leading-snug text-[#0D1B2E] sm:truncate sm:text-lg">
                           {service.name}
                         </span>
                         <span className="mt-0.5 hidden font-mono text-[10px] font-medium uppercase tracking-[0.14em] text-slate-500 sm:block">
@@ -764,7 +432,7 @@ export function Variant5Page(): React.JSX.Element {
                       }`}
                     >
                       <div className="overflow-hidden">
-                        <div className="grid grid-cols-1 gap-6 border-t border-[#E7EDF5] px-5 py-6 sm:px-7 md:grid-cols-2 md:gap-10">
+                        <div className="grid grid-cols-1 gap-6 border-t border-[#E7EDF5] px-4 py-5 sm:px-7 sm:py-6 md:grid-cols-2 md:gap-10">
                           <div>
                             <p className="text-sm leading-relaxed text-slate-600">{service.fullDesc}</p>
                             <button
@@ -798,9 +466,9 @@ export function Variant5Page(): React.JSX.Element {
         </section>
 
         {/* --------------------------- 04 · Process --------------------------- */}
-        <section id="process" className="scroll-mt-24 border-t border-[#E3E7ED] bg-white py-20 md:py-28">
+        <section id="process" className="scroll-mt-24 border-t border-[#E3E7ED] bg-white py-14 sm:py-20 md:py-28">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <SectionHeading
+            <AtlasSectionHeading
               index="04"
               eyebrow="Delivery Framework"
               title="From enquiry to lifecycle support"
@@ -839,9 +507,9 @@ export function Variant5Page(): React.JSX.Element {
         </section>
 
         {/* --------------------------- 05 · Industries --------------------------- */}
-        <section id="industries" className="scroll-mt-24 border-t border-[#E3E7ED] py-20 md:py-28">
+        <section id="industries" className="scroll-mt-24 border-t border-[#E3E7ED] py-14 sm:py-20 md:py-28">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <SectionHeading
+            <AtlasSectionHeading
               index="05"
               eyebrow="Application Segments"
               title="Industries we engineer for"
@@ -853,7 +521,7 @@ export function Variant5Page(): React.JSX.Element {
                 const IndustryIcon = INDUSTRY_ICONS[industry.id] ?? CogIcon;
                 return (
                   <Reveal key={industry.id} delay={(index % 3) * 90}>
-                    <article className="group relative h-full overflow-hidden rounded-[6px] border border-[#E3E7ED] bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[#1B5FC4]/50 hover:shadow-[0_24px_50px_-28px_rgba(13,27,46,0.35)]">
+                    <article className="group relative h-full overflow-hidden rounded-[6px] border border-[#E3E7ED] bg-white p-5 transition-all sm:p-6 duration-300 hover:-translate-y-1 hover:border-[#1B5FC4]/50 hover:shadow-[0_24px_50px_-28px_rgba(13,27,46,0.35)]">
                       <span
                         aria-hidden="true"
                         className="absolute inset-x-0 top-0 h-[3px] origin-left scale-x-0 bg-[#1B5FC4] transition-transform duration-500 ease-out group-hover:scale-x-100"
@@ -880,7 +548,7 @@ export function Variant5Page(): React.JSX.Element {
         <section
           id="quality"
           aria-label="Quality, safety and compliance"
-          className="relative scroll-mt-24 overflow-hidden border-t border-[#0D1B2E] bg-[#0A1424] py-20 text-white md:py-24"
+          className="relative scroll-mt-24 overflow-hidden border-t border-[#0D1B2E] bg-[#0A1424] py-14 text-white sm:py-20 md:py-24"
         >
           <div className="drafting-grid-inverse pointer-events-none absolute inset-0 opacity-60" aria-hidden="true" />
           <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -923,10 +591,10 @@ export function Variant5Page(): React.JSX.Element {
         </section>
 
         {/* ------------------------------ Final CTA ------------------------------ */}
-        <section id="contact" className="scroll-mt-24 border-b border-[#E3E7ED] py-20 md:py-28">
+        <section id="contact" className="scroll-mt-24 py-14 sm:py-20 md:py-28">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <Reveal>
-              <div className="relative overflow-hidden rounded-[8px] border border-[#E3E7ED] bg-white px-6 py-14 text-center sm:px-12 md:py-20">
+              <div className="relative overflow-hidden rounded-[8px] border border-[#E3E7ED] bg-white px-5 py-10 text-center sm:px-12 sm:py-14 md:py-20">
                 <div className="drafting-grid drafting-fade pointer-events-none absolute inset-0" aria-hidden="true" />
                 <div className="relative">
                   <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.22em] text-[#1B5FC4]">
@@ -939,7 +607,7 @@ export function Variant5Page(): React.JSX.Element {
                     Share your capacity, material and plant layout. A senior project engineer
                     reviews every enquiry and responds within one business day.
                   </p>
-                  <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
+                  <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:mt-9 sm:flex-row sm:items-center">
                     <PlateCta size="lg" onClick={() => openRfq("turnkey")} className="w-full sm:w-auto">
                       Request Engineering Proposal
                     </PlateCta>
@@ -961,96 +629,15 @@ export function Variant5Page(): React.JSX.Element {
           </div>
         </section>
 
-        {/* ------------------------------- Footer ------------------------------- */}
-        <footer className="bg-[#F8F8F5]">
-          <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 gap-10 md:grid-cols-12">
-              <div className="md:col-span-5">
-                <span className="relative block h-10 w-36">
-                  <Image
-                    src={MAC_COMPANY.logo}
-                    alt="MAC Engineers logo"
-                    fill
-                    sizes="144px"
-                    className="object-contain object-left"
-                  />
-                </span>
-                <p className="mt-5 max-w-sm text-sm leading-relaxed text-slate-600">
-                  {MAC_COMPANY.tagline} — engineered equipment, industrial project execution and
-                  integrated process-plant solutions from Ankleshwar, Gujarat to sites across India.
-                </p>
-                <div className="mt-5 flex flex-wrap items-center gap-2">
-                  <PlateTag>
-                    {MAC_COMPANY.isoCert}
-                  </PlateTag>
-                  <PlateTag>
-                    {MAC_COMPANY.hsePolicy}
-                  </PlateTag>
-                </div>
-              </div>
-
-              <nav aria-label="Footer" className="md:col-span-3">
-                <h3 className="font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-500">
-                  Explore
-                </h3>
-                <ul className="mt-4 space-y-2.5">
-                  {[
-                    { label: "Products", href: "/product" },
-                    { label: "Services", href: "/service" },
-                    { label: "About Us", href: "/about-us" },
-                    { label: "Contact", href: "/contact-us" },
-                    { label: "Main Site", href: "/" },
-                  ].map((link) => (
-                    <li key={link.href}>
-                      <Link
-                        href={link.href}
-                        className="group inline-flex items-center gap-2 text-sm text-slate-600 transition-colors hover:text-[#1B5FC4]"
-                      >
-                        <span className="h-px w-3 bg-[#CBD5E1] transition-all duration-300 group-hover:w-5 group-hover:bg-[#1B5FC4]" />
-                        {link.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </nav>
-
-              <address className="not-italic md:col-span-4">
-                <h3 className="font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-500">
-                  Head Office &amp; Works
-                </h3>
-                <p className="mt-4 max-w-xs text-sm leading-relaxed text-slate-600">{MAC_COMPANY.worksAddress}</p>
-                <ul className="mt-4 space-y-2 text-sm">
-                  <li>
-                    <a href={`mailto:${MAC_COMPANY.email}`} className="text-slate-700 transition-colors hover:text-[#1B5FC4]">
-                      {MAC_COMPANY.email}
-                    </a>
-                  </li>
-                  <li>
-                    <a href={`tel:${MAC_COMPANY.phone.replace(/\s/g, "")}`} className="text-slate-700 transition-colors hover:text-[#1B5FC4]">
-                      {MAC_COMPANY.phoneDisplay}
-                    </a>
-                  </li>
-                </ul>
-              </address>
-            </div>
-
-            <div className="mt-12 flex flex-col items-start justify-between gap-3 border-t border-[#E3E7ED] pt-6 sm:flex-row sm:items-center">
-              <p className="font-mono text-[11px] text-slate-500">
-                © {new Date().getFullYear()} {MAC_COMPANY.name} — {MAC_COMPANY.tagline}
-              </p>
-              <p className="font-mono text-[11px] text-slate-400">KimiK3 · Corporate Atlas — Manufacturing × Services</p>
-            </div>
-          </div>
-        </footer>
-
+        {/* Keyed on the preset: the modal reads its defaults only on mount, so a new line needs a fresh instance. */}
         <VariantRfqModal
+          key={`${rfqPreset.profile}:${rfqPreset.product}`}
           isOpen={isRfqOpen}
           onClose={() => setIsRfqOpen(false)}
           defaultProfile={rfqPreset.profile}
           defaultProduct={rfqPreset.product}
           theme="brand"
         />
-      </div>
-    </VariantContainer>
+    </>
   );
 }

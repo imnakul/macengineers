@@ -1,13 +1,10 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Archivo, Geist, Geist_Mono } from "next/font/google";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { SiteFooter } from "@/components/SiteFooter";
-import { SiteHeader } from "@/components/SiteHeader";
 import { COMPANY } from "@/data/site";
 import { organizationLd, websiteLd } from "@/lib/structured-data";
-import { GlobalVariantSwitcher } from "@/variants/shared/GlobalVariantSwitcher";
 import "./globals.css";
 
 /**
@@ -85,6 +82,12 @@ export const metadata: Metadata = {
   },
 };
 
+/** Browser chrome colour matches the white site header; the design is light-only. */
+export const viewport: Viewport = {
+  themeColor: "#ffffff",
+  colorScheme: "light",
+};
+
 export default function RootLayout({ children }: LayoutProps<"/">): React.JSX.Element {
   return (
     <html
@@ -99,15 +102,8 @@ export default function RootLayout({ children }: LayoutProps<"/">): React.JSX.El
           Skip to content
         </a>
 
-        <SiteHeader />
-
-        <main id="main" className="flex-1">
-          {children}
-        </main>
-
-        <SiteFooter />
-
-        <GlobalVariantSwitcher />
+        {/* Header, <main id="main"> and footer come from the (atlas) or (classic) group layout. */}
+        {children}
 
         <JsonLd data={[organizationLd(), websiteLd()]} />
 

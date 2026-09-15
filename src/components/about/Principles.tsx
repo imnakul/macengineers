@@ -9,9 +9,9 @@ export function Principles(): React.JSX.Element {
   return (
     <section
       aria-labelledby="principles-heading"
-      className="px-5 py-24 md:px-13 md:py-36"
+      className="px-4 py-16 sm:px-6 sm:py-20 md:py-28 lg:px-8 lg:py-32"
     >
-      <div className="mx-auto max-w-[1180px]">
+      <div className="mx-auto max-w-7xl">
         <Reveal>
           <SectionHeading
             id="principles-heading"

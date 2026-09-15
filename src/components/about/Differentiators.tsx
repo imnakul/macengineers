@@ -9,9 +9,9 @@ export function Differentiators(): React.JSX.Element {
   return (
     <section
       aria-labelledby="differentiators-heading"
-      className="bg-surface px-5 py-24 md:px-13 md:py-36"
+      className="bg-surface px-4 py-16 sm:px-6 sm:py-20 md:py-28 lg:px-8 lg:py-32"
     >
-      <div className="mx-auto max-w-[1180px]">
+      <div className="mx-auto max-w-7xl">
         <Reveal>
           <SectionHeading
             id="differentiators-heading"

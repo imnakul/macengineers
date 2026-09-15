@@ -52,7 +52,7 @@ export const MAC_COMPANY = {
   whatsappHref: "https://wa.me/919409982541",
   isoCert: "ISO 9001:2015 Certified System",
   hsePolicy: "Zero-Accident HSE Culture",
-  logo: "/mac/logo.webp",
+  logo: "/mac/logo-trimmed.webp",
   reach: "Pan-India Project Execution & Delivery",
 };
 
