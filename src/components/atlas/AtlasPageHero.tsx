@@ -4,7 +4,8 @@ import { PlateTag } from "@/variants/shared/PlateTag";
 import { AtlasBreadcrumbs, type AtlasBreadcrumbItem } from "./AtlasBreadcrumbs";
 
 interface AtlasPageHeroProps {
-  eyebrow: string;
+  /** Optional section label. Omit when the breadcrumb already provides the same context. */
+  eyebrow?: string;
   title: string;
   /** Larger opening line under the title. */
   lead?: string;
@@ -44,15 +45,17 @@ export function AtlasPageHero({
 
         <div className={`mt-8 grid grid-cols-1 gap-10 sm:mt-10 ${aside ? "lg:grid-cols-12 lg:items-end lg:gap-16" : ""}`}>
           <div className={aside ? "min-w-0 lg:col-span-7" : "min-w-0 max-w-3xl"}>
-            <Reveal delay={60}>
-              <PlateTag as="p" size="sm" skin="tint">
-                {eyebrow}
-              </PlateTag>
-            </Reveal>
+            {eyebrow ? (
+              <Reveal delay={60}>
+                <PlateTag as="p" size="sm" skin="tint">
+                  {eyebrow}
+                </PlateTag>
+              </Reveal>
+            ) : null}
             <Reveal delay={120}>
               <h1
                 id={headingId}
-                className="mt-4 break-words font-display text-[32px] font-semibold leading-[1.1] tracking-[-0.02em] text-[#0D1B2E] sm:mt-5 sm:text-5xl sm:leading-[1.05] lg:text-[56px] lg:leading-none"
+                className={`${eyebrow ? "mt-4 sm:mt-5" : "mt-0"} break-words font-display text-[32px] font-semibold leading-[1.1] tracking-[-0.02em] text-[#0D1B2E] sm:text-5xl sm:leading-[1.05] lg:text-[56px] lg:leading-none`}
               >
                 {title}
               </h1>

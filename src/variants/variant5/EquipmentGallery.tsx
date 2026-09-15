@@ -388,7 +388,7 @@ export function EquipmentGallery({
                     </h3>
                     <p className="mt-2 line-clamp-3 text-[13px] leading-relaxed text-slate-600">{active.fullDesc}</p>
 
-                    <ul className="mt-4 space-y-1.5">
+                    <ul className="mt-4 mb-4 space-y-1.5">
                       {active.features.slice(0, 2).map((feature) => (
                         <li key={feature} className="flex items-start gap-2 text-[12.5px] leading-snug text-slate-700">
                           <CheckCircleIcon className="mt-px h-3.5 w-3.5 shrink-0 text-[#1B5FC4]" />

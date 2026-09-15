@@ -139,7 +139,6 @@ export default async function BlogPostPage({ params }: PageProps<"/[slug]">): Pr
   return (
     <>
       <AtlasPageHero
-        eyebrow="Insights"
         title={post.title}
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Blog", href: "/blog" }, { label: post.title }]}
         headingId="post-heading"

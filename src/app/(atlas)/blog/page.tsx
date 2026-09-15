@@ -159,7 +159,6 @@ export default function BlogPage(): React.JSX.Element {
   return (
     <>
       <AtlasPageHero
-        eyebrow={BLOG_PAGE.hero.eyebrow}
         title={BLOG_PAGE.hero.headline}
         description={BLOG_PAGE.hero.subhead}
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Blog" }]}
@@ -206,16 +205,6 @@ export default function BlogPage(): React.JSX.Element {
               ))}
             </ol>
           </Reveal>
-
-          <a
-            href={BLOG_PAGE.archiveHref}
-            rel="noopener noreferrer"
-            aria-label={`${BLOG_PAGE.archiveLabel} on macengineers.in`}
-            className="group mt-10 inline-flex items-center gap-2 text-[13px] font-semibold text-[#1B5FC4] outline-none transition-colors duration-150 hover:text-[#0F3D87] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#1B5FC4]"
-          >
-            {BLOG_PAGE.archiveLabel}
-            <ArrowRightIcon className={`h-3.5 w-3.5 transition-transform duration-[167ms] group-hover:translate-x-0.5 ${EASE_CLASS}`} />
-          </a>
         </div>
       </section>
 

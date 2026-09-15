@@ -478,13 +478,19 @@ export function Variant5Page(): React.JSX.Element {
             <ol className="relative grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-7 lg:gap-0">
               <span
                 aria-hidden="true"
-                className="absolute left-0 right-0 top-[22px] hidden h-px bg-[#E3E7ED] lg:block"
+                className="absolute left-[calc(100%/14)] right-[calc(100%/14)] top-[22px] hidden h-px bg-[#E3E7ED] lg:block"
               />
               {PROCESS_STEPS.map((step, index) => (
-                <li key={step.step} className="relative lg:px-3 lg:first:pl-0 lg:last:pr-0">
+                <li key={step.step} className="relative lg:px-3">
+                  {index < PROCESS_STEPS.length - 1 ? (
+                    <span
+                      aria-hidden="true"
+                      className="absolute -bottom-6 left-[22px] top-[22px] w-px bg-[#E3E7ED] sm:hidden"
+                    />
+                  ) : null}
                   <Reveal delay={index * 80}>
                     <div className="group flex items-start gap-4 lg:flex-col lg:gap-0">
-                      <span className="relative z-10 inline-flex h-11 w-11 shrink-0 items-center justify-center font-mono text-[11px] font-semibold text-[#1B5FC4] transition-colors duration-300 group-hover:text-white">
+                      <span className="relative z-10 inline-flex h-11 w-11 shrink-0 items-center justify-center bg-white font-mono text-[11px] font-semibold text-[#1B5FC4] transition-colors duration-300 group-hover:text-white lg:mx-auto">
                         <PlateSurface
                           shape="octagon"
                           frameClassName="bg-[#DCE4F0] group-hover:bg-[#1B5FC4]"
@@ -494,9 +500,11 @@ export function Variant5Page(): React.JSX.Element {
                         </PlateSurface>
                         {step.step}
                       </span>
-                      <div className="lg:mt-4">
+                      <div className="min-w-0 flex-1 lg:mt-4 lg:w-full lg:text-center">
                         <h3 className="font-display text-[15px] font-semibold text-[#0D1B2E]">{step.title}</h3>
-                        <p className="mt-1.5 text-xs leading-relaxed text-slate-500 lg:pr-2">{step.detail}</p>
+                        <p className="mt-1.5 min-h-10 text-xs leading-relaxed text-slate-500 sm:min-h-0 lg:min-h-[3.75rem]">
+                          {step.detail}
+                        </p>
                       </div>
                     </div>
                   </Reveal>

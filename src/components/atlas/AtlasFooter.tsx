@@ -44,16 +44,16 @@ const LINK_CLASS =
   "text-[15px] text-[#334155] underline-offset-4 transition-colors duration-150 hover:text-[#1B5FC4] hover:underline focus-visible:text-[#1B5FC4] focus-visible:underline";
 
 /**
- * Corporate Atlas footer, laid out like the title block on an engineering drawing: one
- * hairline-ruled plate with a cell each for the company, its links and its works address,
- * closed by a strip for the legal line, certifications and social profiles.
+ * Corporate Atlas footer, grounded as a full-width page surface. Hairline-ruled columns
+ * organise the company, links and works address without turning the footer into a
+ * floating card. A final strip holds legal, certification and social information.
  */
 export function AtlasFooter(): React.JSX.Element {
   return (
-    <footer className="border-t border-[#E3E7ED] bg-[#F8F8F5]">
-      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 md:py-20 lg:px-8">
-        <div className="grid gap-px overflow-hidden rounded-[6px] border border-[#E3E7ED] bg-[#E3E7ED] md:grid-cols-2 lg:grid-cols-12">
-          <div className={`${CELL_CLASS} md:col-span-2 lg:col-span-5`}>
+    <footer className="border-t border-[#E3E7ED] bg-white">
+      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-10 md:py-12 lg:px-8">
+        <div className="grid grid-cols-2 gap-px bg-[#E3E7ED] lg:grid-cols-12">
+          <div className={`${CELL_CLASS} col-span-2 lg:col-span-5`}>
             <Link href="/" aria-label="MAC Engineers home" className="inline-flex">
               <Image
                 src={MAC_COMPANY.logo}
@@ -87,7 +87,7 @@ export function AtlasFooter(): React.JSX.Element {
             </nav>
           ))}
 
-          <address className={`${CELL_CLASS} not-italic md:col-span-2 lg:col-span-3`}>
+          <address className={`${CELL_CLASS} col-span-2 not-italic lg:col-span-3`}>
             <h2 className={CELL_LABEL_CLASS}>Head office &amp; works</h2>
             <p className="mt-5 text-[15px] leading-relaxed text-[#334155]">{MAC_COMPANY.worksAddress}</p>
             <ul className="mt-6 space-y-3">
@@ -108,7 +108,7 @@ export function AtlasFooter(): React.JSX.Element {
             </ul>
           </address>
 
-          <div className="flex flex-col gap-4 bg-white px-6 py-5 sm:px-8 md:col-span-2 lg:col-span-12 lg:flex-row lg:items-center lg:justify-between">
+          <div className="col-span-2 flex flex-col gap-4 bg-white px-6 py-5 sm:px-8 lg:col-span-12 lg:flex-row lg:items-center lg:justify-between">
             <p className="font-mono text-[11px] text-slate-500">
               © {new Date().getFullYear()} {COMPANY.legalName}. All rights reserved.
             </p>

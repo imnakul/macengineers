@@ -14,7 +14,7 @@ interface AtlasSectionHeadingProps {
 
 /**
  * Architectural section header: a chamfered index stamp and mono eyebrow over a
- * hairline that ends in a 45° steel tick, then the display title and supporting copy.
+ * clean hairline, then the display title and supporting copy.
  * Spacing and title size step down on small screens so the heading never eats the fold.
  */
 export function AtlasSectionHeading({
@@ -37,7 +37,6 @@ export function AtlasSectionHeading({
           <span className="min-w-0 font-mono text-[10px] font-medium uppercase tracking-[0.2em] text-slate-500 sm:text-[11px] sm:tracking-[0.22em]">
             {eyebrow}
           </span>
-          <span aria-hidden="true" className="absolute -bottom-px right-0 h-px w-4 origin-right rotate-45 bg-[#1B5FC4]" />
         </div>
       </Reveal>
       <Reveal delay={80}>

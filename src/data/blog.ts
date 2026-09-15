@@ -111,6 +111,4 @@ export const BLOG_PAGE = {
   ] satisfies readonly BlogPost[],
 
   moreHeading: "More from the team",
-  archiveHref: "https://macengineers.in/category/blog/",
-  archiveLabel: "View the full archive",
 } as const;
