@@ -1,3 +1,5 @@
+import type { PlateDepth } from "@/components/ui/PlateFrame";
+
 /**
  * Content layer for the Service page.
  *
@@ -23,7 +25,7 @@ export interface ServiceCategory {
    * steel work). Set per item rather than assumed, since this series genuinely mixes
    * both — see PlateFrame's `depth` prop.
    */
-  readonly imageDepth: "photo" | "illustration";
+  readonly imageDepth: PlateDepth;
 }
 
 export const SERVICE_PAGE = {
@@ -50,9 +52,9 @@ export const SERVICE_PAGE = {
         "Compliance with industry and safety standards",
         "Custom-built solutions that maximize operational efficiency",
       ],
-      image: "/mac/service-design-engineering.png",
-      alt: "Illustration of engineers preparing CAD and 3D plant layouts",
-      imageDepth: "illustration",
+      image: "/images/product/design-engineering-team.png",
+      alt: "MAC Engineers design engineers reviewing a process vessel model and fabrication drawings",
+      imageDepth: "scene",
     },
     {
       slug: "project-services",
@@ -66,9 +68,9 @@ export const SERVICE_PAGE = {
         "Services include: piping, steel structures, insulation, painting, commissioning",
         "Focus on safety, quality, and timely delivery",
       ],
-      image: "/mac/service-fabrication-supply.png",
-      alt: "Illustration of in-house fabrication of process equipment",
-      imageDepth: "illustration",
+      image: "/images/product/project-lifecycle-team.png",
+      alt: "Project team taking a process vessel from design desk to site installation",
+      imageDepth: "scene",
     },
     {
       slug: "process-utility-piping",
@@ -82,9 +84,9 @@ export const SERVICE_PAGE = {
         "Full scope: process pipelines, water systems, steam systems, compressed air systems, bulk chemical transfer lines",
         "Complete testing as per client requirements for quality assurance",
       ],
-      image: "/mac/hero-process-skid.png",
-      alt: "Skid-mounted process equipment assembly with process and utility piping",
-      imageDepth: "photo",
+      image: "/images/product/commissioning-support-crew.png",
+      alt: "Technicians connecting and checking process piping and a pump skid beside a jacketed vessel",
+      imageDepth: "scene",
     },
     {
       slug: "structural-steel-works",
@@ -98,9 +100,9 @@ export const SERVICE_PAGE = {
         "Reconditioning & replacement of corroded or worn-out structures",
         "Compliance with load-bearing designs for safety and durability",
       ],
-      image: "/mac/hero-conveyor-hopper.png",
-      alt: "Industrial conveyor system with storage hopper and supporting steel structure",
-      imageDepth: "photo",
+      image: "/images/product/quality-inspection.png",
+      alt: "Engineer inspecting fabricated steel components while a technician works on a skid-mounted pump",
+      imageDepth: "scene",
     },
     {
       slug: "equipment-erection-installation",
@@ -116,9 +118,9 @@ export const SERVICE_PAGE = {
         "Chemical process equipment: reaction columns, heat exchangers, etc.",
         "Safe, time-bound, and technologically sound execution by skilled manpower",
       ],
-      image: "/mac/service-installation-commissioning.png",
-      alt: "Illustration of on-site installation and commissioning of plant equipment",
-      imageDepth: "illustration",
+      image: "/images/product/installation-crew.png",
+      alt: "Site crew rigging a stainless steel process vessel into position with a crane",
+      imageDepth: "scene",
     },
   ] satisfies readonly ServiceCategory[],
 

@@ -1,3 +1,5 @@
+import type { RenderFit } from "@/components/ui/RenderStage";
+
 /**
  * Full article content for the ten blog posts, extracted from
  * https://macengineers.in/{slug}/ on 2026-09-01.
@@ -54,6 +56,8 @@ export interface BlogPostDetail {
   readonly title: string;
   readonly image?: string;
   readonly alt?: string;
+  /** How the render sits on the studio stage. */
+  readonly imageFit?: RenderFit;
   readonly metaDescription: string;
   /** ISO 8601, read from the source page's own Article structured data. */
   readonly datePublished: string;
@@ -65,8 +69,9 @@ export const BLOG_POSTS: readonly BlogPostDetail[] = [
   {
     slug: "the-role-of-automation-in-industrial-material-handling",
     title: "The Role of Automation in Industrial Material Handling",
-    image: "/mac/journal-automation.webp",
-    alt: "Automated material handling equipment on a plant floor",
+    image: "/images/product/turnkey-process-system.png",
+    alt: "Automated process line with screw conveyor, reactor, pumps and PLC control panel on one skid",
+    imageFit: "object",
     metaDescription: "Discover how automation is transforming industrial material handling by improving efficiency, reducing manual workload, and enhancing safety. Learn how advanced conveyors, robotics, and smart systems are reshaping modern manufacturing operations.",
     datePublished: "2025-10-24T08:44:48+00:00",
     dateModified: "2025-11-26T07:35:00+00:00",
@@ -106,8 +111,9 @@ export const BLOG_POSTS: readonly BlogPostDetail[] = [
   {
     slug: "troubleshooting-common-industrial-equipment-issues",
     title: "Troubleshooting Common Industrial Equipment Issues",
-    image: "/mac/journal-troubleshooting.webp",
-    alt: "Technician inspecting an industrial mixer during maintenance",
+    image: "/images/product/commissioning-support-crew.png",
+    alt: "Technicians diagnosing a pump skid and process piping beside a jacketed vessel",
+    imageFit: "scene",
     metaDescription: "Learn how to identify and troubleshoot common industrial equipment issues such as vibration, leakage, overheating, misalignment, and process inefficiencies. A practical guide for maintenance teams aiming to improve reliability and reduce downtime.",
     datePublished: "2025-09-18T08:44:31+00:00",
     dateModified: "2025-10-02T07:39:46+00:00",
@@ -139,8 +145,9 @@ export const BLOG_POSTS: readonly BlogPostDetail[] = [
   {
     slug: "energy-efficient-equipment-for-modern-process-industries",
     title: "Energy-Efficient Equipment for Modern Process Industries",
-    image: "/mac/journal-energy.webp",
-    alt: "Energy-efficient process equipment installed in a modern plant",
+    image: "/images/product/engineering-workspace.png",
+    alt: "Engineering workstation with process vessel models and energy performance charts",
+    imageFit: "scene",
     metaDescription: "Explore how energy-efficient equipment helps modern process industries reduce power consumption, optimize performance, and achieve sustainable operations. Learn about advanced mixers, conveyors, storage systems, and engineering solutions that lower operating costs.",
     datePublished: "2025-08-21T08:44:17+00:00",
     dateModified: "2025-09-04T07:46:47+00:00",
@@ -174,6 +181,9 @@ export const BLOG_POSTS: readonly BlogPostDetail[] = [
   {
     slug: "reducing-downtime-through-preventive-maintenance",
     title: "Reducing Downtime Through Preventive Maintenance",
+    image: "/images/product/quality-inspection.png",
+    alt: "Engineer inspecting components during planned maintenance while a technician services a pump skid",
+    imageFit: "scene",
     metaDescription: "Learn how preventive maintenance helps industries reduce downtime, increase equipment reliability, and optimize production efficiency. Explore key strategies, checklists, and best practices to maintain industrial machinery and avoid unexpected failures.",
     datePublished: "2025-07-17T08:44:02+00:00",
     dateModified: "2025-07-17T08:44:02+00:00",
@@ -207,6 +217,9 @@ export const BLOG_POSTS: readonly BlogPostDetail[] = [
   {
     slug: "industrial-equipment-safety-standards-you-must-follow",
     title: "Industrial Equipment Safety Standards You Must Follow",
+    image: "/images/product/installation-crew.png",
+    alt: "Site crew in full PPE rigging a process vessel under a controlled lift",
+    imageFit: "scene",
     metaDescription: "Understand the essential industrial equipment safety standards every manufacturing and process facility must follow. Learn about compliance requirements, operator safety, hazard control, and best practices to ensure safe and reliable plant operations.",
     datePublished: "2025-06-19T08:43:43+00:00",
     dateModified: "2025-06-19T08:43:43+00:00",
@@ -240,6 +253,9 @@ export const BLOG_POSTS: readonly BlogPostDetail[] = [
   {
     slug: "conveyor-maintenance-preventive-tips-for-continuous-operation",
     title: "Conveyor Maintenance: Preventive Tips for Continuous Operation",
+    image: "/images/product/screw-conveyor-hopper.png",
+    alt: "Inclined screw conveyor with feed hopper and geared drive",
+    imageFit: "object",
     metaDescription: "Discover essential preventive maintenance tips to keep industrial conveyor systems running smoothly. Learn how proper inspection, lubrication, alignment, and component care can reduce breakdowns and ensure continuous, efficient plant operation.",
     datePublished: "2025-05-22T08:43:28+00:00",
     dateModified: "2025-06-05T07:57:36+00:00",
@@ -274,6 +290,9 @@ export const BLOG_POSTS: readonly BlogPostDetail[] = [
   {
     slug: "designing-efficient-conveyor-systems-for-industrial-plants",
     title: "Designing Efficient Conveyor Systems for Industrial Plants",
+    image: "/images/product/design-engineering-team.png",
+    alt: "Engineers reviewing equipment layout drawings and a 3D model",
+    imageFit: "scene",
     metaDescription: "Learn how to design efficient conveyor systems for industrial plants by optimizing layout, selecting the right conveyor type, improving material flow, and enhancing energy efficiency. A complete guide for achieving reliable and cost-effective conveying operations.",
     datePublished: "2025-04-17T08:43:12+00:00",
     dateModified: "2025-04-17T08:43:12+00:00",
@@ -315,6 +334,9 @@ export const BLOG_POSTS: readonly BlogPostDetail[] = [
   {
     slug: "maintenance-practices-to-extend-silo-lifespan",
     title: "Maintenance Practices to Extend Silo Lifespan",
+    image: "/images/product/conical-storage-silo.png",
+    alt: "Stainless steel storage silo with conical discharge and access ladder",
+    imageFit: "object",
     metaDescription: "Learn essential maintenance practices to extend the lifespan of industrial silos. Discover inspection methods, cleaning routines, structural checks, corrosion prevention, and troubleshooting tips to ensure safe and long-lasting silo performance.",
     datePublished: "2025-03-20T08:42:38+00:00",
     dateModified: "2025-04-03T08:05:20+00:00",
@@ -349,6 +371,9 @@ export const BLOG_POSTS: readonly BlogPostDetail[] = [
   {
     slug: "preventing-material-segregation-in-bulk-storage-silos",
     title: "Preventing Material Segregation in Bulk Storage Silos",
+    image: "/images/product/conical-storage-silo.png",
+    alt: "Bulk storage silo with conical discharge designed for mass flow",
+    imageFit: "object",
     metaDescription: "Explore effective methods to prevent material segregation in bulk storage silos. Learn about flow patterns, silo design considerations, discharge techniques, and best practices to ensure consistent material quality and reliable plant performance.",
     datePublished: "2025-02-20T08:42:26+00:00",
     dateModified: "2025-02-20T08:42:26+00:00",
@@ -389,6 +414,9 @@ export const BLOG_POSTS: readonly BlogPostDetail[] = [
   {
     slug: "designing-silos-for-polypropylene-and-other-polymers",
     title: "Designing Silos for Polypropylene and Other Polymers",
+    image: "/images/product/engineering-workspace.png",
+    alt: "Engineering workstation with silo and vessel design drawings",
+    imageFit: "scene",
     metaDescription: "Learn how to design efficient silos for polypropylene and other polymer materials. Understand material behavior, flow properties, silo geometry, discharge systems, and engineering considerations essential for reliable polymer storage in industrial plants.",
     datePublished: "2025-01-23T08:42:09+00:00",
     dateModified: "2025-02-06T08:13:59+00:00",

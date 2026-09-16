@@ -1,4 +1,4 @@
-import { PlateFrame } from "@/components/ui/PlateFrame";
+import { PlateFrame, type PlateDepth } from "@/components/ui/PlateFrame";
 import { Reveal } from "@/components/ui/Reveal";
 
 interface SpecBlockProps {
@@ -9,12 +9,8 @@ interface SpecBlockProps {
   points: readonly string[];
   image: string;
   alt: string;
-  /**
-   * Passed straight through to PlateFrame. Product's and most of Service's plates are
-   * flat vector cutouts; two Service categories reuse real plant photography from the
-   * hero set, so this is set per item by the caller rather than assumed at this level.
-   */
-  imageDepth?: "photo" | "illustration";
+  /** Passed straight through to PlateFrame; set per item by the caller (see PlateDepth). */
+  imageDepth?: PlateDepth;
   /** Puts the plate on the left. Alternate down a page so the eye keeps moving. */
   flip?: boolean;
   headingId: string;

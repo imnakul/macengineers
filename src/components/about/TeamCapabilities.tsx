@@ -20,6 +20,7 @@ export function TeamCapabilities(): React.JSX.Element {
             caption={team.image.caption}
             ratio="aspect-[600/430]"
             sizes="(min-width: 1024px) 460px, 90vw"
+            depth="scene"
           />
         </Reveal>
 

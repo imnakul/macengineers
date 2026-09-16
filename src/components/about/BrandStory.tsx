@@ -54,6 +54,7 @@ export function BrandStory(): React.JSX.Element {
             caption={story.image.caption}
             ratio="aspect-[4/3]"
             sizes="(min-width: 1024px) 460px, 90vw"
+            depth="scene"
             priority
           />
         </Reveal>

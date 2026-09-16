@@ -72,7 +72,7 @@ export const MAC_EQUIPMENT: EquipmentItem[] = [
       "Hydrostatic pressure testing up to 10 bar",
       "Custom level radar, sight glasses & CIP spray balls",
     ],
-    image: "/mac/hero-storage-tanks.png",
+    image: "/images/product/jacketed-reactor-vessel.png",
     badge: "Core Line",
   },
   {
@@ -90,7 +90,7 @@ export const MAC_EQUIPMENT: EquipmentItem[] = [
       "Single / double mechanical seals with thermosiphon cooling",
       "Internal anti-vortex baffles engineered for fluid turnover",
     ],
-    image: "/mac/product-liquid-mixers.png",
+    image: "/images/product/agitated-mixing-vessel-cutaway.png",
     badge: "High Demand",
   },
   {
@@ -108,7 +108,7 @@ export const MAC_EQUIPMENT: EquipmentItem[] = [
       "Digital tachometer & VFD speed control console",
       "Heavy vibration-damped floor-mount base frame",
     ],
-    image: "/mac/hero-reactor-vessel.png",
+    image: "/images/product/hydraulic-lift-disperser.png",
     badge: "Specialty Line",
   },
   {
@@ -126,7 +126,8 @@ export const MAC_EQUIPMENT: EquipmentItem[] = [
       "Plug-and-play IP55/flameproof push-button drive",
       "Zero cross-contamination between IBC production lots",
     ],
-    image: "/mac/about-mixing-tanks.png",
+    // TODO: Replace with a dedicated IBC tote-mixer render; this borrows the liquid-mixer cutaway.
+    image: "/images/product/agitated-mixing-vessel-cutaway.png",
     badge: "Cost Saver",
   },
   {
@@ -144,7 +145,7 @@ export const MAC_EQUIPMENT: EquipmentItem[] = [
       "Integrated load cell weigh modules for live inventory",
       "Cage ladders, perimeter safety handrails, and burst relief discs",
     ],
-    image: "/mac/product-storage-silos.png",
+    image: "/images/product/conical-storage-silo.png",
   },
   {
     id: "conveyor-systems",
@@ -161,7 +162,7 @@ export const MAC_EQUIPMENT: EquipmentItem[] = [
       "Zero-speed switches and emergency pull-cord safeties",
       "Totally enclosed dust-tight trough assemblies",
     ],
-    image: "/mac/product-conveyor-systems.png",
+    image: "/images/product/screw-conveyor-hopper.png",
   },
   {
     id: "turnkey-process-plants",
@@ -178,7 +179,7 @@ export const MAC_EQUIPMENT: EquipmentItem[] = [
       "Seamless mechanical, piping, and electrical integration",
       "Single accountable turnkey execution warranty",
     ],
-    image: "/mac/hero-process-skid.png",
+    image: "/images/product/turnkey-process-system.png",
     badge: "Turnkey Flagship",
   },
 ];

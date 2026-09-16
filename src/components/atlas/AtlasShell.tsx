@@ -11,7 +11,8 @@ import { AtlasHeader } from "./AtlasHeader";
  */
 const ATLAS_THEME_TOKENS = [
   "[--color-canvas:#ffffff]",
-  "[--color-surface:#f8f8f5]",
+  // Cool alternate ground: the mid-tone of the render studio stage, so sections and images share one palette.
+  "[--color-surface:#f4f7fa]",
   "[--color-surface-2:#eef1f4]",
   "[--color-inverse:#0d1b2e]",
   "[--color-inverse-deep:#0a1424]",
@@ -43,7 +44,7 @@ const ATLAS_THEME_TOKENS = [
 export function AtlasShell({ children }: { children: React.ReactNode }): React.JSX.Element {
   return (
     <div
-      className={`flex flex-1 flex-col bg-[#F8F8F5] font-sans text-[#0D1B2E] antialiased selection:bg-[#1B5FC4] selection:text-white ${ATLAS_THEME_TOKENS}`}
+      className={`flex flex-1 flex-col bg-[#F4F7FA] font-sans text-[#0D1B2E] antialiased selection:bg-[#1B5FC4] selection:text-white ${ATLAS_THEME_TOKENS}`}
     >
       <AtlasHeader />
       <main id="main" className="flex-1">

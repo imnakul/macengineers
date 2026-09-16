@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { AtlasCtaBand } from "@/components/atlas/AtlasCtaBand";
 import { AtlasPageHero } from "@/components/atlas/AtlasPageHero";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { CornerTicks } from "@/components/ui/CornerTicks";
+import { RenderStage } from "@/components/ui/RenderStage";
 import { Reveal } from "@/components/ui/Reveal";
 import { SpecBlock } from "@/components/ui/SpecBlock";
 import { TechLabel } from "@/components/ui/TechLabel";
@@ -88,15 +88,8 @@ export default function ProductPage(): React.JSX.Element {
             </Reveal>
 
             <Reveal delay={0.18}>
-              <div className="relative mt-8 overflow-hidden rounded-card bg-surface">
-                <Image
-                  src={turnkey.image}
-                  alt={turnkey.alt}
-                  width={720}
-                  height={540}
-                  sizes="(min-width: 1024px) 560px, 90vw"
-                  className="drafting-grid h-auto w-full object-contain p-7"
-                />
+              <div className="relative mt-8 aspect-[4/3] overflow-hidden rounded-card bg-surface">
+                <RenderStage src={turnkey.image} alt={turnkey.alt} sizes="(min-width: 1024px) 560px, 90vw" />
                 <CornerTicks />
               </div>
             </Reveal>

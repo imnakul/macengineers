@@ -47,9 +47,9 @@ export const ABOUT_PAGE = {
     body: "Founded in 2019 in Ankleshwar, the chemical manufacturing hub of Gujarat, MAC Engineers was born from the shared vision of three skilled mechanical engineers. They recognized the pressing need for an engineering partner delivering accuracy, reliability, and timely execution—without compromising on safety or quality. Today, MAC Engineers stands as a trusted name across chemical, pharmaceutical, agrochemical, construction chemical, and infrastructure sectors.",
     certification: "Proudly ISO 9001:2015 certified.",
     image: {
-      src: "/mac/about-mixing-tanks.png",
-      alt: "Stainless steel industrial mixing tanks with piping and process equipment in manufacturing plant",
-      caption: "Mixing tank battery",
+      src: "/images/product/project-lifecycle-team.png",
+      alt: "MAC Engineers team taking a process vessel from design desk through fabrication to site installation",
+      caption: "Design to installation",
     },
   },
 
@@ -101,9 +101,9 @@ export const ABOUT_PAGE = {
     heading: "Our Team & Capabilities",
     body: "At the heart of our operations is a dedicated team of qualified engineers, supervisors, and skilled fabricators—every individual capable of executing projects with precision, efficiency, and a commitment to safety.",
     image: {
-      src: "/mac/about-plant-layout.png",
-      alt: "Layout of a MAC Engineers process plant installation",
-      caption: "Plant layout",
+      src: "/images/product/quality-inspection.png",
+      alt: "MAC Engineers engineer inspecting fabricated components while a technician works on a pump skid",
+      caption: "Engineers & fabricators",
     },
   },
 

@@ -1,5 +1,13 @@
 import Image from "next/image";
 import { CornerTicks } from "@/components/ui/CornerTicks";
+import { RenderStage } from "@/components/ui/RenderStage";
+
+/**
+ * `photo`: real plant photography. `illustration`: flat vector cutouts that need a shadow added.
+ * `render`: a transparent 3D machine render with its own floor shadow, shown on the studio stage.
+ * `scene`: a transparent 3D people-and-equipment scene, run to the stage's bottom and sides.
+ */
+export type PlateDepth = "photo" | "illustration" | "render" | "scene";
 
 interface PlateFrameProps {
   src: string;
@@ -16,9 +24,10 @@ interface PlateFrameProps {
    * vector cutouts used across Product/Service/Equipment — those sit on a transparent
    * background with no shadow of their own, so this adds a soft contact-shadow pool
    * under the frame and a directional drop-shadow that follows the cutout's silhouette,
-   * so it reads as standing on the sheet rather than pasted over it.
+   * so it reads as standing on the sheet rather than pasted over it. `render` and `scene`
+   * place the site's 3D renders on the shared studio stage instead (see RenderStage).
    */
-  depth?: "photo" | "illustration";
+  depth?: PlateDepth;
   className?: string;
 }
 
@@ -39,6 +48,7 @@ export function PlateFrame({
   className = "",
 }: PlateFrameProps): React.JSX.Element {
   const isIllustration = depth === "illustration";
+  const isRender = depth === "render" || depth === "scene";
 
   return (
     <figure
@@ -46,19 +56,30 @@ export function PlateFrame({
     >
       <div
         className={`relative ${ratio} overflow-hidden bg-surface ${
-          isIllustration ? "plate-ground-illustration" : "drafting-grid"
+          isRender ? "" : isIllustration ? "plate-ground-illustration" : "drafting-grid"
         }`}
       >
-        <Image
-          src={src}
-          alt={alt}
-          fill
-          sizes={sizes}
-          priority={priority}
-          className={`object-contain p-7 transition-transform duration-500 ease-move group-hover/plate:scale-[1.035] ${
-            isIllustration ? "drop-shadow-[0_16px_14px_rgba(23,23,21,0.16)]" : ""
-          }`}
-        />
+        {isRender ? (
+          <RenderStage
+            src={src}
+            alt={alt}
+            sizes={sizes}
+            fit={depth === "scene" ? "scene" : "object"}
+            fetchPriority={priority ? "high" : undefined}
+            imageClassName="transition-transform duration-500 ease-move group-hover/plate:scale-[1.035]"
+          />
+        ) : (
+          <Image
+            src={src}
+            alt={alt}
+            fill
+            sizes={sizes}
+            fetchPriority={priority ? "high" : undefined}
+            className={`object-contain p-7 transition-transform duration-500 ease-move group-hover/plate:scale-[1.035] ${
+              isIllustration ? "drop-shadow-[0_16px_14px_rgba(23,23,21,0.16)]" : ""
+            }`}
+          />
+        )}
         <CornerTicks />
       </div>
 

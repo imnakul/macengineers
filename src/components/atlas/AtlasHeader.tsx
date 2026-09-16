@@ -58,7 +58,9 @@ function isActiveItem(sectionHref: string, itemHref: string): boolean {
  * The bar keeps one height at every scroll position, so nothing below it shifts; only
  * the hairline and shadow fade in once the page scrolls. Six links, the logo and the
  * quote button only fit side by side from `lg`, so below that everything, including the
- * quote button, lives in a slide-over menu. The menu slides in from the right, closes on
+ * quote button, lives in a slide-over menu. On the homepage the bar starts fully transparent,
+ * so the hero (which slides up underneath it) reads as one surface, and gains its frosted
+ * white fill once the page scrolls. The menu slides in from the right, closes on
  * Escape, locks page scroll while open, and returns focus to the menu button on close.
  */
 export function AtlasHeader(): React.JSX.Element {
@@ -66,6 +68,7 @@ export function AtlasHeader(): React.JSX.Element {
   const sectionHref = sectionHrefFor(pathname);
   const [scrolled, setScrolled] = React.useState<boolean>(false);
   const [menuOpen, setMenuOpen] = React.useState<boolean>(false);
+  const overHero = pathname === "/" && !scrolled;
   const menuButtonRef = React.useRef<HTMLButtonElement>(null);
   const closeButtonRef = React.useRef<HTMLButtonElement>(null);
 
@@ -103,9 +106,9 @@ export function AtlasHeader(): React.JSX.Element {
   return (
     <MotionConfig reducedMotion="user">
       <header
-        className={`sticky top-0 z-40 border-b bg-white/90 backdrop-blur-md transition-[border-color,box-shadow] duration-300 ${
-          scrolled ? "border-[#E3E7ED] shadow-[0_8px_30px_-18px_rgba(13,27,46,0.35)]" : "border-transparent"
-        }`}
+        className={`sticky top-0 z-40 border-b transition-[background-color,border-color,box-shadow,backdrop-filter] duration-300 ${
+          overHero ? "bg-transparent" : "bg-white/90 backdrop-blur-md"
+        } ${scrolled ? "border-[#E3E7ED] shadow-[0_8px_30px_-18px_rgba(13,27,46,0.35)]" : "border-transparent"}`}
       >
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:h-[72px] lg:px-8">
           <Link href="/" className="flex shrink-0 items-center" aria-label="MAC Engineers home">
@@ -115,7 +118,7 @@ export function AtlasHeader(): React.JSX.Element {
               width={LOGO_WIDTH}
               height={LOGO_HEIGHT}
               sizes="120px"
-              priority
+              loading="eager"
               className="h-7 w-auto sm:h-8 lg:h-10"
             />
           </Link>

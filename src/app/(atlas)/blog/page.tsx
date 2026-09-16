@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { AtlasCtaBand } from "@/components/atlas/AtlasCtaBand";
 import { AtlasPageHero } from "@/components/atlas/AtlasPageHero";
 import { AtlasSectionHeading } from "@/components/atlas/AtlasSectionHeading";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { RenderStage } from "@/components/ui/RenderStage";
 import { BLOG_PAGE, type BlogPost } from "@/data/blog";
 import { QUOTE_HREF } from "@/data/site";
 import { estimateReadingMinutes, findPostByHref, formatPostDate } from "@/lib/blog";
@@ -79,13 +79,13 @@ function FeaturedLeadCard({ post }: { post: BlogPost }): React.JSX.Element {
     <Link href={post.href} className={`${CARD_CLASS} flex-col`}>
       <span className="relative block aspect-[16/10] overflow-hidden bg-[#EEF1F4]">
         {post.image ? (
-          <Image
+          <RenderStage
             src={post.image}
             alt={post.alt ?? ""}
-            fill
-            priority
+            fit={post.imageFit}
+            fetchPriority="high"
             sizes="(max-width: 1024px) 100vw, 58vw"
-            className={`object-cover transition-transform duration-700 group-hover:scale-[1.04] ${EASE_CLASS}`}
+            imageClassName={`transition-transform duration-700 group-hover:scale-[1.04] ${EASE_CLASS}`}
           />
         ) : null}
       </span>
@@ -107,12 +107,13 @@ function FeaturedSideCard({ post }: { post: BlogPost }): React.JSX.Element {
     <Link href={post.href} className={`${CARD_CLASS} flex-col sm:flex-row`}>
       <span className="relative block aspect-[16/10] overflow-hidden bg-[#EEF1F4] sm:aspect-auto sm:min-h-[11rem] sm:w-2/5 sm:shrink-0">
         {post.image ? (
-          <Image
+          <RenderStage
             src={post.image}
             alt={post.alt ?? ""}
-            fill
+            fit={post.imageFit}
+            compact
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 40vw, 18vw"
-            className={`object-cover transition-transform duration-700 group-hover:scale-[1.04] ${EASE_CLASS}`}
+            imageClassName={`transition-transform duration-700 group-hover:scale-[1.04] ${EASE_CLASS}`}
           />
         ) : null}
       </span>

@@ -1,3 +1,5 @@
+import type { RenderFit } from "@/components/ui/RenderStage";
+
 /**
  * Content layer for the Blog index.
  *
@@ -13,17 +15,19 @@
  * This is still a snapshot, not a live content source — see the MAINTENANCE NOTE in
  * blog-posts.ts for what that means for an eleventh post.
  *
- * Only three posts have artwork in /public/mac, so those three lead as cards and the
- * rest run as a typographic index. Seven grey placeholders would look like a fault.
+ * The three featured posts lead as cards with 3D renders; the rest run as a typographic index
+ * (their article pages carry artwork of their own).
  */
 
-/** A post on the index. `image` is present only for the three with local artwork. */
+/** A post on the index. `image` is present only for the featured three. */
 export interface BlogPost {
   readonly title: string;
   readonly href: string;
   readonly excerpt: string;
   readonly image?: string;
   readonly alt?: string;
+  /** How the render sits on the studio stage. */
+  readonly imageFit?: RenderFit;
 }
 
 export const BLOG_PAGE = {
@@ -44,24 +48,27 @@ export const BLOG_PAGE = {
       href: "/the-role-of-automation-in-industrial-material-handling",
       excerpt:
         "In the modern industrial landscape, automation is redefining the way materials are moved, stored, and processed across manufacturing and warehousing…",
-      image: "/mac/journal-automation.webp",
-      alt: "Automated material handling equipment on a plant floor",
+      image: "/images/product/turnkey-process-system.png",
+      alt: "Automated process line with screw conveyor, reactor, pumps and PLC control panel on one skid",
+      imageFit: "object",
     },
     {
       title: "Troubleshooting Common Industrial Equipment Issues",
       href: "/troubleshooting-common-industrial-equipment-issues",
       excerpt:
         "Industrial equipment is the backbone of manufacturing and process industries. Efficient operation of machinery like mixers, conveyors, and storage systems…",
-      image: "/mac/journal-troubleshooting.webp",
-      alt: "Technician inspecting an industrial mixer during maintenance",
+      image: "/images/product/commissioning-support-crew.png",
+      alt: "Technicians diagnosing a pump skid and process piping beside a jacketed vessel",
+      imageFit: "scene",
     },
     {
       title: "Energy-Efficient Equipment for Modern Process Industries",
       href: "/energy-efficient-equipment-for-modern-process-industries",
       excerpt:
         "Energy efficiency is becoming a top priority for modern process industries. Rising energy costs, environmental regulations, and sustainability goals have…",
-      image: "/mac/journal-energy.webp",
-      alt: "Energy-efficient process equipment installed in a modern plant",
+      image: "/images/product/engineering-workspace.png",
+      alt: "Engineering workstation with process vessel models and energy performance charts",
+      imageFit: "scene",
     },
   ] satisfies readonly BlogPost[],
 

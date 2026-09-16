@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AtlasArticle } from "@/components/atlas/AtlasArticle";
@@ -7,6 +6,7 @@ import { AtlasCtaBand } from "@/components/atlas/AtlasCtaBand";
 import { AtlasPageHero } from "@/components/atlas/AtlasPageHero";
 import { AtlasSectionHeading } from "@/components/atlas/AtlasSectionHeading";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { RenderStage } from "@/components/ui/RenderStage";
 import { BLOG_POSTS, type BlogPostDetail } from "@/data/blog-posts";
 import { COMPANY, QUOTE_HREF } from "@/data/site";
 import {
@@ -176,13 +176,12 @@ export default async function BlogPostPage({ params }: PageProps<"/[slug]">): Pr
             {post.image ? (
               <Reveal>
                 <figure className="relative mb-12 aspect-[16/9] max-w-[820px] overflow-hidden rounded-[6px] border border-[#E3E7ED] bg-[#EEF1F4]">
-                  <Image
+                  <RenderStage
                     src={post.image}
                     alt={post.alt ?? ""}
-                    fill
-                    priority
+                    fit={post.imageFit}
+                    fetchPriority="high"
                     sizes="(max-width: 1024px) 100vw, 820px"
-                    className="object-cover"
                   />
                 </figure>
               </Reveal>

@@ -1,13 +1,13 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
 import { AnimatePresence, LayoutGroup, MotionConfig, motion, type Variants } from "framer-motion";
 import { MAC_EQUIPMENT, type EquipmentItem } from "../data/variantsData";
 import { ArrowRightIcon, CheckCircleIcon } from "../shared/VariantIcons";
 import { PlateCta } from "../shared/PlateCta";
 import { PlateTag } from "../shared/PlateTag";
 import { PlateSurface } from "../shared/PlateSurface";
+import { RenderStage } from "@/components/ui/RenderStage";
 import { Reveal } from "./Reveal";
 
 /* ---------------------------------------------------------------------------
@@ -67,17 +67,6 @@ const FILTERS: readonly GalleryFilter[] = (["all", "vessels", "mixing", "handlin
   (filter) => LINES_BY_FILTER[filter].length > 0
 );
 
-/**
- * Product cut-outs and flat illustrations. They are shown whole on a pale
- * drafting panel instead of being cropped like scene photography.
- */
-const PRODUCT_IMAGE_IDS: ReadonlySet<string> = new Set([
-  "turnkey-process-plants",
-  "liquid-mixers",
-  "storage-silos",
-  "conveyor-systems",
-]);
-
 /** Horizontal trackpad travel (px) needed before a swipe counts as a step. */
 const WHEEL_STEP_THRESHOLD = 40;
 /** Quiet time (ms) that ends a trackpad gesture, so inertia can't trigger a second step. */
@@ -105,29 +94,23 @@ function padIndex(value: number): string {
 
 /* --------------------------------- Pieces --------------------------------- */
 
-/**
- * Fills its positioned parent. Scene photos crop to cover; product images sit
- * whole on a pale drafting panel. Built from spans so it is valid inside a button.
- */
-function EquipmentVisual({ item, sizes }: { item: EquipmentItem; sizes: string }): React.JSX.Element {
-  const zoom = `transition-transform duration-700 group-hover:scale-[1.04] ${EASE_CLASS}`;
+interface EquipmentVisualProps {
+  item: EquipmentItem;
+  sizes: string;
+  /** Tighter padding for the small queue cards. */
+  compact?: boolean;
+}
 
-  if (PRODUCT_IMAGE_IDS.has(item.id)) {
-    return (
-      <span className="absolute inset-0 block bg-[#F2F6FC]">
-        <span aria-hidden="true" className="drafting-grid pointer-events-none absolute inset-0 block opacity-70" />
-        <span className="absolute inset-5 block sm:inset-8">
-          {/* Multiply blends white-background artwork into the panel; transparent PNGs are unaffected. */}
-          <Image src={item.image} alt={item.name} fill sizes={sizes} className={`object-contain mix-blend-multiply ${zoom}`} />
-        </span>
-      </span>
-    );
-  }
-
+/** The equipment render on the shared studio stage, zooming gently when its card is hovered. */
+function EquipmentVisual({ item, sizes, compact = false }: EquipmentVisualProps): React.JSX.Element {
   return (
-    <span className="absolute inset-0 block bg-[#EEF1F4]">
-      <Image src={item.image} alt={item.name} fill sizes={sizes} className={`object-cover ${zoom}`} />
-    </span>
+    <RenderStage
+      src={item.image}
+      alt={item.name}
+      sizes={sizes}
+      compact={compact}
+      imageClassName={`transition-transform duration-700 group-hover:scale-[1.04] ${EASE_CLASS}`}
+    />
   );
 }
 
@@ -437,7 +420,7 @@ export function EquipmentGallery({
                             className="group relative flex w-[11.5rem] shrink-0 flex-col overflow-hidden rounded-[6px] border border-[#E3E7ED] bg-white text-left outline-none transition-colors duration-150 hover:border-[#1B5FC4]/45 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B5FC4]"
                           >
                             <span className="relative block min-h-[9rem] w-full flex-1 overflow-hidden">
-                              <EquipmentVisual item={item} sizes="200px" />
+                              <EquipmentVisual item={item} sizes="200px" compact />
                             </span>
                             <span className="flex h-[6.75rem] shrink-0 flex-col gap-1 overflow-hidden border-t border-[#EDF1F6] p-3.5">
                               <span className="truncate font-mono text-[9.5px] font-semibold uppercase tracking-[0.16em] text-[#1B5FC4]">

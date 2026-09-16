@@ -1,3 +1,5 @@
+import type { PlateDepth } from "@/components/ui/PlateFrame";
+
 /**
  * Content layer for the Product page.
  *
@@ -19,7 +21,7 @@ export interface ProductCategory {
   readonly image: string;
   readonly alt: string;
   /** All four are flat vector cutouts, not photography — see PlateFrame's `depth` prop. */
-  readonly imageDepth: "photo" | "illustration";
+  readonly imageDepth: PlateDepth;
 }
 
 export const PRODUCT_PAGE = {
@@ -46,9 +48,9 @@ export const PRODUCT_PAGE = {
         "Options: Pressure-rated, jacketed, insulated tanks",
         "Designed for chemical, pharmaceutical, food & beverage, and FMCG industries",
       ],
-      image: "/mac/product-storage-tanks.png",
-      alt: "Illustration of an industrial bulk storage tank with access platforms and discharge cone",
-      imageDepth: "illustration",
+      image: "/images/product/jacketed-reactor-vessel.png",
+      alt: "Stainless steel jacketed storage and process vessel with limpet coil, access platform and ladder",
+      imageDepth: "render",
     },
     {
       slug: "liquid-mixers",
@@ -62,9 +64,9 @@ export const PRODUCT_PAGE = {
         "Sanitary design for hygienic applications",
         "Ideal for chemicals, pharma, food, and cosmetic industries",
       ],
-      image: "/mac/product-liquid-mixers.png",
-      alt: "Illustration of an industrial liquid mixer vessel with drive motor and agitator",
-      imageDepth: "illustration",
+      image: "/images/product/agitated-mixing-vessel-cutaway.png",
+      alt: "Cutaway of a stainless steel agitated mixing vessel showing the impellers, drive motor and manway",
+      imageDepth: "render",
     },
     {
       slug: "storage-silos",
@@ -77,9 +79,9 @@ export const PRODUCT_PAGE = {
         "Equipped with level sensors, discharge nozzles, and structural safety designs",
         "Custom-engineered for plant-specific requirements",
       ],
-      image: "/mac/product-storage-silos.png",
-      alt: "Illustration of a storage silo with conical discharge for granules and powders",
-      imageDepth: "illustration",
+      image: "/images/product/conical-storage-silo.png",
+      alt: "Stainless steel storage silo with conical discharge, support structure and cage ladder",
+      imageDepth: "render",
     },
     {
       slug: "conveyor-systems",
@@ -93,9 +95,9 @@ export const PRODUCT_PAGE = {
         "Bucket Elevators for vertical transport",
         "Options for dust-free design, variable speed, and automation",
       ],
-      image: "/mac/product-conveyor-systems.png",
-      alt: "Illustration of a belt conveyor system for bulk material handling",
-      imageDepth: "illustration",
+      image: "/images/product/screw-conveyor-hopper.png",
+      alt: "Inclined screw conveyor fed from a stainless steel hopper, with geared drive and support frame",
+      imageDepth: "render",
     },
   ] satisfies readonly ProductCategory[],
 
@@ -121,8 +123,8 @@ export const PRODUCT_PAGE = {
     benefitLabel: "Benefit",
     benefit:
       "With automation integration, our turnkey plants reduce manual intervention, improve accuracy, minimize downtime, and ensure consistent production output.",
-    image: "/mac/hero-process-skid.png",
-    alt: "Skid-mounted process equipment assembly fabricated by MAC Engineers",
+    image: "/images/product/turnkey-process-system.png",
+    alt: "Turnkey process system: powder hopper and screw conveyor feeding a jacketed reactor, with pumps, piping and PLC control panel on one skid",
   },
 
   whyChoose: {
