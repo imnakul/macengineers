@@ -3,13 +3,13 @@
  * so the preloaded candidates are exactly the ones the `<Image>` elements request.
  */
 
-/** Factory 4 background (xl and up). */
-export const HERO_FACTORY_FINAL_IMAGE = {
+/** Factory-stage background (xl and up). */
+export const HERO_FACTORY_IMAGE = {
   src: "/images/hero/hero-factory-dof-extended.jpg",
   sizes: "105vw",
 } as const;
 
-/** Framed-plate machine render (the hero below xl). */
+/** Drafting-plate machine render (the hero below xl). */
 export const HERO_PLATE_IMAGE = {
   src: "/images/hero/hero-turnkey-grounded.png",
   sizes: "(max-width: 1024px) 92vw, (max-width: 1280px) 40vw, 560px",

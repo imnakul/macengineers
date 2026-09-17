@@ -26,11 +26,7 @@ import { Reveal } from "./Reveal";
 import { EquipmentGallery } from "./EquipmentGallery";
 import { AtlasSectionHeading } from "@/components/atlas/AtlasSectionHeading";
 import { RenderStage } from "@/components/ui/RenderStage";
-import { HeroCurrent } from "./hero/HeroCurrent";
 import { HeroFactory } from "./hero/HeroFactory";
-import { HeroPlate } from "./hero/HeroPlate";
-import { HeroScene } from "./hero/HeroScene";
-import { HeroSwitcher, useHeroVariant, type HeroVariant } from "./hero/HeroSwitcher";
 
 /* ---------------------------------------------------------------------------
  * KimiK3 — Corporate Atlas
@@ -135,34 +131,12 @@ const INDUSTRY_ICONS: Record<string, (props: { className?: string }) => React.JS
   food: TankIcon,
 };
 
-/** Renders the hero layout picked in the (temporary) comparison switcher. */
-function HeroView({ variant, onConsult }: { variant: HeroVariant; onConsult: () => void }): React.JSX.Element {
-  switch (variant) {
-    case "plate":
-      return <HeroPlate onConsult={onConsult} />;
-    case "scene":
-      return <HeroScene onConsult={onConsult} />;
-    case "factory":
-      return <HeroFactory onConsult={onConsult} />;
-    case "factory-tall":
-      return <HeroFactory onConsult={onConsult} photo="outpainted" decor="minimal" />;
-    case "factory-final":
-      return <HeroFactory onConsult={onConsult} photo="dof" decor="final" />;
-    case "factory-logo":
-      return <HeroFactory onConsult={onConsult} photo="tall-vessel-logo" />;
-    default:
-      return <HeroCurrent onConsult={onConsult} />;
-  }
-}
-
 /* --------------------------------- Page ---------------------------------- */
 
 export function Variant5Page(): React.JSX.Element {
   const [expandedService, setExpandedService] = React.useState<string | null>(MAC_SERVICES[0]?.id ?? null);
   const [isRfqOpen, setIsRfqOpen] = React.useState<boolean>(false);
   const [rfqPreset, setRfqPreset] = React.useState<RfqPreset>({ profile: "turnkey", product: "" });
-  const [heroVariant] = useHeroVariant();
-  const metricsInHero = heroVariant === "factory-final";
 
   const openRfq = (profile: RfqProfile, product = ""): void => {
     setRfqPreset({ profile, product });
@@ -172,16 +146,14 @@ export function Variant5Page(): React.JSX.Element {
   return (
     <>
         {/* ------------------------------- Hero ------------------------------- */}
-        {/* TODO: Temporary comparison — keep the chosen layout, then remove the switcher. */}
-        <HeroView variant={heroVariant} onConsult={() => openRfq("turnkey")} />
-        <HeroSwitcher />
+        <HeroFactory onConsult={() => openRfq("turnkey")} />
 
         {/* --------------------------- Metrics band --------------------------- */}
         {/* White like the hero, so the background change lands exactly where section 01 begins.
-            Factory 4 (xl+) carries these facts in its own proof row, so the band is dropped there. */}
+            The factory hero (xl+) carries these facts in its own proof row, so the band is dropped there. */}
         <section
           aria-label="Company metrics"
-          className={`border-b border-[#E3E7ED] bg-white ${metricsInHero ? "xl:hidden" : ""}`}
+          className="border-b border-[#E3E7ED] bg-white xl:hidden"
         >
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-2 border-t border-[#E3E7ED] md:grid-cols-4 md:divide-x md:divide-[#E3E7ED]">

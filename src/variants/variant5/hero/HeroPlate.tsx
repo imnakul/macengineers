@@ -3,11 +3,10 @@ import Image from "next/image";
 import { Reveal } from "../Reveal";
 import { Annotation, CapabilityStrip, FlangePlanDrawing, PlateBrackets, VesselElevationDrawing } from "./HeroArtwork";
 import { HeroCopy } from "./HeroCopy";
-import { HERO_UNDER_HEADER, type HeroLayoutProps } from "./HeroCurrent";
+import { HERO_UNDER_HEADER, type HeroLayoutProps } from "./heroLayout";
 import { HERO_PLATE_IMAGE } from "./heroImages";
 
-export const HERO_MACHINE_SRC = HERO_PLATE_IMAGE.src;
-export const HERO_MACHINE_ALT =
+const HERO_MACHINE_ALT =
   "Turnkey stainless steel process system by MAC Engineers: powder hopper and screw conveyor feeding a jacketed reactor, with pump skid, process piping and PLC control panel on one integrated base frame";
 
 /**
@@ -15,7 +14,7 @@ export const HERO_MACHINE_ALT =
  * callouts, a capability strip and oversized registration brackets. Callouts that would crowd
  * a phone-width plate are hidden below `sm`.
  */
-export function HeroMachinePlate(): React.JSX.Element {
+function HeroMachinePlate(): React.JSX.Element {
   return (
     <figure className="relative">
       <div className="relative aspect-[4/3.3] overflow-hidden rounded-[8px] border border-[#DDE4EE] bg-linear-to-b from-[#FBFCFE] via-[#F1F5F9] to-[#E1E8F0] shadow-[0_40px_80px_-48px_rgba(13,27,46,0.5)] sm:aspect-[4/3.15]">
@@ -42,7 +41,7 @@ export function HeroMachinePlate(): React.JSX.Element {
 
         <div className="absolute bottom-[17%] left-[2%] right-[8%] top-[15%] sm:bottom-[13%] sm:right-[15%] sm:top-[14%]">
           <Image
-            src={HERO_MACHINE_SRC}
+            src={HERO_PLATE_IMAGE.src}
             alt={HERO_MACHINE_ALT}
             fill
             fetchPriority="high"
@@ -59,7 +58,7 @@ export function HeroMachinePlate(): React.JSX.Element {
   );
 }
 
-/** Hero "B" — copy left, the drafting plate right, with a blueprint flange crossing the plate edge. */
+/** Homepage hero below 1280px: copy, then the drafting plate (side by side from `lg`), with a blueprint flange crossing the plate edge. */
 export function HeroPlate({ onConsult }: HeroLayoutProps): React.JSX.Element {
   return (
     <section className={`relative overflow-hidden bg-white ${HERO_UNDER_HEADER}`}>

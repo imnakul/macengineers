@@ -8,7 +8,7 @@ import { productListLd } from "@/lib/structured-data";
 import { Variant5Page } from "@/variants/variant5/Variant5Page";
 import {
   HERO_DESKTOP_MEDIA,
-  HERO_FACTORY_FINAL_IMAGE,
+  HERO_FACTORY_IMAGE,
   HERO_MOBILE_MEDIA,
   HERO_PLATE_IMAGE,
 } from "@/variants/variant5/hero/heroImages";
@@ -41,7 +41,7 @@ function preloadHeroImage(src: string, sizes: string, media: string): void {
  * The previous landing page lives on at `/5`.
  */
 export default function HomePage(): React.JSX.Element {
-  preloadHeroImage(HERO_FACTORY_FINAL_IMAGE.src, HERO_FACTORY_FINAL_IMAGE.sizes, HERO_DESKTOP_MEDIA);
+  preloadHeroImage(HERO_FACTORY_IMAGE.src, HERO_FACTORY_IMAGE.sizes, HERO_DESKTOP_MEDIA);
   preloadHeroImage(HERO_PLATE_IMAGE.src, HERO_PLATE_IMAGE.sizes, HERO_MOBILE_MEDIA);
 
   return (

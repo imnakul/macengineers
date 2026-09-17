@@ -59,7 +59,8 @@ export function VesselElevationDrawing({ className = "" }: DrawingProps): React.
 export function FlangePlanDrawing({ className = "" }: DrawingProps): React.JSX.Element {
   const bolts = Array.from({ length: 12 }, (_, index) => {
     const angle = (index / 12) * Math.PI * 2;
-    return { cx: 100 + Math.cos(angle) * 70, cy: 100 + Math.sin(angle) * 70 };
+    // Rounded so the server and the browser print identical attributes (their trig can differ in the last digit).
+    return { cx: Number((100 + Math.cos(angle) * 70).toFixed(2)), cy: Number((100 + Math.sin(angle) * 70).toFixed(2)) };
   });
 
   return (
@@ -102,31 +103,21 @@ export function PlateBrackets({ className = "" }: DrawingProps): React.JSX.Eleme
 
 interface AnnotationProps {
   lines: readonly string[];
-  /** Short accent rule under the text block, as on a drawing callout. */
-  rule?: boolean;
   /** Hairline to the left of the text block. */
   leader?: boolean;
-  tone?: "muted" | "ink";
-  /** Soft white halo so plain text stays legible over busy photography, without a visible plate. */
-  halo?: boolean;
   className?: string;
 }
 
 /** Stacked monospaced callout text, like the notes on an engineering drawing. */
 export function Annotation({
   lines,
-  rule = false,
   leader = false,
-  tone = "muted",
-  halo = false,
   className = "",
 }: AnnotationProps): React.JSX.Element {
   return (
     <p
-      className={`font-mono text-[9.5px] font-medium uppercase leading-[1.7] tracking-[0.2em] xl:text-[10.5px] ${
-        tone === "ink" ? "text-[#0D1B2E]" : "text-slate-500"
-      } ${leader ? "border-l border-[#1B5FC4]/40 pl-3" : ""} ${
-        halo ? "[text-shadow:0_0_6px_rgba(255,255,255,0.95),0_0_14px_rgba(255,255,255,0.8)]" : ""
+      className={`font-mono text-[9.5px] font-medium uppercase leading-[1.7] tracking-[0.2em] text-slate-500 xl:text-[10.5px] ${
+        leader ? "border-l border-[#1B5FC4]/40 pl-3" : ""
       } ${className}`}
     >
       {lines.map((line) => (
@@ -134,7 +125,6 @@ export function Annotation({
           {line}
         </span>
       ))}
-      {rule ? <span aria-hidden="true" className="mt-2 block h-px w-5 bg-[#1B5FC4]/60" /> : null}
     </p>
   );
 }
@@ -147,17 +137,11 @@ export const CAPABILITY_STRIP: readonly string[] = [
 ];
 
 /** One-line capability strip separated by thin rules. Wraps cleanly on narrow plates. */
-export function CapabilityStrip({ className = "", prefix }: DrawingProps & { prefix?: string }): React.JSX.Element {
+export function CapabilityStrip({ className = "" }: DrawingProps): React.JSX.Element {
   return (
     <p
       className={`flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[9px] font-medium uppercase tracking-[0.2em] text-slate-500 sm:text-[10px] ${className}`}
     >
-      {prefix ? (
-        <>
-          <span className="text-[#0D1B2E]">{prefix}</span>
-          <span aria-hidden="true" className="h-px w-4 bg-slate-400" />
-        </>
-      ) : null}
       {CAPABILITY_STRIP.map((item, index) => (
         <React.Fragment key={item}>
           {index > 0 ? <span aria-hidden="true" className="h-3 w-px bg-slate-300" /> : null}
