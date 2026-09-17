@@ -13,9 +13,9 @@ export function QualityPolicy(): React.JSX.Element {
   return (
     <section
       aria-labelledby="quality-heading"
-      className="px-4 py-16 sm:px-6 sm:py-20 md:py-28 lg:px-8 lg:py-32"
+      className="py-16 sm:py-20 md:py-28 lg:py-32"
     >
-      <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-12 lg:gap-16">
+      <div className="mx-auto grid max-w-7xl px-4 sm:px-6 lg:px-8 gap-12 lg:grid-cols-12 lg:gap-16">
         <div className="lg:col-span-5">
           <Reveal>
             <SectionHeading

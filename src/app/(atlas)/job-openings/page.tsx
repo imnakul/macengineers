@@ -20,20 +20,18 @@ export default function CareersPage(): React.JSX.Element {
   return (
     <>
       <AtlasPageHero
-        eyebrow={CAREERS_PAGE.hero.eyebrow}
         title={CAREERS_PAGE.hero.headline}
         description={CAREERS_PAGE.hero.subhead}
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Careers" }]}
         headingId="careers-page-heading"
-      >
-        <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-500">
-          <span className="text-[#1B5FC4]">{String(JOBS.length).padStart(2, "0")}</span> open{" "}
-          {JOBS.length === 1 ? "role" : "roles"}
-        </p>
-      </AtlasPageHero>
+        image={{
+          src: "/images/hero/header-careers-team.png",
+          alt: "MAC Engineers team: a technician servicing a stainless steel reactor, an accountant at her desk and a site engineer reviewing drawings",
+        }}
+      />
 
-      <section aria-labelledby="openings-heading" className="px-4 py-12 sm:px-6 sm:py-16 md:py-24 lg:px-8">
-        <div className="mx-auto max-w-7xl">
+      <section aria-labelledby="openings-heading" className="py-10 md:py-14">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 id="openings-heading" className="sr-only">
             Current openings
           </h2>

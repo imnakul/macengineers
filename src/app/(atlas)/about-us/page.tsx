@@ -26,7 +26,6 @@ export default function AboutPage(): React.JSX.Element {
   return (
     <>
       <AtlasPageHero
-        eyebrow={ABOUT_PAGE.hero.eyebrow}
         title={ABOUT_PAGE.hero.headline}
         description={ABOUT_PAGE.hero.subhead}
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "About Us" }]}

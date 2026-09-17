@@ -184,7 +184,7 @@ export const CAREERS_PAGE = {
     eyebrow: "Careers",
     headline: "Jobs",
     subhead:
-      "Open roles at our Ankleshwar works. Filter by category, type or location, then apply by email with your CV attached.",
+      "Open roles at our Ankleshwar works. Apply by email with your CV attached.",
   },
 
   filters: {

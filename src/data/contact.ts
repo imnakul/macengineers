@@ -25,7 +25,6 @@ export const CONTACT_PAGE = {
     eyebrow: "Contact",
     headline: "Contact Us",
     lead: "We would love to speak with you.",
-    subhead: "Feel free to reach out using the below details.",
   },
 
   channelsHeading: "Or Get In Touch",

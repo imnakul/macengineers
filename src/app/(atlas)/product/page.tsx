@@ -26,15 +26,14 @@ export default function ProductPage(): React.JSX.Element {
   return (
     <>
       <AtlasPageHero
-        eyebrow={PRODUCT_PAGE.hero.eyebrow}
         title={PRODUCT_PAGE.hero.headline}
         description={PRODUCT_PAGE.hero.subhead}
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Product" }]}
         headingId="product-page-heading"
       />
 
-      <section aria-labelledby="lines-heading" className="px-4 py-14 sm:px-6 sm:py-20 md:py-28 lg:px-8">
-        <div className="mx-auto max-w-7xl">
+      <section aria-labelledby="lines-heading" className="py-14 sm:py-20 md:py-28">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 id="lines-heading" className="sr-only">
             Equipment lines
           </h2>
@@ -59,8 +58,8 @@ export default function ProductPage(): React.JSX.Element {
         </div>
       </section>
 
-      <section aria-labelledby="turnkey-heading" className="border-t border-hairline bg-canvas px-4 py-16 sm:px-6 sm:py-20 md:py-28 lg:px-8 lg:py-32">
-        <div className="mx-auto grid max-w-7xl items-start gap-12 lg:grid-cols-12 lg:gap-16">
+      <section aria-labelledby="turnkey-heading" className="border-t border-hairline bg-canvas py-16 sm:py-20 md:py-28 lg:py-32">
+        <div className="mx-auto grid max-w-7xl px-4 sm:px-6 lg:px-8 items-start gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="flex flex-col lg:col-span-6">
             <Reveal>
               <TechLabel>Complete plants</TechLabel>
@@ -120,8 +119,8 @@ export default function ProductPage(): React.JSX.Element {
         </div>
       </section>
 
-      <section aria-labelledby="why-products-heading" className="border-t border-hairline px-4 py-16 sm:px-6 sm:py-20 md:py-28 lg:px-8 lg:py-32">
-        <div className="mx-auto max-w-7xl">
+      <section aria-labelledby="why-products-heading" className="border-t border-hairline py-16 sm:py-20 md:py-28 lg:py-32">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal>
             <TechLabel>Standards</TechLabel>
           </Reveal>

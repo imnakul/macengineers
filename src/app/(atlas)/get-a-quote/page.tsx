@@ -50,7 +50,6 @@ export default async function QuotePage({ searchParams }: QuotePageProps): Promi
   return (
     <>
       <AtlasPageHero
-        eyebrow={QUOTE_PAGE.hero.eyebrow}
         title={QUOTE_PAGE.hero.headline}
         description={QUOTE_PAGE.hero.subhead}
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Get a Quote" }]}

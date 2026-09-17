@@ -75,13 +75,12 @@ export default async function JobPage({ params }: PageProps<"/jobs/[slug]">): Pr
   return (
     <>
       <AtlasPageHero
-        eyebrow={job.category}
         title={job.title}
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Careers", href: "/job-openings" }, { label: job.title }]}
         headingId="job-heading"
       >
-        <ul className="flex flex-wrap gap-2" aria-label="Role type and locations">
-          {[job.type, ...job.locations].map((tag) => (
+        <ul className="flex flex-wrap gap-2" aria-label="Role category, type and locations">
+          {[job.category, job.type, ...job.locations].map((tag) => (
             <li key={tag}>
               <PlateTag>{tag}</PlateTag>
             </li>

@@ -50,7 +50,7 @@ export function JobList({ jobs }: JobListProps): React.JSX.Element {
   );
 
   return (
-    <div className="flex flex-col gap-10">
+    <div className="flex flex-col gap-6">
       <div className="grid gap-5 sm:grid-cols-3">
         <div className="flex flex-col gap-2">
           <label htmlFor={`${id}-category`} className={LABEL_CLASS}>
@@ -111,7 +111,7 @@ export function JobList({ jobs }: JobListProps): React.JSX.Element {
       </div>
 
       <p aria-live="polite" className="font-mono text-[10px] tracking-tech text-ink-muted uppercase">
-        {visible.length} {visible.length === 1 ? "role" : "roles"}
+        {visible.length} open {visible.length === 1 ? "role" : "roles"}
       </p>
 
       {visible.length === 0 ? (

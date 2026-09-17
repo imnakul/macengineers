@@ -72,7 +72,7 @@ function SweepLine(): React.JSX.Element {
 }
 
 const CARD_CLASS =
-  "group relative flex h-full overflow-hidden rounded-[6px] border border-[#E3E7ED] bg-white outline-none transition-colors duration-150 hover:border-[#1B5FC4]/45 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#1B5FC4]";
+  "group relative flex h-full overflow-hidden rounded-[6px] border border-[#D6DDE6] bg-white outline-none transition-colors duration-150 hover:border-[#1B5FC4]/45 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#1B5FC4]";
 
 function FeaturedLeadCard({ post }: { post: BlogPost }): React.JSX.Element {
   return (
@@ -112,6 +112,8 @@ function FeaturedSideCard({ post }: { post: BlogPost }): React.JSX.Element {
             alt={post.alt ?? ""}
             fit={post.imageFit}
             compact
+            // Scenes are far wider than this column; cropping keeps the subject large and centred.
+            cover={post.imageFit === "scene"}
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 40vw, 18vw"
             imageClassName={`transition-transform duration-700 group-hover:scale-[1.04] ${EASE_CLASS}`}
           />

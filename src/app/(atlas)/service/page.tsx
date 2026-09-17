@@ -23,15 +23,14 @@ export default function ServicePage(): React.JSX.Element {
   return (
     <>
       <AtlasPageHero
-        eyebrow={SERVICE_PAGE.hero.eyebrow}
         title={SERVICE_PAGE.hero.headline}
         description={SERVICE_PAGE.hero.subhead}
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Service" }]}
         headingId="service-page-heading"
       />
 
-      <section aria-labelledby="capabilities-heading" className="px-4 py-14 sm:px-6 sm:py-20 md:py-28 lg:px-8">
-        <div className="mx-auto max-w-7xl">
+      <section aria-labelledby="capabilities-heading" className="py-14 sm:py-20 md:py-28">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 id="capabilities-heading" className="sr-only">
             Service lines
           </h2>
@@ -55,8 +54,8 @@ export default function ServicePage(): React.JSX.Element {
         </div>
       </section>
 
-      <section aria-labelledby="key-benefit-heading" className="border-t border-hairline bg-canvas px-4 py-14 sm:px-6 sm:py-20 md:py-28 lg:px-8">
-        <div className="mx-auto max-w-7xl">
+      <section aria-labelledby="key-benefit-heading" className="border-t border-hairline bg-canvas py-14 sm:py-20 md:py-28">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="flex max-w-[760px] flex-col gap-5">
               <span

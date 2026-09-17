@@ -18,6 +18,11 @@ export interface RenderStageProps {
   compact?: boolean;
   /** Set on the image likely to be the page's largest paint. */
   fetchPriority?: "high" | "auto";
+  /**
+   * Fill the stage and crop to the centre instead of fitting inside it. For slots much narrower than
+   * the render (e.g. a tall side-card column), where fitting leaves a small image under empty space.
+   */
+  cover?: boolean;
   /** Extra classes for the image, e.g. a parent-driven hover zoom. */
   imageClassName?: string;
 }
@@ -40,9 +45,11 @@ export function RenderStage({
   fit = "object",
   compact = false,
   fetchPriority,
+  cover = false,
   imageClassName = "",
 }: RenderStageProps): React.JSX.Element {
-  const padding = PADDING[fit][compact ? "compact" : "regular"];
+  const padding = cover ? "inset-0" : PADDING[fit][compact ? "compact" : "regular"];
+  const placement = cover ? "origin-center object-cover object-center" : "origin-bottom object-contain object-bottom";
 
   return (
     <span className="absolute inset-0 block overflow-hidden bg-[radial-gradient(120%_95%_at_50%_38%,#FFFFFF_0%,#F4F7FA_42%,#E3E9F0_100%)]">
@@ -61,7 +68,7 @@ export function RenderStage({
           fill
           sizes={sizes}
           fetchPriority={fetchPriority}
-          className={`origin-bottom object-contain object-bottom ${imageClassName}`}
+          className={`${placement} ${imageClassName}`}
         />
       </span>
     </span>

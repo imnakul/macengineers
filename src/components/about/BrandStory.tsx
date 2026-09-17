@@ -14,9 +14,9 @@ export function BrandStory(): React.JSX.Element {
   return (
     <section
       aria-labelledby="story-heading"
-      className="px-4 py-16 sm:px-6 sm:py-20 md:py-28 lg:px-8 lg:py-32"
+      className="py-16 sm:py-20 md:py-28 lg:py-32"
     >
-      <div className="mx-auto grid max-w-7xl items-center gap-14 lg:grid-cols-12 lg:gap-16">
+      <div className="mx-auto grid max-w-7xl px-4 sm:px-6 lg:px-8 items-center gap-14 lg:grid-cols-12 lg:gap-16">
         <div className="flex flex-col lg:col-span-7">
           <Reveal>
             <TechLabel>Brand story</TechLabel>
