@@ -19,7 +19,7 @@ export default async function Image({
   params,
 }: {
   params: Promise<{ slug: string }>;
-}): Promise<ReturnType<typeof renderOgImage>> {
+}): ReturnType<typeof renderOgImage> {
   const { slug } = await params;
   const job = JOBS.find((item) => item.slug === slug);
 
@@ -27,5 +27,6 @@ export default async function Image({
     eyebrow: job?.category ?? "Careers",
     title: job?.title ?? "Careers at MAC Engineers",
     description: job?.teaser ?? "Current openings at MAC Engineers, Ankleshwar.",
+    picture: { src: "/images/hero/header-careers-team.png", kind: "render" },
   });
 }

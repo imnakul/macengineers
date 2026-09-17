@@ -5,10 +5,10 @@ import {
   ERROR_CLASS,
   INPUT_CLASS,
   LABEL_CLASS,
-  SUBMIT_CLASS,
 } from "@/components/ui/fieldStyles";
 import { CONTACT_PAGE } from "@/data/contact";
 import { contactSchema, type ContactFieldName } from "@/lib/contact-schema";
+import { PlateCta } from "@/variants/shared/PlateCta";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
@@ -265,13 +265,9 @@ export function ContactForm(): React.JSX.Element {
         </p>
       ) : null}
 
-      <button
-        type="submit"
-        disabled={isSubmitting}
-        className={SUBMIT_CLASS}
-      >
+      <PlateCta type="submit" size="lg" disabled={isSubmitting} className="w-full sm:w-auto sm:self-start">
         {isSubmitting ? CONTACT_PAGE.form.submitting : labels.submit}
-      </button>
+      </PlateCta>
     </form>
   );
 }

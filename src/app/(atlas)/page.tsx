@@ -38,7 +38,6 @@ function preloadHeroImage(src: string, sizes: string, media: string): void {
  * MAC Engineers homepage — the Corporate Atlas design.
  *
  * Header and footer come from the (atlas) group layout, shared with every inner page.
- * The previous landing page lives on at `/5`.
  */
 export default function HomePage(): React.JSX.Element {
   preloadHeroImage(HERO_FACTORY_IMAGE.src, HERO_FACTORY_IMAGE.sizes, HERO_DESKTOP_MEDIA);

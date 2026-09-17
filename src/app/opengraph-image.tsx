@@ -1,4 +1,4 @@
-import { COMPANY, HERO } from "@/data/site";
+import { COMPANY } from "@/data/site";
 import { OG_CONTENT_TYPE, OG_SIZE, renderOgImage } from "@/lib/og-image";
 
 export const runtime = "nodejs";
@@ -8,8 +8,8 @@ export const alt = COMPANY.metaTitle;
 
 export default function Image(): ReturnType<typeof renderOgImage> {
   return renderOgImage({
-    eyebrow: COMPANY.name,
-    title: HERO.headline,
+    eyebrow: "Process Plants & Equipment",
+    title: COMPANY.tagline,
     description: COMPANY.metaDescription,
   });
 }

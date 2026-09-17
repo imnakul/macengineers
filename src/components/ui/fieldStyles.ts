@@ -12,9 +12,6 @@ export const ERROR_CLASS = "text-[13px] tracking-glide text-accent";
 
 export const HINT_CLASS = "text-[13px] leading-[20px] tracking-glide text-ink-muted";
 
-export const SUBMIT_CLASS =
-  "inline-flex items-center justify-center gap-2 self-start rounded-btn bg-cta px-6 py-3 text-[14px] font-block tracking-glide text-canvas transition-[background-color,opacity] duration-150 ease-ui hover:bg-ink-strong disabled:cursor-not-allowed disabled:opacity-60";
-
 /** Checkbox and radio inputs, sized up from the browser default for touch. */
 export const CHOICE_INPUT_CLASS =
   "mt-0.5 h-4 w-4 shrink-0 accent-accent disabled:opacity-60";

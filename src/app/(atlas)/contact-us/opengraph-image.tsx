@@ -11,5 +11,6 @@ export default function Image(): ReturnType<typeof renderOgImage> {
     eyebrow: CONTACT_PAGE.hero.eyebrow,
     title: CONTACT_PAGE.hero.headline,
     description: CONTACT_PAGE.metaDescription,
+    picture: { src: "/images/hero/header-contact-desk.png", kind: "render" },
   });
 }

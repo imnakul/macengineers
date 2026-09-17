@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
-import { COMPANY } from "@/data/site";
+import { COMPANY, ENQUIRY_INBOX } from "@/data/site";
 import { readMailConfig, renderEmail } from "@/lib/email";
 import { contactSchema } from "@/lib/contact-schema";
 
@@ -11,7 +11,7 @@ import { contactSchema } from "@/lib/contact-schema";
  * the person filling the form, never a control, since anything can POST here directly.
  *
  * Needs RESEND_API_KEY and CONTACT_FROM_EMAIL (see .env.example). CONTACT_TO_EMAIL is
- * optional and falls back to the published company address.
+ * optional and falls back to ENQUIRY_INBOX.
  *
  * TODO: add rate limiting before this goes live. An in-memory counter is close to
  * useless on serverless (each instance has its own memory), so this wants a shared
@@ -38,7 +38,7 @@ export async function POST(request: Request): Promise<NextResponse> {
     );
   }
 
-  const config = readMailConfig(COMPANY.email);
+  const config = readMailConfig(ENQUIRY_INBOX);
   if (!config.ok) {
     console.error(
       "[contact] Missing RESEND_API_KEY or CONTACT_FROM_EMAIL — enquiry was validated but not delivered.",

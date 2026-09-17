@@ -11,5 +11,6 @@ export default function Image(): ReturnType<typeof renderOgImage> {
     eyebrow: QUOTE_PAGE.hero.eyebrow,
     title: QUOTE_PAGE.hero.headline,
     description: QUOTE_PAGE.metaDescription,
+    picture: { src: "/images/product/turnkey-process-system.png", kind: "render" },
   });
 }

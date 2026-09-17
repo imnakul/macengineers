@@ -78,6 +78,7 @@ export function readMailConfig(fallbackTo: string): MailConfig {
     ok: true,
     apiKey,
     from,
-    to: process.env.CONTACT_TO_EMAIL ?? fallbackTo,
+    // `||`, not `??`: an empty CONTACT_TO_EMAIL= line in .env should still fall back.
+    to: process.env.CONTACT_TO_EMAIL || fallbackTo,
   };
 }

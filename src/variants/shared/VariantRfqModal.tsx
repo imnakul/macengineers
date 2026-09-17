@@ -1,18 +1,46 @@
 "use client";
 
 import React, { useState } from "react";
+import { WHATSAPP_NUMBER } from "@/data/site";
+import {
+  RFQ_INDUSTRIES,
+  RFQ_PROFILES,
+  rfqSchema,
+  rfqSummary,
+  type RfqIndustry,
+  type RfqPayload,
+  type RfqProfile,
+} from "@/lib/rfq-schema";
 import { CheckCircleIcon } from "./VariantIcons";
 import { PlateCta } from "./PlateCta";
 
 /** Scope category the enquiry is filed under. */
-type ProjectProfile = "equipment" | "services" | "turnkey";
+type ProjectProfile = RfqProfile;
 
 /** Scope options rendered as the first step of the RFQ form. */
-const PROJECT_PROFILES: ReadonlyArray<{ id: ProjectProfile; label: string }> = [
-  { id: "equipment", label: "Equipment Mfg" },
-  { id: "services", label: "Plant Services" },
-  { id: "turnkey", label: "Turnkey Plant" },
-];
+const PROJECT_PROFILES = (Object.keys(RFQ_PROFILES) as ProjectProfile[]).map((id) => ({ id, label: RFQ_PROFILES[id] }));
+const INDUSTRY_OPTIONS = (Object.keys(RFQ_INDUSTRIES) as RfqIndustry[]).map((id) => ({ id, label: RFQ_INDUSTRIES[id] }));
+
+/** Keeps the prefilled WhatsApp link well inside URL length limits. */
+const WHATSAPP_NOTES_LIMIT = 900;
+
+type SubmitStatus = "idle" | "sending" | "sent";
+
+/** The request as a WhatsApp message, with labels bolded in WhatsApp's own markup. */
+function buildWhatsAppHref(payload: RfqPayload): string {
+  const lines = rfqSummary(payload).map((row) => `*${row.label}:* ${row.value}`);
+  const notes =
+    payload.notes && payload.notes.length > WHATSAPP_NOTES_LIMIT
+      ? `${payload.notes.slice(0, WHATSAPP_NOTES_LIMIT)}…`
+      : (payload.notes ?? "");
+  const text = [
+    "Hello MAC Engineers, I would like an engineering proposal.",
+    "",
+    ...lines,
+    ...(notes ? ["", "*Technical specifications:*", notes] : []),
+  ].join("\n");
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+}
 
 interface RfqModalProps {
   isOpen: boolean;
@@ -30,7 +58,7 @@ export function VariantRfqModal({
   theme = "dark",
 }: RfqModalProps) {
   const [profile, setProfile] = useState<ProjectProfile>(defaultProfile);
-  const [industry, setIndustry] = useState("chemical");
+  const [industry, setIndustry] = useState<RfqIndustry>("chemical");
   const [productName, setProductName] = useState(defaultProduct);
   const [capacity, setCapacity] = useState("");
   const [contactName, setContactName] = useState("");
@@ -38,13 +66,69 @@ export function VariantRfqModal({
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [notes, setNotes] = useState("");
-  const [submitted, setSubmitted] = useState(false);
+  const [honeypot, setHoneypot] = useState("");
+  const [status, setStatus] = useState<SubmitStatus>("idle");
+  const [formError, setFormError] = useState<string | null>(null);
+  /** Set when WhatsApp opened but the email copy could not be sent. */
+  const [emailError, setEmailError] = useState<string | null>(null);
+  const [whatsAppHref, setWhatsAppHref] = useState("");
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const submitted = status === "sent";
+
+  /**
+   * Opens WhatsApp with the request prefilled, then emails the same request. WhatsApp opens
+   * first and synchronously, because browsers block windows opened after an `await`. The email
+   * result only changes the confirmation copy: the WhatsApp message reaches the team either way.
+   */
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
-    setSubmitted(true);
+    if (status === "sending") return;
+
+    const parsed = rfqSchema.safeParse({
+      profile,
+      industry,
+      capacity: capacity || undefined,
+      scope: productName || undefined,
+      contactName,
+      company,
+      phone,
+      email,
+      notes: notes || undefined,
+      website: honeypot || undefined,
+    });
+    if (!parsed.success) {
+      setFormError(parsed.error.issues[0]?.message ?? "Please check the form and try again.");
+      return;
+    }
+
+    setFormError(null);
+    setEmailError(null);
+    const href = buildWhatsAppHref(parsed.data);
+    setWhatsAppHref(href);
+    window.open(href, "_blank", "noopener,noreferrer");
+
+    setStatus("sending");
+    try {
+      const response = await fetch("/api/rfq", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(parsed.data),
+      });
+      if (!response.ok) {
+        const result: unknown = await response.json().catch(() => null);
+        const message =
+          result && typeof result === "object" && "error" in result && typeof result.error === "string"
+            ? result.error
+            : "We could not email your request.";
+        setEmailError(message);
+      }
+    } catch (cause) {
+      console.error("[rfq] Could not reach /api/rfq", cause);
+      setEmailError("We could not email your request.");
+    }
+    setStatus("sent");
   };
 
   const isDark = theme === "dark" || theme === "scada";
@@ -89,9 +173,28 @@ export function VariantRfqModal({
             </div>
             <h3 className="text-2xl font-bold tracking-tight">Requirement Received</h3>
             <p className={`max-w-md mx-auto text-sm leading-relaxed ${isDark ? "text-slate-300" : "text-stone-600"}`}>
-              Thank you, <span className="font-semibold text-emerald-400">{contactName || "Engineer"}</span>. Our Ankleshwar engineering review team has been notified. A senior project engineer will connect within 4 business hours to evaluate your P&ID or equipment datasheet.
+              Thank you, <span className="font-semibold text-emerald-400">{contactName || "Engineer"}</span>.{" "}
+              {emailError
+                ? "Send the WhatsApp message we opened for you and our engineering team will take it from there."
+                : "Our Ankleshwar engineering team has your request by email. Send the WhatsApp message we opened for you to reach us even faster."}{" "}
+              A senior project engineer will connect within 4 business hours.
             </p>
+            {emailError ? (
+              <p role="status" className="mx-auto max-w-md text-xs text-amber-600">
+                {emailError}
+              </p>
+            ) : null}
             <div className="pt-4 flex flex-col sm:flex-row gap-3 justify-center">
+              {/* Fallback for when the browser blocked the WhatsApp window. */}
+              <a
+                href={whatsAppHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Open WhatsApp with your request prefilled"
+                className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg bg-[#25D366] text-slate-950 font-semibold text-sm hover:bg-[#1FBE5B] transition-colors"
+              >
+                Open WhatsApp
+              </a>
               <a
                 href="tel:+919409982541"
                 className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg bg-emerald-500 text-slate-950 font-semibold text-sm hover:bg-emerald-400 transition-colors"
@@ -110,7 +213,19 @@ export function VariantRfqModal({
             </div>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} aria-busy={status === "sending"} className="space-y-6">
+            {/* Honeypot: off-screen and skipped by keyboard and screen readers. */}
+            <div aria-hidden="true" className="absolute -left-[9999px] h-px w-px overflow-hidden">
+              <label htmlFor="rfq-website">Website</label>
+              <input
+                id="rfq-website"
+                type="text"
+                tabIndex={-1}
+                autoComplete="off"
+                value={honeypot}
+                onChange={(e) => setHoneypot(e.target.value)}
+              />
+            </div>
             <div>
               <h2 className="text-2xl font-bold tracking-tight pr-10">
                 Request Engineering Proposal & Datasheet
@@ -157,19 +272,21 @@ export function VariantRfqModal({
                 </label>
                 <select
                   value={industry}
-                  onChange={(e) => setIndustry(e.target.value)}
+                  onChange={(e) => {
+                    const next = INDUSTRY_OPTIONS.find((option) => option.id === e.target.value);
+                    if (next) setIndustry(next.id);
+                  }}
                   className={`w-full text-sm rounded-lg px-3 py-2.5 border outline-none transition-colors ${
                     isDark
                       ? "bg-slate-900/80 border-slate-700 text-slate-200 focus:border-amber-500"
                       : "bg-stone-50 border-stone-300 text-stone-900 focus:border-stone-900"
                   }`}
                 >
-                  <option value="chemical">Chemical & Petrochemical</option>
-                  <option value="pharma">Pharmaceutical & API (Sanitary)</option>
-                  <option value="construction">Construction Chemicals & Dry-Mix</option>
-                  <option value="coatings">Paints, Coatings & Inks (HSD)</option>
-                  <option value="agro">Agrochemicals & Fertilizers</option>
-                  <option value="food">Food, Dairy & Beverage</option>
+                  {INDUSTRY_OPTIONS.map((option) => (
+                    <option key={option.id} value={option.id}>
+                      {option.label}
+                    </option>
+                  ))}
                 </select>
               </div>
 
@@ -301,6 +418,12 @@ export function VariantRfqModal({
               />
             </div>
 
+            {formError ? (
+              <p role="alert" className="text-sm font-medium text-red-600">
+                {formError}
+              </p>
+            ) : null}
+
             <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2">
               <span className={`text-xs ${isDark ? "text-slate-400" : "text-stone-500"}`}>
                 ISO 9001:2015 Compliant • NDA Signed Upon Request
@@ -308,9 +431,10 @@ export function VariantRfqModal({
               <PlateCta
                 type="submit"
                 tone={isBrand ? "signal" : "steel"}
+                disabled={status === "sending"}
                 className="w-full sm:w-auto sm:shrink-0 sm:whitespace-nowrap"
               >
-                Submit Technical Proposal Request
+                {status === "sending" ? "Sending…" : "Submit Technical Proposal Request"}
               </PlateCta>
             </div>
           </form>

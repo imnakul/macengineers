@@ -21,21 +21,7 @@ export interface ServiceItem {
   keyDeliverables: string[];
   safetyStandard: string;
   typicalIndustries: string[];
-  image: string;
   stat?: { label: string; value: string };
-}
-
-export interface CaseStudy {
-  id: string;
-  title: string;
-  clientIndustry: string;
-  scopeType: "Manufacturing" | "Services" | "Turnkey";
-  challenge: string;
-  macSolution: string;
-  results: string[];
-  deliveredEquipment: string[];
-  turnaroundDays?: string;
-  image: string;
 }
 
 export const MAC_COMPANY = {
@@ -52,7 +38,7 @@ export const MAC_COMPANY = {
   whatsappHref: "https://wa.me/919409982541",
   isoCert: "ISO 9001:2015 Certified System",
   hsePolicy: "Zero-Accident HSE Culture",
-  logo: "/mac/logo-trimmed.webp",
+  logo: "/brand/mac-engineers-logo.webp",
   reach: "Pan-India Project Execution & Delivery",
 };
 
@@ -199,7 +185,6 @@ export const MAC_SERVICES: ServiceItem[] = [
     ],
     safetyStandard: "Permit-to-work (PTW) & Hot Work Safety Cleared",
     typicalIndustries: ["Chemical synthesis", "Pharma API", "Agrochem", "Industrial utilities"],
-    image: "/mac/service-design-engineering.png",
     stat: { label: "Standard", value: "ASME B31.3 / IBR" },
   },
   {
@@ -216,7 +201,6 @@ export const MAC_SERVICES: ServiceItem[] = [
     ],
     safetyStandard: "AWS D1.1 / IS 800 Structural Compliance",
     typicalIndustries: ["Heavy manufacturing", "Continuous process plants", "Material handling"],
-    image: "/mac/service-fabrication-supply.png",
     stat: { label: "Capacity", value: "Heavy MS/SS Skids" },
   },
   {
@@ -233,7 +217,6 @@ export const MAC_SERVICES: ServiceItem[] = [
     ],
     safetyStandard: "Strict Rigging Protocols & Certified Lifting Gears",
     typicalIndustries: ["Greenfield chemical complexes", "Cement terminals", "Pharma bulk plants"],
-    image: "/mac/service-installation-commissioning.png",
     stat: { label: "Execution", value: "Certified Rigging Crews" },
   },
   {
@@ -250,7 +233,6 @@ export const MAC_SERVICES: ServiceItem[] = [
     ],
     safetyStandard: "Non-combustible ASTM C612 / BS 3958 Compliance",
     typicalIndustries: ["Steam distribution", "Cryogenic & chilling loops", "Storage tank batteries"],
-    image: "/mac/about-plant-layout.png",
     stat: { label: "Thermal Retention", value: "Up to 90% Heat Saved" },
   },
   {
@@ -267,7 +249,6 @@ export const MAC_SERVICES: ServiceItem[] = [
     ],
     safetyStandard: "SSPC / NACE Standard Surface Preparation",
     typicalIndustries: ["Coastal industrial zones", "Acid/solvent storage yards", "Plant pipe racks"],
-    image: "/mac/hero-bulk-storage.png",
     stat: { label: "Profile", value: "SA 2.5 Surface Standard" },
   },
   {
@@ -284,7 +265,6 @@ export const MAC_SERVICES: ServiceItem[] = [
     ],
     safetyStandard: "Zero Accident Record With JSA at Every Work Front",
     typicalIndustries: ["Continuous chemical refineries", "Agrochemical seasonal turnarounds", "Pharma batch blocks"],
-    image: "/mac/service-after-sales-support.png",
     stat: { label: "Mobilization", value: "24/7 Fast Turnaround" },
   },
 ];

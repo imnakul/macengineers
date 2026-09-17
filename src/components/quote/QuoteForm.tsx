@@ -8,7 +8,6 @@ import {
   HINT_CLASS,
   INPUT_CLASS,
   LABEL_CLASS,
-  SUBMIT_CLASS,
 } from "@/components/ui/fieldStyles";
 import { QUOTE_PAGE } from "@/data/quote";
 import {
@@ -18,6 +17,7 @@ import {
   quoteSchema,
   type QuoteFieldName,
 } from "@/lib/quote-schema";
+import { PlateCta } from "@/variants/shared/PlateCta";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
@@ -448,9 +448,9 @@ export function QuoteForm({ defaultDescription = "" }: QuoteFormProps): React.JS
         </p>
       ) : null}
 
-      <button type="submit" disabled={isSubmitting} className={SUBMIT_CLASS}>
+      <PlateCta type="submit" size="lg" disabled={isSubmitting} className="w-full sm:w-auto sm:self-start">
         {isSubmitting ? QUOTE_PAGE.submitting : labels.submit}
-      </button>
+      </PlateCta>
     </form>
   );
 }

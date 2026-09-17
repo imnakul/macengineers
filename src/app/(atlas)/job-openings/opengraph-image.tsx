@@ -11,5 +11,6 @@ export default function Image(): ReturnType<typeof renderOgImage> {
     eyebrow: CAREERS_PAGE.hero.eyebrow,
     title: CAREERS_PAGE.hero.headline,
     description: CAREERS_PAGE.metaDescription,
+    picture: { src: "/images/hero/header-careers-team.png", kind: "render" },
   });
 }

@@ -11,5 +11,6 @@ export default function Image(): ReturnType<typeof renderOgImage> {
     eyebrow: BLOG_PAGE.hero.eyebrow,
     title: BLOG_PAGE.hero.headline,
     description: BLOG_PAGE.metaDescription,
+    picture: { src: "/images/product/engineering-workspace.png", kind: "render" },
   });
 }

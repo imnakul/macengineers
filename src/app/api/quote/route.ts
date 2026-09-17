@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
-import { COMPANY } from "@/data/site";
+import { COMPANY, ENQUIRY_INBOX } from "@/data/site";
 import { readMailConfig, renderEmail } from "@/lib/email";
 import {
   ALLOWED_UPLOAD_EXTENSIONS,
@@ -88,7 +88,7 @@ export async function POST(request: Request): Promise<NextResponse> {
     }
   }
 
-  const config = readMailConfig(COMPANY.email);
+  const config = readMailConfig(ENQUIRY_INBOX);
   if (!config.ok) {
     console.error(
       "[quote] Missing RESEND_API_KEY or CONTACT_FROM_EMAIL — request was validated but not delivered.",

@@ -11,5 +11,6 @@ export default function Image(): ReturnType<typeof renderOgImage> {
     eyebrow: SERVICE_PAGE.hero.eyebrow,
     title: SERVICE_PAGE.hero.headline,
     description: SERVICE_PAGE.metaDescription,
+    picture: { src: "/images/product/installation-crew.png", kind: "render" },
   });
 }

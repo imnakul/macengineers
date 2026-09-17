@@ -102,7 +102,7 @@ export default function RootLayout({ children }: LayoutProps<"/">): React.JSX.El
           Skip to content
         </a>
 
-        {/* Header, <main id="main"> and footer come from the (atlas) or (classic) group layout. */}
+        {/* Header, <main id="main"> and footer come from the (atlas) group layout. */}
         {children}
 
         <JsonLd data={[organizationLd(), websiteLd()]} />

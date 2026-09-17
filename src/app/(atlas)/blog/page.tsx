@@ -84,7 +84,7 @@ function FeaturedLeadCard({ post }: { post: BlogPost }): React.JSX.Element {
             alt={post.alt ?? ""}
             fit={post.imageFit}
             fetchPriority="high"
-            sizes="(max-width: 1024px) 100vw, 58vw"
+            sizes="(max-width: 1024px) 100vw, 50vw"
             imageClassName={`transition-transform duration-700 group-hover:scale-[1.04] ${EASE_CLASS}`}
           />
         ) : null}
@@ -102,30 +102,51 @@ function FeaturedLeadCard({ post }: { post: BlogPost }): React.JSX.Element {
   );
 }
 
+/**
+ * Image-only companion card: the picture fills the card, and the title rises over its lower edge on
+ * hover or keyboard focus. Touch screens cannot hover, so there the title stays up. The date and
+ * excerpt stay in the link for screen readers.
+ */
 function FeaturedSideCard({ post }: { post: BlogPost }): React.JSX.Element {
+  const facts = factsFor(post);
+  const reveal =
+    "transition-[opacity,transform] duration-300 group-hover:opacity-100 group-focus-visible:opacity-100 [@media(hover:none)]:opacity-100";
+
   return (
-    <Link href={post.href} className={`${CARD_CLASS} flex-col sm:flex-row`}>
-      <span className="relative block aspect-[16/10] overflow-hidden bg-[#EEF1F4] sm:aspect-auto sm:min-h-[11rem] sm:w-2/5 sm:shrink-0">
-        {post.image ? (
-          <RenderStage
-            src={post.image}
-            alt={post.alt ?? ""}
-            fit={post.imageFit}
-            compact
-            // Scenes are far wider than this column; cropping keeps the subject large and centred.
-            cover={post.imageFit === "scene"}
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 40vw, 18vw"
-            imageClassName={`transition-transform duration-700 group-hover:scale-[1.04] ${EASE_CLASS}`}
-          />
-        ) : null}
-      </span>
-      <span className="flex flex-1 flex-col p-5 sm:p-6">
-        <PostMeta facts={factsFor(post)} />
-        <h3 className="mt-3 font-display text-lg font-semibold leading-snug tracking-[-0.01em] text-[#0D1B2E] transition-colors duration-150 group-hover:text-[#1B5FC4]">
+    <Link
+      href={post.href}
+      className={`${CARD_CLASS} relative aspect-[16/10] bg-[#EEF1F4] lg:aspect-auto lg:min-h-[14rem]`}
+    >
+      {post.image ? (
+        <RenderStage
+          src={post.image}
+          alt={post.alt ?? ""}
+          fit={post.imageFit}
+          // Scenes fill the card; single-machine renders keep their stage so nothing is cut off.
+          cover={post.imageFit === "scene"}
+          sizes="(max-width: 1024px) 100vw, 50vw"
+          imageClassName={`transition-transform duration-700 group-hover:scale-[1.04] ${EASE_CLASS}`}
+        />
+      ) : null}
+
+      {/* Scrim so white text reads over any picture; it fades in with the title. */}
+      <span
+        aria-hidden="true"
+        className={`pointer-events-none absolute inset-x-0 bottom-0 h-3/5 bg-linear-to-t from-[#0D1B2E]/85 via-[#0D1B2E]/40 to-transparent opacity-0 ${reveal} ${EASE_CLASS}`}
+      />
+      <span
+        className={`absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-5 opacity-0 sm:p-6 ${reveal} translate-y-3 group-hover:translate-y-0 group-focus-visible:translate-y-0 motion-reduce:translate-y-0 [@media(hover:none)]:translate-y-0 ${EASE_CLASS}`}
+      >
+        <h3 className="font-display text-lg font-semibold leading-snug tracking-[-0.01em] text-white sm:text-xl">
           {post.title}
         </h3>
-        <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-slate-600">{post.excerpt}</p>
-        <ReadMore className="mt-auto pt-4" />
+        <span aria-hidden="true" className="mb-1 shrink-0 text-white">
+          <ArrowRightIcon className="h-4 w-4" />
+        </span>
+      </span>
+      <span className="sr-only">
+        {facts ? `Published ${facts.date}, ${facts.minutes} min read. ` : ""}
+        {post.excerpt}
       </span>
       <SweepLine />
     </Link>
@@ -176,13 +197,14 @@ export default function BlogPage(): React.JSX.Element {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <AtlasSectionHeading index="01" eyebrow="Latest" title="Featured articles" headingId="featured-heading" />
 
-          <div className="grid grid-cols-1 gap-5 lg:grid-cols-12">
+          {/* Equal halves: the lead article beside a stack of two, so the side cards have room for their pictures. */}
+          <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
             {lead ? (
-              <Reveal className="h-full lg:col-span-7">
+              <Reveal className="h-full">
                 <FeaturedLeadCard post={lead} />
               </Reveal>
             ) : null}
-            <ul className="grid gap-5 lg:col-span-5 lg:grid-rows-2">
+            <ul className="grid gap-5 lg:grid-rows-2">
               {companions.map((post, index) => (
                 <li key={post.href}>
                   <Reveal delay={(index + 1) * 90} className="h-full">

@@ -11,5 +11,6 @@ export default function Image(): ReturnType<typeof renderOgImage> {
     eyebrow: ABOUT_PAGE.hero.eyebrow,
     title: ABOUT_PAGE.hero.headline,
     description: ABOUT_PAGE.metaDescription,
+    picture: { src: "/images/product/project-lifecycle-team.png", kind: "render" },
   });
 }
