@@ -19,7 +19,7 @@ export const metadata: Metadata = pageMetadata({
   path: "/product",
 });
 
-/** Product. Four equipment lines as alternating spec blocks, then turnkey on its own. */
+/** Product. The equipment lines as alternating spec blocks, then turnkey on its own. */
 export default function ProductPage(): React.JSX.Element {
   const { categories, turnkey, whyChoose } = PRODUCT_PAGE;
 

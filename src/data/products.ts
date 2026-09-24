@@ -20,14 +20,14 @@ export interface ProductCategory {
   readonly specs: readonly string[];
   readonly image: string;
   readonly alt: string;
-  /** All four are flat vector cutouts, not photography — see PlateFrame's `depth` prop. */
+  /** Transparent 3D renders staged by PlateFrame (see its `depth` prop). */
   readonly imageDepth: PlateDepth;
 }
 
 export const PRODUCT_PAGE = {
   metaTitle: "Industrial Equipment & Process Solutions | MAC Engineers Products",
   metaDescription:
-    "Storage tanks, industrial liquid mixers, storage silos, conveyor systems and turnkey process plants engineered by MAC Engineers in SS304, SS316 and MS for chemical, pharmaceutical, food and FMCG industries.",
+    "Storage tanks, industrial liquid mixers, high speed dispersers, IBC mixers, storage silos, conveyor systems and turnkey process plants engineered by MAC Engineers in SS304, SS316 and MS for chemical, pharmaceutical, food and FMCG industries.",
 
   hero: {
     eyebrow: "Products",
@@ -48,8 +48,8 @@ export const PRODUCT_PAGE = {
         "Options: Pressure-rated, jacketed, insulated tanks",
         "Designed for chemical, pharmaceutical, food & beverage, and FMCG industries",
       ],
-      image: "/images/product/jacketed-reactor-vessel.png",
-      alt: "Stainless steel jacketed storage and process vessel with limpet coil, access platform and ladder",
+      image: "/images/product/storage-tank-vertical.png",
+      alt: "Vertical stainless steel storage tank with conical bottom, top manway, level gauge, cage ladder and access platform",
       imageDepth: "render",
     },
     {
@@ -64,8 +64,40 @@ export const PRODUCT_PAGE = {
         "Sanitary design for hygienic applications",
         "Ideal for chemicals, pharma, food, and cosmetic industries",
       ],
-      image: "/images/product/agitated-mixing-vessel-cutaway.png",
-      alt: "Cutaway of a stainless steel agitated mixing vessel showing the impellers, drive motor and manway",
+      image: "/images/product/liquid-mixer-cutaway.png",
+      alt: "Cutaway of a stainless steel liquid mixer showing twin pitched-blade impellers, top drive motor and side manway",
+      imageDepth: "render",
+    },
+    {
+      slug: "high-speed-dispersers",
+      title: "High Speed Dispersers",
+      tagline: "Hydraulic Lifting, High-Shear Dispersion",
+      description:
+        "High-performance dispersers for crushing, dispersing, emulsifying and mixing liquids of different viscosities, with a hydraulic lift that adjusts to every container height.",
+      specs: [
+        "Capacity: 200 L to 1,500 L",
+        "Available in MS, SS304, and SS316",
+        "High-speed upper & lower saw-tooth disc for strong shear",
+        "Ideal for paints, coatings, inks, resins, adhesives, food and pharma",
+      ],
+      image: "/images/product/high-speed-disperser.png",
+      alt: "Hydraulic lifting high-speed disperser with belt drive and saw-tooth disc lowered into a stainless steel mixing vessel",
+      imageDepth: "render",
+    },
+    {
+      slug: "ibc-mixers",
+      title: "IBC Mixers",
+      tagline: "Horizontal Frame Mounted, Direct on the Tank",
+      description:
+        "A compact mixer that mounts on a rigid top frame directly over an IBC tank, for light to medium viscosity liquids, re-suspension of settled solids and powder dissolution.",
+      specs: [
+        "Capacity: 200 L to 1,000 L IBC tanks",
+        "Available in MS, SS304, and SS316",
+        "Horizontal motor with inline / helical gearbox for low vibration",
+        "Cowl disc, propeller, anchor or pitched-blade impellers",
+      ],
+      image: "/images/product/ibc-mixer-frame-mounted.png",
+      alt: "Horizontal frame mounted mixer sitting on top of an IBC tank, with its impeller mixing the liquid inside",
       imageDepth: "render",
     },
     {

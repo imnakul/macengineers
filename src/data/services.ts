@@ -100,8 +100,8 @@ export const SERVICE_PAGE = {
         "Reconditioning & replacement of corroded or worn-out structures",
         "Compliance with load-bearing designs for safety and durability",
       ],
-      image: "/images/product/quality-inspection.png",
-      alt: "Engineer inspecting fabricated steel components while a technician works on a skid-mounted pump",
+      image: "/images/product/structural-steel-works.png",
+      alt: "Crew erecting a structural steel platform: a welder at a beam joint, a fitter bolting a connection and a rigger guiding a beam from a crane hook",
       imageDepth: "scene",
     },
     {
