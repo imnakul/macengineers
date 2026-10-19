@@ -195,7 +195,7 @@ export default function BlogPage(): React.JSX.Element {
 
       <section aria-labelledby="featured-heading" className="py-16 md:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <AtlasSectionHeading index="01" eyebrow="Latest" title="Featured articles" headingId="featured-heading" />
+          <AtlasSectionHeading eyebrow="Latest" title="Featured articles" headingId="featured-heading" />
 
           {/* Equal halves: the lead article beside a stack of two, so the side cards have room for their pictures. */}
           <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
@@ -219,7 +219,7 @@ export default function BlogPage(): React.JSX.Element {
 
       <section aria-labelledby="archive-heading" className="border-t border-[#E3E7ED] bg-white py-16 md:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <AtlasSectionHeading index="02" eyebrow="Archive" title={BLOG_PAGE.moreHeading} headingId="archive-heading" />
+          <AtlasSectionHeading eyebrow="Archive" title={BLOG_PAGE.moreHeading} headingId="archive-heading" />
 
           <Reveal>
             <ol className="border-t border-[#E3E7ED]">

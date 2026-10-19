@@ -24,6 +24,7 @@ import { PlateTag } from "../shared/PlateTag";
 import { PlateSurface } from "../shared/PlateSurface";
 import { Reveal } from "./Reveal";
 import { EquipmentGallery } from "./EquipmentGallery";
+import { ClientMarquee } from "./ClientMarquee";
 import { AtlasSectionHeading } from "@/components/atlas/AtlasSectionHeading";
 import { RenderStage } from "@/components/ui/RenderStage";
 import { HeroFactory } from "./hero/HeroFactory";
@@ -175,11 +176,13 @@ export function Variant5Page(): React.JSX.Element {
           </div>
         </section>
 
+        {/* ---------------------------- Client logos ---------------------------- */}
+        <ClientMarquee />
+
         {/* --------------------------- 01 · Two pillars --------------------------- */}
         <section id="pillars" className="scroll-mt-24 py-14 sm:py-20 md:py-28">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <AtlasSectionHeading
-              index="01"
               eyebrow="What MAC Does"
               title="Two disciplines. One accountable partner."
               description="Every engagement runs on a pair of complementary capabilities: precision equipment built in our Ankleshwar works, and certified crews that execute and support it on your site."
@@ -245,7 +248,6 @@ export function Variant5Page(): React.JSX.Element {
         <section id="equipment" className="scroll-mt-24 border-t border-[#E3E7ED] bg-white py-14 sm:py-20 md:py-28">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <AtlasSectionHeading
-              index="02"
               eyebrow="Manufacturing Directory"
               title="Equipment built to your process duty"
               description="Seven product lines fabricated in-house and tested before dispatch — vessels, agitation, dispersion, bulk storage, conveying and complete turnkey trains."
@@ -262,14 +264,13 @@ export function Variant5Page(): React.JSX.Element {
         <section id="services" className="scroll-mt-24 border-t border-[#E3E7ED] py-14 sm:py-20 md:py-28">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <AtlasSectionHeading
-              index="03"
               eyebrow="Services Matrix"
               title="Certified crews for every site discipline"
               description="Six field-service lines mobilized from Ankleshwar to plants across India — each executed under permit-to-work discipline with documented QA at every work front."
             />
 
             <div className="overflow-hidden rounded-[6px] border border-[#D6DDE6] bg-white">
-              {MAC_SERVICES.map((service, index) => {
+              {MAC_SERVICES.map((service) => {
                 const expanded = expandedService === service.id;
                 return (
                   <div
@@ -285,13 +286,6 @@ export function Variant5Page(): React.JSX.Element {
                       aria-controls={`service-panel-${service.id}`}
                       className="flex w-full items-center gap-3 px-4 py-4 text-left sm:gap-6 sm:px-7 sm:py-5"
                     >
-                      <span
-                        className={`font-mono text-sm font-semibold transition-colors ${
-                          expanded ? "text-[#1B5FC4]" : "text-slate-400"
-                        }`}
-                      >
-                        {String(index + 1).padStart(2, "0")}
-                      </span>
                       <span className="min-w-0 flex-1">
                         <span className="block font-display text-base font-semibold leading-snug text-[#0D1B2E] sm:truncate sm:text-lg">
                           {service.name}
@@ -365,7 +359,6 @@ export function Variant5Page(): React.JSX.Element {
         <section id="process" className="scroll-mt-24 border-t border-[#E3E7ED] bg-white py-14 sm:py-20 md:py-28">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <AtlasSectionHeading
-              index="04"
               eyebrow="Delivery Framework"
               title="From enquiry to lifecycle support"
               description="A single execution thread — the same team that designs your equipment fabricates it, erects it, automates it and stays accountable after commissioning."
@@ -414,7 +407,6 @@ export function Variant5Page(): React.JSX.Element {
         <section id="industries" className="scroll-mt-24 border-t border-[#E3E7ED] py-14 sm:py-20 md:py-28">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <AtlasSectionHeading
-              index="05"
               eyebrow="Application Segments"
               title="Industries we engineer for"
               description="Process understanding across six core sectors — from sanitary SS316L pharma duty to abrasive dry-mix powder handling."
@@ -430,14 +422,9 @@ export function Variant5Page(): React.JSX.Element {
                         aria-hidden="true"
                         className="absolute inset-x-0 top-0 h-[3px] origin-left scale-x-0 bg-[#1B5FC4] transition-transform duration-500 ease-out group-hover:scale-x-100"
                       />
-                      <div className="flex items-center justify-between">
-                        <span className="inline-flex h-10 w-10 items-center justify-center rounded-[6px] border border-[#DCE4F0] bg-[#F2F6FC] text-[#1B5FC4] transition-colors duration-300 group-hover:bg-[#1B5FC4] group-hover:text-white">
-                          <IndustryIcon className="h-5 w-5" />
-                        </span>
-                        <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-400">
-                          SEG-{String(index + 1).padStart(2, "0")}
-                        </span>
-                      </div>
+                      <span className="inline-flex h-10 w-10 items-center justify-center rounded-[6px] border border-[#DCE4F0] bg-[#F2F6FC] text-[#1B5FC4] transition-colors duration-300 group-hover:bg-[#1B5FC4] group-hover:text-white">
+                        <IndustryIcon className="h-5 w-5" />
+                      </span>
                       <h3 className="mt-4 font-display text-[17px] font-semibold text-[#0D1B2E]">{industry.name}</h3>
                       <p className="mt-2 text-[13.5px] leading-relaxed text-slate-600">{industry.desc}</p>
                     </article>
@@ -456,7 +443,6 @@ export function Variant5Page(): React.JSX.Element {
         >
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <AtlasSectionHeading
-              index="06"
               eyebrow="Quality, Safety & Compliance"
               title="Quality you can audit. Safety you can measure."
               description="Material certificates, weld qualifications, dimensional checks, hydrotests and a documented handover dossier — delivered as standard on every dispatch and every site closure."
