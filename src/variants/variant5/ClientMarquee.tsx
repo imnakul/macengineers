@@ -36,6 +36,9 @@ function LogoRow({ logos, isDuplicate }: { logos: readonly ClientLogo[]; isDupli
             width={logo.displayWidth}
             height={logo.displayHeight}
             sizes={`${logo.displayWidth}px`}
+            /* Eager: off-screen logos sit clipped by overflow-hidden, so lazy loading would only fetch
+               each one as it slides into view — it would arrive as a blank gap, then pop in. */
+            loading="eager"
             draggable={false}
             /* Inline style is unavoidable: each logo has its own optical size, scaled by the band's --logo-scale. */
             style={{
